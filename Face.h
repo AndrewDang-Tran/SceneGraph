@@ -1,3 +1,6 @@
+#ifndef FACE_H
+#define FACE_H
+
 #include <vector>    //vector<Vertex>
 #include "Vertex.h"
 
@@ -18,3 +21,5 @@ class Face
 		GLfloat* getNormal() { return normal; }
 		int* getTriangleIndex() { return triangleIndex; }
 };
+
+#endif

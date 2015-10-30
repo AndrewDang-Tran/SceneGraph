@@ -23,17 +23,9 @@ class Node
 		static int staticCounter;
 		int id;
 	public:
-		Node() 
-		{
-			parent = NULL;
-			staticCounter++;
-			id = staticCounter;
-		}
-		void addChild(const Node*& child)
-		{ 
-			child->parent = this;
-			children.push_back(child); 
-		}
+		Node();
+		void addChild(const Node*& child);
+		void traverseChildren(const Node*& currentNode) const;
 		virtual void execute() = 0;
 };
 

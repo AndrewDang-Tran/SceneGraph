@@ -1,4 +1,5 @@
-#include <stdlib.h>
+#ifndef VERTEX_H
+#define VERTEX_H
 
 class Vertex
 {
@@ -15,3 +16,5 @@ class Vertex
 		const GLfloat*& getNormal() const { return normal; }
 		const GLfloat*& getCoordinates() const { return coordinates; }
 };
+
+#endif

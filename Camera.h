@@ -1,6 +1,8 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#define PI 3.14159265
+
 class Camera 
 {
 	private:
