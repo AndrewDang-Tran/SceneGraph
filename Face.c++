@@ -9,7 +9,7 @@ Face::Face()
 	}
 }
 
-void Face::setNormal(const GLfloat*& n)
+void Face::setNormal(const GLfloat* n)
 {
 	for(int i = 0; i < 3; ++i)
 		normal[i] = n[i];

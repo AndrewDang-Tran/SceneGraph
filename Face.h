@@ -14,8 +14,8 @@ class Face
 		GLfloat centerCoordinates[3];
 
 	public:
-		Face(const int*& vertices);
-		void setNormal(const GLfloat*& n);
+		Face(const int* vertices);
+		void setNormal(const GLfloat* n);
 		void computeCenter(const vector<Vertex>& vertices);
 		void drawNormal() const;
 		GLfloat* getNormal() { return normal; }

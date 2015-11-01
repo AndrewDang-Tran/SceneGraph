@@ -1,5 +1,7 @@
+#ifndef TRANSFORM_H
+#define TRANSFORM_H
 
-enum Type
+enum TransformType
 {
 	TRANSLATE,
 	SCALE,
@@ -10,9 +12,11 @@ class Transform
 {
 	private:
 		GLfloat args[4];
-		Type type;
+		TransformType type;
 
 	public:
-		Transform(const Type& t, const GLfloat*& a);
+		Transform(const TransformType& t, const GLfloat*& a);
 		void apply() const;
 };
+
+#endif

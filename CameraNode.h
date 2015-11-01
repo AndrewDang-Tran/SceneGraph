@@ -2,6 +2,7 @@
 #define CAMERANODE_H
 
 #include "Node.h"
+#include "Camera.h"
 
 class CameraNode : Node
 {
@@ -10,7 +11,7 @@ class CameraNode : Node
 	public:
 		CameraNode(const Camera& c) : camera(c) {}
 		void execute();
-		addChild(const Node*& child);
+		void addChild(const Node*& child);
 };
 
 #endif

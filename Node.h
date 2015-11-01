@@ -3,6 +3,8 @@
 
 #include <vector> //children
 
+using namespace std;
+
 enum NodeType 
 {
 	OBJECT,
@@ -25,7 +27,7 @@ class Node
 	public:
 		Node();
 		void addChild(const Node*& child);
-		void traverseChildren(const Node*& currentNode) const;
+		void traverseChildren(const Node* currentNode) const;
 		virtual void execute() = 0;
 };
 

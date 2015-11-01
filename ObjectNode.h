@@ -9,7 +9,7 @@ class ObjectNode : Node
 	private:
 		string name;
 	public:
-		ObjectNode(const String& n) : name(n) { type = OBJECT; }
+		ObjectNode(const string& n);
 };
 
 #endif

@@ -9,12 +9,13 @@ class Vertex
 		int numFaces;
 
 	public:
-		Vertex(const GLfloat*& c);
-		void contributeNormal(const GLfloat*& n);
+		Vertex();
+		Vertex(const GLfloat* c);
+		void contributeNormal(const GLfloat* n);
 		void averageNormals();
 		void drawNormal() const;
-		const GLfloat*& getNormal() const { return normal; }
-		const GLfloat*& getCoordinates() const { return coordinates; }
+		GLfloat* getNormal() { return normal; }
+		GLfloat* getCoordinates() { return coordinates; }
 };
 
 #endif

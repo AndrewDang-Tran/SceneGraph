@@ -1,4 +1,4 @@
-Transform::Transform(const Type& t, const GLfloat*& a)
+Transform::Transform(const TransformType& t, const GLfloat*& a)
 {
 	type = t;
 	int argc;

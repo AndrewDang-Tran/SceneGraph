@@ -9,7 +9,14 @@ SceneGraph::SceneGraph()
 
 void SceneGraph::traversal()
 {
-	root->traverseChildren();
+	int cameraCount = 0;
+	int lightCount = 0;
+	int objectCount = -1;
+	root->traverseChildren(cameraCount, lightCount, objectCount);
+	if(cameraCount > 0 && lightCount > 0 && objectCount > 0)
+		valid = true;
+	else
+		valid = false;
 }
 
 void SceneGraph::addNode(const Node& newNode, const int& parentID) 
@@ -19,7 +26,7 @@ void SceneGraph::addNode(const Node& newNode, const int& parentID)
 	parentNode->addChild(&nodeContainer.back());
 }
 
-bool SceneGraph::valid()
+bool SceneGraph::isValid()
 {
-	
+	return valid;
 }

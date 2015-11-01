@@ -2,13 +2,14 @@
 #define LIGHT_NODE_H
 
 #include "Node.h"
+#include "Light.h"
 
 class LightNode : Node
 {
 	private:
 		Light light;
 	public:
-		Light(const Light& l);
+		LightNode(const Light& l);
 		void execute();
 		void addChild(const Node*& child);
 };

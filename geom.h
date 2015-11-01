@@ -1,3 +1,6 @@
+#ifndef GEOM_H
+#define GEOM_H
+
 #include <list>
 #include <cassert>
 #include <cmath> 
@@ -8,8 +11,8 @@
 #define PI 3.14159265
 #define DIMENSIONS 3
 
-
-void vectorSub3d(GLfloat* minuend, GLfloat* subtrahend, GLfloat* difference)
+template <typename T>
+void vectorSub3d(T* minuend, T* subtrahend, T* difference)
 {
 	for(int i = 0; i < 3; i++)
 		difference[i] = minuend[i] - subtrahend[i];
@@ -127,7 +130,7 @@ class Trimesh
 		{
 
 			//saveNormal[0] = x, saveNormal[1] = y, newNoraml[2] = z DIRECTON
-			GLfloat saveNormal[3];
+			GLfloat saveNormal[3] = {0.0, 0.0, 0.0};
 
 			list<Face>::iterator b = faces.begin();
 			list<Face>::iterator e = faces.end();
@@ -144,12 +147,12 @@ class Trimesh
 					trianglePoints[i] = triangleVertices[i].getCoordinates();
 				}
 
-				GLfloat u[3];
-				GLfloat v[3];
+				GLfloat u[3] = {0.0, 0.0, 0.0};
+				GLfloat v[3] = {0.0, 0.0, 0.0};
 
 				//prep to compute crossproduct
-				vectorSub3d(trianglePoints[1], trianglePoints[0], u);
-				vectorSub3d(trianglePoints[2], trianglePoints[0], v);
+				vectorSub3d(trianglePoints[1], trianglePoints[0], &u[0]);
+				vectorSub3d(trianglePoints[2], trianglePoints[0], &v[0]);
 
 				crossProduct(u, v, saveNormal);
 
@@ -162,7 +165,7 @@ class Trimesh
 				++b; 
 			}
 			//calculate vertex normals
-			for(int i = 0; i < vertices.size(); ++i)
+			for(unsigned i = 0; i < vertices.size(); ++i)
 			{
 				vertices.at(i).averageNormals();
 				normalizeVector(vertices.at(i).getNormal());
@@ -219,7 +222,7 @@ class Trimesh
 			if(vertexNormal)
 			{
 				glColor3f(1, 0, 0);
-				for(int i = 0; i < vertices.size(); ++i)
+				for(unsigned i = 0; i < vertices.size(); ++i)
 					vertices.at(i).drawNormal();
 			}
 		}
@@ -270,7 +273,7 @@ class Trimesh
 			center[2] = closeZ - depth / 2;
 
 			GLfloat tempDistance;
-			for(int i = 0; i < vertices.size(); ++i)
+			for(unsigned i = 0; i < vertices.size(); ++i)
 			{
 				tempDistance = calculateDistance(vertices.at(i).getCoordinates());
 				if(tempDistance > cameraRadius)
@@ -286,7 +289,7 @@ class Trimesh
 			while(!copy.empty())
 			{
 				Transform newT = copy.top();
-				newT.execute();
+				newT.apply();
 				copy.pop();
 			}
 		}
@@ -302,3 +305,5 @@ class Trimesh
 
 		GLfloat getFarValue() { return cameraRadius + depth * 2; }
 };
+
+#endif

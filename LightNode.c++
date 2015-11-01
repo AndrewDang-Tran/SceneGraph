@@ -8,6 +8,8 @@ LightNode::LightNode(const Light& l) : light(l)
 void LightNode::execute() 
 {
 	light.setLight();
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
 }
 
 void LightNode::addChild()

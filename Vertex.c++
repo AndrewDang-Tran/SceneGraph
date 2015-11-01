@@ -1,16 +1,19 @@
 #include "Vertex.h"
 
-Vertex::Vertex(const GLfloat*& c)
+Vertex::Vertex(const GLfloat* c = NULL)
 {
 	numFaces = 0;
 	for(int i = 0; i < 3; i++)
 	{
-		coordinates[i] = c[i];
+		if(c)
+			coordinates[i] = c[i];
+		else
+			coordinates[i] = 0;
 		normal[i] = 0;
 	}
 }
 
-void Vertex::contributeNormal(const GLfloat*& n)
+void Vertex::contributeNormal(const GLfloat* n)
 {
 	++numFaces;
 	for(int i = 0; i < 3; i++)
