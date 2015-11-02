@@ -2,6 +2,7 @@
 
 SceneGraph::SceneGraph()
 {
+	valid = false;
 	ObjectNode rootNode("World");
 	nodeContainer.push_back(rootNode);
 	root = &nodeContainer[0];

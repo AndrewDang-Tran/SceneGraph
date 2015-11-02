@@ -15,7 +15,6 @@ class SceneGraph
 		Node* root;
 		bool valid;
 	public:
-		SceneGraph();
 		void traversal();
 		void addNode(const Node& newNode, const int& parentID);
 		bool isValid();
