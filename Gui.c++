@@ -5,9 +5,11 @@
 #define ADD_OBJECT 100
 #define ADD_GEOMETRY 101
 #define ADD_TRANSFORM 102
+#define ADD_ATTRIBUTE 103
 
 #define RADIO_TRANSFORM 201
 #define RADIO_ATTRIBUTE 202
+#define RADIO_LIGHTTYPE 203
 
 #define CHECK_VERTEXNORMAL 301
 #define CHECK_FACENORMAL 302
@@ -58,11 +60,43 @@ Mode currentMode = SHADED_MODE;
 GLUI_Checkbox* vertexNormalCheck, *faceNormalCheck;
 int showVertexNormal, showFaceNormal;
 
+//Light rollout variables
+GLUI_RadioGroup* lightTypeRadio;
+LightType currentLightType = POINT_LIGHT;
+GLUI_Spinner* spinLightPosXYZ[3];
+GLfloat lightPosXYZ[3];
+
+//rollout to show spotlight direction if needed
+GLUI_Rollout* spotLightDirectionRoll;
+GLUI_Spinner* spinLightTargetXYZ[3];
+
+GLfloat lightTargetXYZ[3];
 
 
+//rollout to change 
+GLUI_Rollout* lightParameterRoll;
+GLUI_Spinner* spinAmbientRGBI[4];
+GLfloat ambientRGBI[4];
+
+GLUI_Spinner *spinDiffuseRed, *spinDiffuseGreen, *spinDiffuseBlue, *spinDiffuseIntensity;
+GLfloat diffuseRGBI[4];
+
+GLUI_Spinner *spinSpecularRed, *spinSpecularGreen, *spinSpecularBlue, *spinSpecularIntensity;
+/*GLfloat specularRed = 1.0;
+GLfloat specularGreen = 1.0;
+GLfloat specularBlue = 1.0;
+GLfloat specularIntensity = 1.0;*/
+GLfloat specularRGBI[4];
+
+/*
+ * Control callback that will make changes according to the user's input
+ */
 void control_cb(int control)
 {
-
+	if(currentLightType == POINT_LIGHT)
+		spotLightDirectionRoll->close();
+	else
+		spotLightDirectionRoll->open();
 }
 
 void userInterface()
@@ -85,10 +119,14 @@ void reshape(GLint width, GLint height)
 {
 	windowWidth = width;
 	windowHeight = height;
-	glViewport(0, 0, windowWidth, windowHeight);
+
+	int vx, vy, vw, vh;
+	GLUI_Master.get_viewport_area( &vx, &vy, &vw, &vh );
+	glViewport( vx, vy, vw, vh );
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(45.0, (float)windowWidth / windowHeight, tempNear, tempFar);
+	gluPerspective(45.0, (float) vw / vh, tempNear, tempFar);
 	glMatrixMode(GL_MODELVIEW);
 }
 
@@ -154,16 +192,6 @@ int main(int argc, char **argv)
 
 	/*
 	 * Attribute rollout panel
-		enum Mode
-		{
-			POINT_MODE = 1,
-			WIREFRAME_MODE,
-			SOLID_MODE,
-			SHADED_MODE,
-			FACE_NORMAL_MODE,
-			VERTEX_NORMAL_MODE
-		};
-
 	 */
 	attributeRoll = new GLUI_Rollout(verticalSubWindow, "Attribute", false);
 	attributeRadio = new GLUI_RadioGroup(attributeRoll, (int*) &currentMode, RADIO_ATTRIBUTE, control_cb);
@@ -171,10 +199,45 @@ int main(int argc, char **argv)
 	new GLUI_RadioButton(attributeRadio, "Wireframe Mode");
 	new GLUI_RadioButton(attributeRadio, "Solid Mode");
 	new GLUI_RadioButton(attributeRadio, "Shaded Mode");
+	//separate panel to differentiate radio of modes and showing normals
+	GLUI_Panel *normalsPanel = new GLUI_Panel(attributeRoll, "Show Normals");
+	vertexNormalCheck = new GLUI_Checkbox(normalsPanel, "Vertex Normals", &showVertexNormal, CHECK_VERTEXNORMAL, control_cb);
+	faceNormalCheck = new GLUI_Checkbox(normalsPanel, "Face Normals", &showFaceNormal, CHECK_FACENORMAL, control_cb);
+	new GLUI_Button(attributeRoll, "Add Attribute Node", ADD_ATTRIBUTE, control_cb);
 
-	GLUI_Panel *normals_panel = new GLUI_Panel(attributeRoll, "Show Normals");
-	vertexNormalCheck = new GLUI_Checkbox(normals_panel, "Vertex Normals", &showVertexNormal, CHECK_VERTEXNORMAL, control_cb);
-	faceNormalCheck = new GLUI_Checkbox(normals_panel, "Face Normals", &showFaceNormal, CHECK_FACENORMAL, control_cb);
+
+
+	/*
+	 * Light rollout panel
+	 */
+	lightRoll = new GLUI_Rollout(verticalSubWindow, "Light", false);
+
+	//light type
+	lightTypeRadio = new GLUI_RadioGroup(lightRoll, (int*) currentLightType, RADIO_LIGHTTYPE, control_cb);
+	new GLUI_RadioButton(lightTypeRadio, "Point Light");
+	new GLUI_RadioButton(lightTypeRadio, "Directional Light");
+
+	//starting location of light
+	spinLightPosXYZ[0] = new GLUI_Spinner(lightRoll, "X Position: ", &lightPosXYZ[0]);
+	spinLightPosXYZ[1] = new GLUI_Spinner(lightRoll, "Y Position: ", &lightPosXYZ[1]);
+	spinLightPosXYZ[2] = new GLUI_Spinner(lightRoll, "Z Position: ", &lightPosXYZ[2]);
+
+	//directional light target values
+	spotLightDirectionRoll = new GLUI_Rollout(lightRoll, "Directional Target",  (int) currentLightType);
+	spinLightTargetXYZ[0] = new GLUI_Spinner(spotLightDirectionRoll, "X Target: ", &lightTargetXYZ[0]);
+	spinLightTargetXYZ[1] = new GLUI_Spinner(spotLightDirectionRoll, "Y Target: ", &lightTargetXYZ[1]);
+	spinLightTargetXYZ[2] = new GLUI_Spinner(spotLightDirectionRoll, "Z Target: ", &lightTargetXYZ[2]);
+
+	//ambience, specular and diffuse values
+	lightParameterRoll = new GLUI_Rollout(lightRoll, "Other Parameters", false);
+	GLUI_Panel *ambientPanel = new GLUI_Panel(lightParameterRoll, "Ambient");	
+	spinAmbientRGBI[0] = new GLUI_Spinner(ambientPanel, "Red: ", &ambientRGBI[0]);
+	spinAmbientRGBI[1]  = new GLUI_Spinner(ambientPanel, "Green: ", &ambientRGBI[1]);
+	spinAmbientRGBI[2] = new GLUI_Spinner(ambientPanel, "Blue: ", &ambientRGBI[2]);
+	spinAmbientRGBI[3]  = new GLUI_Spinner(ambientPanel, "Intensity", &ambientRGBI[3]);
+
+	GLUI_Panel *diffusePanel = new GLUI_Panel(lightParameterRoll, "Diffuse");
+	spinDiffuseRed = new GLUI_Spinner(diffusePanel, "Red: ", &diffuseRGBI[0]);
 
 	GLUI_Master.set_glutIdleFunc(userInterface);
 
