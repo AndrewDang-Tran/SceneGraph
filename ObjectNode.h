@@ -10,6 +10,8 @@ class ObjectNode : Node
 		string name;
 	public:
 		ObjectNode(const string& n);
+		string getName();
+		void execute();
 };
 
 #endif

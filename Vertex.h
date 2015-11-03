@@ -1,10 +1,12 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
+#include <GL/glut.h>
+
 class Vertex
 {
 	private:
-		GLfloat coordinates[3];
+		const GLfloat coordinates[3];
 		GLfloat normal[3];
 		int numFaces;
 
@@ -15,7 +17,7 @@ class Vertex
 		void averageNormals();
 		void drawNormal() const;
 		GLfloat* getNormal() { return normal; }
-		GLfloat* getCoordinates() { return coordinates; }
+		const GLfloat* getCoordinates() { return coordinates; }
 };
 
 #endif

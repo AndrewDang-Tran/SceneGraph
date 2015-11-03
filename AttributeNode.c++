@@ -1,3 +1,4 @@
+#include <GL/glut.h>
 #include "AttributeNode.h"
 
 extern bool drawFaceNormal;
@@ -8,7 +9,7 @@ AttributeNode::AttributeNode(const Mode& m) : mode(m)
 	type = ATTRIBUTE;
 }
 
-AttributeNode::execute()
+void AttributeNode::execute()
 {
 	switch(mode)
 	{

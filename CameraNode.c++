@@ -5,12 +5,12 @@ CameraNode::CameraNode(const Camera& c) : camera(c)
 	type = CAMERA;
 }
 
-CameraNode::execute()
+void CameraNode::execute()
 {
 	camera.setCamera();
 }
 
-CameraNode::addChild()
+void CameraNode::addChild(const Node& child)
 {
 	throw string("Camera nodes cannot have children");
 }

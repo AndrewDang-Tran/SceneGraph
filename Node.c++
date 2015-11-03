@@ -7,27 +7,24 @@ Node::Node()
 	id = staticCounter;
 }
 
-void Node::addChild(const Node* child)
+Node* Node::addChild(const Node& child)
 { 
-	child->parent = this;
-	children.push_back(child); 
+	child.parent = this;
+	children.push_back(child);
+	return &children.back();
 }
 
-void traverseChildren(int& cam, int& li, int& obj) const
+void traverseChildren() const
 {
 	*this.execute();
 	if(type == TRANSFORM)
 		glPushMatrix();
-	else if(type == CAMERA)
-		++cam;
-	else if(type == LIGHT)
-		++li;
-	else if(type == OBJECT)
-		++obj;
 
 	for(int i = 0; i < children.size(); ++i)
-		traverseChildren(children[i]);
+		children.at(i).traverseChildren();
 
 	if(type == TRANSFORM)
 		glPopMatrix();
 }
+
+int getID() { return id; }

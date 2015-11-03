@@ -1,5 +1,9 @@
+
 #ifndef CAMERA_H
 #define CAMERA_H
+
+#include <GL/glut.h> //GLfloat
+#include <cmath> //sin(), cos()
 
 #define PI 3.14159265
 
@@ -14,11 +18,12 @@ class Camera
 		GLfloat theta;
 		GLfloat phi;
 	public:
-		Camera(const GLfloat*& pos, const GLfloat*& subjectPos,
-				const GLfloat& n, const GLfloat& f, 
-				const GLfloat& t = 45, const GLfloat& p = 45);
+		Camera(const GLfloat* pos, const GLfloat* subjectPos,
+				const GLfloat n, const GLfloat f, 
+				const GLfloat t, const GLfloat p,
+				const GLfloat r);
 
-		void setCamera() const;
+		void setCamera();
 		void setRadius();
 		void setNear(const GLfloat& n) { near = n; }
 		void setFar(const GLfloat& f) { far = f; }

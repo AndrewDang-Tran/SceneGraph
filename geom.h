@@ -113,7 +113,7 @@ class Trimesh
 				localDirectionZ[i] = 0;
 			}
 		}
-		void addVertex(GLfloat* coordinates)
+		void addVertex(const GLfloat* coordinates)
 		{
 			Vertex newVertex = Vertex(coordinates);
 			vertices.push_back(newVertex);

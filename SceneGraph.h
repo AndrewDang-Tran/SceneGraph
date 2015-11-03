@@ -1,6 +1,7 @@
 #ifndef SCENEGRAPH_H
 #define SCENEGRAPH_H
 
+#include <map> // objectMap nodeMap
 #include "AttributeNode.h"
 #include "CameraNode.h"
 #include "GeomNode.h"
@@ -11,12 +12,16 @@
 class SceneGraph
 {
 	private:
-		vector<Node> nodeContainer;
-		Node* root;
-		bool valid;
+		map<string, Node*> objectMap;
+		map<int, Node*> nodeMap;
+		ObjectNode root;
+		int camCount;
+		int lightCount;
 	public:
+		SceneGraph();
+		//SceneGraph(const ObjectNode& r);
 		void traversal();
-		void addNode(const Node& newNode, const int& parentID);
+		void addNode(const Node& newNode, const int parentID, const NodeType nt);
 		bool isValid();
 };
 

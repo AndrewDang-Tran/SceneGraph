@@ -19,16 +19,18 @@ enum NodeType
 class Node 
 {
 	private:
-		Node* parent;
-		vector<Node*> children;
-		NodeType type;
+		vector<Node> children;
 		static int staticCounter;
 		int id;
+	protected:
+		Node* parent;
+		NodeType type;
 	public:
 		Node();
-		void addChild(const Node*& child);
-		void traverseChildren(const Node* currentNode) const;
+		Node* addChild(const Node& child);
+		void traverseChildren() const;
 		virtual void execute() = 0;
+		int getID();
 };
 
 #endif

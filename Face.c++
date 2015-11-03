@@ -1,6 +1,6 @@
 #include "Face.h"
 
-Face::Face() 
+Face::Face(const int* vertices) 
 {
 	for(int i = 0;  i < 3; ++i)
 	{
@@ -21,7 +21,7 @@ void Face::computeCenter(const vector<Vertex>& vertices)
 	GLfloat accumulateY = 0;
 	GLfloat accumulateZ = 0;
 
-	GLfloat vertexCoordinates[3];
+	GLfloat vertexCoordinates[3] = {0.0, 0.0, 0.0};
 
 	for(int i = 0; i < 3; ++i)
 	{
@@ -38,7 +38,7 @@ void Face::computeCenter(const vector<Vertex>& vertices)
 	centerCoordinates[2] = accumulateZ / 3;
 }
 
-void drawNormal() const
+void Face::drawNormal() const
 {
 	glVertex3fv(centerCoordinates);
 	glVertex3f(centerCoordinates[0] + normal[0], centerCoordinates[1] + normal[1], centerCoordinates[2] + normal[2]);

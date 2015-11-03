@@ -2,32 +2,31 @@
 
 SceneGraph::SceneGraph()
 {
-	valid = false;
-	ObjectNode rootNode("World");
-	nodeContainer.push_back(rootNode);
-	root = &nodeContainer[0];
+	root = ObjectNode(string("World"));
+	camCount = 0;
+	lightCount = 0;
 }
 
 void SceneGraph::traversal()
 {
-	int cameraCount = 0;
-	int lightCount = 0;
-	int objectCount = -1;
-	root->traverseChildren(cameraCount, lightCount, objectCount);
-	if(cameraCount > 0 && lightCount > 0 && objectCount > 0)
-		valid = true;
-	else
-		valid = false;
+	if(isValid())
+		root.traverseChildren();
 }
 
-void SceneGraph::addNode(const Node& newNode, const int& parentID) 
+void SceneGraph::addNode(const Node& newNode, const int parentID, const NodeType nt) 
 {
-	nodeContainer.push_back(newNode);
-	Node* parentNode = nodeContainer[parentID];
-	parentNode->addChild(&nodeContainer.back());
+	Node* parentNode = nodeMap.at(parentID);
+	Node* newNodePointer = (*parentNode).addChild(newNode);
+
+	if(nt == CAMERA)
+		++camCount;
+	else if(nt == LIGHT)
+		++lightCount;
+	else if(nt == OBJECT)
+		objectMap.insert(pair<string, int>(newNode.getName(), newNode.getID()));
 }
 
 bool SceneGraph::isValid()
 {
-	return valid;
+	return camCount > 0 && lightCount > 0 && objectMap.size() > 0;
 }
