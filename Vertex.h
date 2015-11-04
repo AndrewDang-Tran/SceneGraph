@@ -13,11 +13,13 @@ class Vertex
 	public:
 		Vertex();
 		Vertex(const GLfloat* c);
+		Vertex& operator=(const Vertex&);
 		void contributeNormal(const GLfloat* n);
 		void averageNormals();
 		void drawNormal() const;
 		GLfloat* getNormal() { return normal; }
 		const GLfloat* getCoordinates() const { return coordinates; }
+		const int getNumFaces() const { return numFaces; }
 };
 
 #endif

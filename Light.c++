@@ -17,11 +17,11 @@ Light::Light(const LightType& t, const GLfloat*& pos, const GLfloat*& spD, const
 
 void Light::setLight()
 {
-	glLightfv(GL_LIGHT0, GL_POSITION, 
+	glLightfv(GL_LIGHT0, GL_POSITION, position);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
 
 	if(type == DIRECTIONAL_LIGHT)
 		glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spotDirection);
-}	
+}

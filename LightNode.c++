@@ -1,3 +1,4 @@
+#include <string>
 #include "LightNode.h"
 
 LightNode::LightNode(const Light& l) : light(l)
@@ -12,7 +13,7 @@ void LightNode::execute()
 	glEnable(GL_LIGHT0);
 }
 
-void LightNode::addChild()
+void LightNode::addChild(const Node& child)
 {
 	throw string("Light nodes cannot have children");
 }

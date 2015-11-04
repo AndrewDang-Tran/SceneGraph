@@ -11,7 +11,7 @@ class LightNode : Node
 	public:
 		LightNode(const Light& l);
 		void execute();
-		void addChild(const Node*& child);
+		void addChild(const Node& child);
 };
 
 #endif

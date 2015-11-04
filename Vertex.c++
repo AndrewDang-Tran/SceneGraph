@@ -13,6 +13,16 @@ Vertex::Vertex(const GLfloat* c = NULL)
 	}
 }
 
+Vertex& Vertex::operator=(const Vertex& other) 
+{
+	for(int i = 0; i < 3; ++i)
+	{
+		coordinates[i] = other.getCoordinates()[i];
+		normal[i] = other.getNormal()[i];
+	}
+	numFaces = other.getNumFaces();
+}
+
 void Vertex::contributeNormal(const GLfloat* n)
 {
 	++numFaces;

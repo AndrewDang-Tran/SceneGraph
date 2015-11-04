@@ -1,6 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
 
+#include <cstddef> // NULL
 #include <vector> //children
 
 using namespace std;
@@ -23,14 +24,13 @@ class Node
 		static int staticCounter;
 		int id;
 	protected:
-		Node* parent;
+		const Node* parent;
 		NodeType type;
 	public:
 		Node();
-		Node* addChild(const Node& child);
-		void traverseChildren() const;
-		virtual void execute() = 0;
+		virtual void execute();
 		int getID();
+		Node* addChild(Node& child);	
 };
 
 #endif

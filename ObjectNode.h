@@ -4,13 +4,13 @@
 #include <string> //name
 #include "Node.h"
 
-class ObjectNode : Node 
+class ObjectNode : public Node 
 {
 	private:
 		string name;
 	public:
 		ObjectNode(const string& n);
-		string getName();
+		const string getName();
 		void execute();
 };
 

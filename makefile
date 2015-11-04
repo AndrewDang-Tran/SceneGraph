@@ -10,8 +10,8 @@ GLUI = -L./glui-2.36/src/lib -lglui
 LIBS = $(STRINGFIX) $(GLUT) $(GLUI)
 
 test: $(FILES)
-	$(C++) $(C++FILES) -o test $(LIBS)
+	$(C++) $(C++FILES) -o test $(LIBS) > test.txt 2>&1
 	./test
 
 clean:
-	rm test test.txt11
+	rm test test.txt

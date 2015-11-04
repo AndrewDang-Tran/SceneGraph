@@ -21,7 +21,7 @@ class SceneGraph
 		SceneGraph();
 		//SceneGraph(const ObjectNode& r);
 		void traversal();
-		void addNode(const Node& newNode, const int parentID, const NodeType nt);
+		void addNode(Node& newNode, const int parentID, const NodeType nt);
 		bool isValid();
 };
 
