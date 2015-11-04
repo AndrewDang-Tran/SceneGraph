@@ -11,15 +11,13 @@
 #define PI 3.14159265
 #define DIMENSIONS 3
 
-template <typename T>
-void vectorSub3d(T* minuend, T* subtrahend, T* difference)
+void vectorSub3d(const GLfloat* minuend, const GLfloat* subtrahend, GLfloat* difference)
 {
 	for(int i = 0; i < 3; i++)
 		difference[i] = minuend[i] - subtrahend[i];
 }
 
-template <typename T>
-void crossProduct(T* u, T* v, T* result)
+void crossProduct(const GLfloat* u, const GLfloat* v, GLfloat* result)
 {
 	result[0] = u[1] * v[2] - u[2] * v[1]; // UyVz - UzVy
 	result[1] = u[2] * v[0] - u[0] * v[2]; // UzVx - UxVz
@@ -53,7 +51,7 @@ class Trimesh
 		GLfloat localDirectionY[3];
 		GLfloat localDirectionZ[3];
 
-		void checkObjectBounds(GLfloat* xyz) 
+		void checkObjectBounds(const GLfloat* xyz) 
 		{
 			if(xyz[0] > rightBound)
 				rightBound = xyz[0];
@@ -71,14 +69,14 @@ class Trimesh
 				farZ = xyz[2];
 		}
 
-		GLfloat calculateDistance(GLfloat* otherPoint) 
+		const GLfloat calculateDistance(const GLfloat* otherPoint) 
 		{
 			GLfloat distanceX = abs(otherPoint[0] - center[0]);
 			GLfloat distanceY = abs(otherPoint[1] - center[1]);
 			GLfloat distanceZ = abs(otherPoint[2] - center[2]);
 
-			GLfloat totalDistance = pow(distanceX, 2) + pow(distanceY, 2) + pow(distanceZ, 2);
-			totalDistance = sqrt(totalDistance);
+			GLfloat distanceBeforeSqrt = pow(distanceX, 2) + pow(distanceY, 2) + pow(distanceZ, 2);
+			const GLfloat totalDistance = sqrt(distanceBeforeSqrt);
 			return totalDistance;
 		}
 
@@ -130,7 +128,7 @@ class Trimesh
 		{
 
 			//saveNormal[0] = x, saveNormal[1] = y, newNoraml[2] = z DIRECTON
-			GLfloat saveNormal[3] = {0.0, 0.0, 0.0};
+			GLfloat saveNormal[3];
 
 			list<Face>::iterator b = faces.begin();
 			list<Face>::iterator e = faces.end();
@@ -139,7 +137,7 @@ class Trimesh
 			{
 				(*b).computeCenter(vertices);
 
-				GLfloat* trianglePoints[3];
+				const GLfloat* trianglePoints[3];
 				Vertex triangleVertices[3];
 				for(int i = 0; i < 3; ++i)
 				{
@@ -147,15 +145,15 @@ class Trimesh
 					trianglePoints[i] = triangleVertices[i].getCoordinates();
 				}
 
-				GLfloat u[3] = {0.0, 0.0, 0.0};
-				GLfloat v[3] = {0.0, 0.0, 0.0};
+				GLfloat u[3];
+				GLfloat v[3];
 
 				//prep to compute crossproduct
 				vectorSub3d(trianglePoints[1], trianglePoints[0], &u[0]);
 				vectorSub3d(trianglePoints[2], trianglePoints[0], &v[0]);
 
-				crossProduct(u, v, saveNormal);
-
+				crossProduct(&u[0], &v[0], saveNormal);
+				
 				normalizeVector(saveNormal);
 
 				(*b).setNormal(saveNormal);
@@ -227,9 +225,9 @@ class Trimesh
 			}
 		}
 
-		void setLocalDirections(GLfloat* eye, GLfloat* at, GLfloat* x, GLfloat* y, GLfloat* z)
+		void setLocalDirections(const GLfloat* eye, const GLfloat* at, GLfloat* x, GLfloat* y, GLfloat* z)
 		{
-			GLfloat up[3] = {0.0, 1.0, 0.0};
+			const GLfloat up[3] = {0.0, 1.0, 0.0};
 			vectorSub3d(eye, at, z);
 			normalizeVector(z);
 			crossProduct(up, z, x);
@@ -272,10 +270,9 @@ class Trimesh
 			center[1] = topBound - height / 2;
 			center[2] = closeZ - depth / 2;
 
-			GLfloat tempDistance;
 			for(unsigned i = 0; i < vertices.size(); ++i)
 			{
-				tempDistance = calculateDistance(vertices.at(i).getCoordinates());
+				const GLfloat tempDistance = calculateDistance(vertices.at(i).getCoordinates());
 				if(tempDistance > cameraRadius)
 					cameraRadius = tempDistance; 
 			}

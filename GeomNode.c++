@@ -3,9 +3,9 @@
 extern bool drawFaceNormal;
 extern bool drawVertexNormal;
 
-void GeomNode::GeomNode(const TrimeshLoader& loader, const string& meshName)
+GeomNode::GeomNode(const TrimeshLoader& loader, const string& meshName)
 {
-	loader.loadOBJ(meshName, &mesh);
+	loader.loadOBJ(meshName.c_str(), &mesh);
 	type = GEOM;
 }
 void GeomNode::execute()

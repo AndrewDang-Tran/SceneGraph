@@ -17,7 +17,7 @@ class Vertex
 		void averageNormals();
 		void drawNormal() const;
 		GLfloat* getNormal() { return normal; }
-		const GLfloat* getCoordinates() { return coordinates; }
+		const GLfloat* getCoordinates() const { return coordinates; }
 };
 
 #endif
