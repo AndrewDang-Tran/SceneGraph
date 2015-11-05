@@ -3,7 +3,6 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
-#include "geom.h"
 
 #define LINE_SIZE    1024
 #define TOKEN_LENGTH 8

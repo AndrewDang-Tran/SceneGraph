@@ -1,3 +1,5 @@
+#include "Transform.h"
+
 Transform::Transform(const TransformType& t, const GLfloat*& a)
 {
 	type = t;
@@ -11,7 +13,7 @@ Transform::Transform(const TransformType& t, const GLfloat*& a)
 		args[i] = a[i];
 }
 
-Transform::apply() const
+void Transform::apply() const
 {
 	if(type == TRANSLATE)
 		glTranslatef(args[0], args[1], args[2]);

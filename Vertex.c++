@@ -18,7 +18,7 @@ Vertex& Vertex::operator=(const Vertex& other)
 	for(int i = 0; i < 3; ++i)
 	{
 		coordinates[i] = other.getCoordinates()[i];
-		normal[i] = other.getNormal()[i];
+		normal[i] = other.getConstNormal()[i];
 	}
 	numFaces = other.getNumFaces();
 }
@@ -30,7 +30,7 @@ void Vertex::contributeNormal(const GLfloat* n)
 		normal[i] += n[i];
 }
 
-void Vertex::averageNormal()
+void Vertex::averageNormals()
 {
 	for(int i = 0 ; i < 3; i++)
 		normal[i] /= numFaces;

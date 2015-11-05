@@ -1,6 +1,8 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
+#include <GL/glut.h>
+
 enum TransformType
 {
 	TRANSLATE,

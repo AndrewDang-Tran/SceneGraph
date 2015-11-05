@@ -6,7 +6,7 @@
 class Vertex
 {
 	private:
-		const GLfloat coordinates[3];
+		GLfloat coordinates[3];
 		GLfloat normal[3];
 		int numFaces;
 
@@ -18,6 +18,7 @@ class Vertex
 		void averageNormals();
 		void drawNormal() const;
 		GLfloat* getNormal() { return normal; }
+		const GLfloat* getConstNormal() const { return normal; }
 		const GLfloat* getCoordinates() const { return coordinates; }
 		const int getNumFaces() const { return numFaces; }
 };

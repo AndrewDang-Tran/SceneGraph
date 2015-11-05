@@ -1,5 +1,7 @@
 #include "Node.h"
 
+int Node::staticCounter = 0;
+
 Node::Node()
 {
 	parent = NULL;

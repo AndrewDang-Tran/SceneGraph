@@ -9,7 +9,7 @@ class ObjectNode : public Node
 	private:
 		string name;
 	public:
-		ObjectNode(const string& n);
+		ObjectNode(const string& n = string("World"));
 		const string getName();
 		void execute();
 };

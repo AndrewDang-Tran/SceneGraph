@@ -19,7 +19,6 @@ class SceneGraph
 		int lightCount;
 	public:
 		SceneGraph();
-		//SceneGraph(const ObjectNode& r);
 		void traversal();
 		void addNode(Node& newNode, const int parentID, const NodeType nt);
 		bool isValid();
