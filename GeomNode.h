@@ -3,8 +3,8 @@
 
 #include <string> //meshName
 #include "Node.h"
-#include "geom.h"
-#include "loader.h"
+#include "Loader.h"
+#include "Geom.h"
 
 class GeomNode : Node
 {

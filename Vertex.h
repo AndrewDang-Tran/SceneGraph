@@ -11,8 +11,7 @@ class Vertex
 		int numFaces;
 
 	public:
-		Vertex();
-		Vertex(const GLfloat* c);
+		Vertex(const GLfloat* c = NULL);
 		Vertex& operator=(const Vertex&);
 		void contributeNormal(const GLfloat* n);
 		void averageNormals();

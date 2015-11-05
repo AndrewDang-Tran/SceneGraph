@@ -1,6 +1,6 @@
 #include "Vertex.h"
 
-Vertex::Vertex(const GLfloat* c = NULL)
+Vertex::Vertex(const GLfloat* c)
 {
 	numFaces = 0;
 	for(int i = 0; i < 3; i++)

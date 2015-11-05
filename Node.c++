@@ -16,4 +16,6 @@ Node* Node::addChild(Node& child)
 	return &children.back();
 }
 
+void Node::execute() {}
 int Node::getID() { return id; }
+
