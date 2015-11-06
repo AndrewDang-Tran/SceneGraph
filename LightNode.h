@@ -4,7 +4,7 @@
 #include "Node.h"
 #include "Light.h"
 
-class LightNode : Node
+class LightNode : public Node
 {
 	private:
 		Light light;

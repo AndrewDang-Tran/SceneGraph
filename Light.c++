@@ -1,6 +1,6 @@
 #include "Light.h"
 
-Light::Light(const LightType& t, const GLfloat*& pos, const GLfloat*& spD, const GLfloat*& a, const GLfloat*& d, const GLfloat*& s) : type(t)
+Light::Light(const LightType& t, const GLfloat* pos, const GLfloat* spD, const GLfloat* a, const GLfloat* d, const GLfloat* s) : type(t)
 {
 	for(int i = 0; i < 3; ++i)
 	{

@@ -13,7 +13,7 @@ enum Mode
 	VERTEX_NORMAL_MODE
 };
 
-class AttributeNode : Node
+class AttributeNode : public Node
 {
 	private:
 		Mode mode;

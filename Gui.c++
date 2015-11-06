@@ -8,6 +8,8 @@
 #define ADD_ATTRIBUTE 103
 #define ADD_LIGHT 104
 #define ADD_CAMERA 105
+#define GET_NODE 106
+#define EDIT_NODE 107
 
 #define RADIO_TRANSFORM 201
 #define RADIO_ATTRIBUTE 202
@@ -25,17 +27,18 @@ static void createTransformPanel();
 static void createAttributePanel();
 static void createLightPanel();
 static void createCameraPanel();
+static void createEditingPanel();
 
 int windowWidth = 1024;
 int windowHeight = 768;
 
 bool drawFaceNormal = false;
 bool drawVertexNormal = false;
+bool useFaceNormal = false;
 
 GLfloat tempNear = .01;
 GLfloat tempFar = 10;
 
-TrimeshLoader loader;
 SceneGraph sceneGraph;
 
 /*
@@ -46,7 +49,7 @@ int mainWindow;
 GLUI *horizontalSubWindow, *verticalSubWindow;
 
 //GLUI minimizable panels / Rollouts
-GLUI_Rollout *objectRoll, *geometryRoll, *transformRoll, *attributeRoll, *lightRoll, *cameraRoll;
+GLUI_Rollout *objectRoll, *geometryRoll, *transformRoll, *attributeRoll, *lightRoll, *cameraRoll, *editRoll;
 
 //object rollout variables
 GLUI_EditText* nameEdit;
@@ -97,6 +100,18 @@ GLfloat cameraPositionXYZ[3];
 GLUI_Spinner* spinSubjectXYZ[3];
 GLfloat cameraSubjectXYZ[3];
 
+//Editing rollout variables
+GLUI_Spinner* getNodeID;
+int findID = -1;
+GLUI_Button* getNode;
+GLUI_StaticText* editType;
+GLUI_StaticText* editNodeID;
+
+//Important spinner for adding nodes
+//when add node is clicked it will add it to this node ID
+GLUI_Spinner* addToParent;
+int addToParentID;
+
 GLUI_Spinner* spinNear;
 GLUI_Spinner* spinFar;
 GLfloat near =  .01;
@@ -118,34 +133,34 @@ void control_cb(int control)
 		case RADIO_LIGHTTYPE:
 			cout << "Current Light Type # " << currentLightType << endl;
 			break;
-
-		if(control == ADD_OBJECT)
-		{
-			ObjectNode newObjectNode(objectName);
-		}
-		/*case ADD_OBJECT:
+		case ADD_OBJECT:
 			{
-				const string newName = objectName;
-				ObjectNode newObjectNode = ObjectNode(newName);
+				sceneGraph.addObjectNode(addToParentID, objectName);
 			}
 			break;
 		case ADD_GEOMETRY:
+			{
+				sceneGraph.addGeomNode(addToParentID, objFileName, drawFaceNormal, drawVertexNormal, useFaceNormal);
+			}
 			break;
 		case ADD_TRANSFORM:
+			{
+				sceneGraph.addTransformNode(addToParentID, currentTransformType, xyzTheta);
+			}
 			break;
 		case ADD_ATTRIBUTE:
+			sceneGraph.addAttributeNode(addToParentID, currentMode);
 			break;
 		case ADD_LIGHT:
+			sceneGraph.addLightNode(addToParentID, currentLightType, lightPosXYZ, lightTargetXYZ, ambientRGBI, diffuseRGBI, specularRGBI);
 			break;
-		case ADD_CAMERA:
-			break;*/
 	}
 
 }
 
 void userInterface()
 {
-	if(glutGetWindow() != mainWindow);
+	if(glutGetWindow() != mainWindow)
 		glutSetWindow(mainWindow);
 
 	glutPostRedisplay();
@@ -196,13 +211,17 @@ int main(int argc, char **argv)
 	horizontalSubWindow = GLUI_Master.create_glui_subwindow(mainWindow, GLUI_SUBWINDOW_BOTTOM);
 	verticalSubWindow = GLUI_Master.create_glui_subwindow(mainWindow, GLUI_SUBWINDOW_RIGHT);
 
+	addToParent = new GLUI_Spinner(verticalSubWindow, "Parent ID", &addToParentID);
 	createObjectPanel();
 	createGeometryPanel();
 	createTransformPanel();
 	createAttributePanel();
 	createLightPanel();
-	createCameraPanel();
+	//createCameraPanel();
+	createEditingPanel();
 	GLUI_Master.set_glutIdleFunc(userInterface);
+
+	sceneGraph.printRootInfo();
 
 	glDepthFunc(GL_LESS);
 	glutMainLoop();
@@ -308,4 +327,15 @@ static void createCameraPanel()
 	spinNear = new GLUI_Spinner(cameraRoll, "Near", &near);
 	spinFar = new GLUI_Spinner(cameraRoll, "Far", &far);
 	new GLUI_Button(cameraRoll, "Add Camera Node", ADD_CAMERA, control_cb);
+}
+
+static void createEditingPanel()
+{
+	editRoll = new GLUI_Rollout(verticalSubWindow, "Edit Node", false);
+	getNodeID = new GLUI_Spinner(editRoll, "Edit ID", &findID);
+	getNode = new GLUI_Button(editRoll, "Get Node", GET_NODE, control_cb);
+	GLUI_Panel* nodeEditingPanel = new GLUI_Panel(editRoll, "Current Node");
+	editNodeID = new GLUI_StaticText(nodeEditingPanel, "ID: ");
+	editType = new GLUI_StaticText(nodeEditingPanel, "Type: ");
+	new GLUI_Button(editRoll, "Edit Node", EDIT_NODE, control_cb);
 }

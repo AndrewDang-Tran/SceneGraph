@@ -6,7 +6,7 @@
 #include "Loader.h"
 #include "Geom.h"
 
-class GeomNode : Node
+class GeomNode : public Node
 {
 	private:
 		Trimesh mesh;

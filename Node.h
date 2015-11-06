@@ -30,7 +30,8 @@ class Node
 		Node();
 		virtual void execute();
 		int getID();
-		Node* addChild(Node& child);	
+		Node* addChild(Node& child);
+		void traverseChildren();
 };
 
 #endif
