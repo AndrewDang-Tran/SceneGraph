@@ -21,6 +21,7 @@ Vertex& Vertex::operator=(const Vertex& other)
 		normal[i] = other.getConstNormal()[i];
 	}
 	numFaces = other.getNumFaces();
+	return (*this);
 }
 
 void Vertex::contributeNormal(const GLfloat* n)

@@ -1,8 +1,14 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#define DEBUG
+
 #include <GL/glut.h> //GLfloat
 #include <cmath> //sin(), cos()
+#ifdef DEBUG
+#include <iostream>
+using namespace std;
+#endif
 
 #define PI 3.14159265
 
@@ -23,7 +29,7 @@ class Camera
 				const GLfloat r);
 
 		void setCamera();
-		void setRadius();
+		void setRadius(const GLfloat r);
 		void setNear(const GLfloat& n) { near = n; }
 		void setFar(const GLfloat& f) { far = f; }
 		

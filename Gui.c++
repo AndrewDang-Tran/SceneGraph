@@ -117,6 +117,26 @@ GLUI_Spinner* spinFar;
 GLfloat near =  .01;
 GLfloat far = 10;
 
+void drawAxis(GLfloat scale)
+{
+	glPushMatrix();
+	glScalef(scale, scale, scale);
+	glBegin(GL_LINES);
+		glColor3f( 1.0, 0.0, 0.0 );
+	  	glVertex3f( .8f, 0.05f, 0.0 );  glVertex3f( 1.0, 0.25f, 0.0 ); /* Letter X */
+		glVertex3f( 0.8f, .25f, 0.0 );  glVertex3f( 1.0, 0.05f, 0.0 );
+		glVertex3f( 0.0, 0.0, 0.0 );  glVertex3f( 1.0, 0.0, 0.0 ); /* X axis      */
+
+		glColor3f( 0.0, 1.0, 0.0 );
+		glVertex3f( 0.0, 0.0, 0.0 );  glVertex3f( 0.0, 1.0, 0.0 ); /* Y axis      */
+
+		glColor3f( 0.0, 0.0, 1.0 );
+		glVertex3f( 0.0, 0.0, 0.0 );  glVertex3f( 0.0, 0.0, 1.0 ); /* Z axis    */
+  	glEnd();
+
+  	glPopMatrix();
+}
+
 /*
  * Control callback that will make changes according to the user's input
  */
@@ -125,28 +145,28 @@ void control_cb(int control)
 	switch(control)
 	{
 		case RADIO_TRANSFORM:
+			#ifdef DEBUG
 			cout << "Transform Type # " << currentTransformType << endl;
+			#endif
 			break;
 		case RADIO_ATTRIBUTE:
+			#ifdef DEBUG
 			cout << "Current Attribute # " << currentMode << endl;
+			#endif
 			break;
 		case RADIO_LIGHTTYPE:
+			#ifdef DEBUG
 			cout << "Current Light Type # " << currentLightType << endl;
+			#endif
 			break;
 		case ADD_OBJECT:
-			{
-				sceneGraph.addObjectNode(addToParentID, objectName);
-			}
+			sceneGraph.addObjectNode(addToParentID, objectName);
 			break;
 		case ADD_GEOMETRY:
-			{
-				sceneGraph.addGeomNode(addToParentID, objFileName, drawFaceNormal, drawVertexNormal, useFaceNormal);
-			}
+			sceneGraph.addGeomNode(addToParentID, objFileName, drawFaceNormal, drawVertexNormal, useFaceNormal);
 			break;
 		case ADD_TRANSFORM:
-			{
-				sceneGraph.addTransformNode(addToParentID, currentTransformType, xyzTheta);
-			}
+			sceneGraph.addTransformNode(addToParentID, currentTransformType, xyzTheta);
 			break;
 		case ADD_ATTRIBUTE:
 			sceneGraph.addAttributeNode(addToParentID, currentMode);
@@ -171,6 +191,9 @@ void display()
 	glClearColor(0.0, 0.0 , 0.0 , 0.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	drawAxis(2);
+	sceneGraph.traversal();
+
 	glutSwapBuffers();
 }
 
@@ -187,6 +210,8 @@ void reshape(GLint width, GLint height)
 	glLoadIdentity();
 	gluPerspective(45.0, (float) vw / vh, tempNear, tempFar);
 	glMatrixMode(GL_MODELVIEW);
+
+	glutPostRedisplay();
 }
 
 int main(int argc, char **argv) 
@@ -201,6 +226,8 @@ int main(int argc, char **argv)
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
 
+
+	glShadeModel(GL_SMOOTH);
 	//glut Callback functions
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
@@ -220,8 +247,6 @@ int main(int argc, char **argv)
 	//createCameraPanel();
 	createEditingPanel();
 	GLUI_Master.set_glutIdleFunc(userInterface);
-
-	sceneGraph.printRootInfo();
 
 	glDepthFunc(GL_LESS);
 	glutMainLoop();

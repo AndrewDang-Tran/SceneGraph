@@ -20,5 +20,5 @@ void Transform::apply() const
 	else if(type == SCALE)
 		glScalef(args[0], args[1], args[2]);
 	else
-		glRotated(args[0], args[2], args[3], args[4]);
+		glRotated(args[0], args[1], args[2], args[3]);
 }

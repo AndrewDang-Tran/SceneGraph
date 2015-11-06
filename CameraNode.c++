@@ -8,6 +8,9 @@ CameraNode::CameraNode(const Camera& c) : camera(c)
 void CameraNode::execute()
 {
 	camera.setCamera();
+	#ifdef DEBUG
+	cout << "Camera executing" << endl;
+	#endif
 }
 
 void CameraNode::addChild(const Node& child)

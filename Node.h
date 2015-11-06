@@ -1,6 +1,8 @@
 #ifndef NODE_H
 #define NODE_H
 
+#define DEBUG
+
 #include <cstddef> // NULL
 #include <vector> //children
 
@@ -20,7 +22,7 @@ enum NodeType
 class Node 
 {
 	private:
-		vector<Node> children;
+		vector<Node*> children;
 		static int staticCounter;
 		int id;
 	protected:
@@ -28,9 +30,11 @@ class Node
 		NodeType type;
 	public:
 		Node();
+		virtual ~Node() = 0;
 		virtual void execute();
-		int getID();
-		Node* addChild(Node& child);
+		const int getID() const;
+		const vector<Node*>& getChildren() const;
+		void addChild(Node* child);
 		void traverseChildren();
 };
 

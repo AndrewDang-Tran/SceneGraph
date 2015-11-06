@@ -13,16 +13,31 @@ Camera::Camera(const GLfloat* pos, const GLfloat* subjectPos,
 	}
 }
 
-void Camera::setRadius()
+void Camera::setRadius(const GLfloat r)
 {
-
+	radius = r;
 }
 
 void Camera::setCamera()
 {
+	#ifdef DEBUG
+	cout << "Setting Camera" << endl;
+	#endif
+
 	GLfloat rTheta = theta * PI / 180;
 	GLfloat rPhi = phi * PI / 180;
 	position[0] = subjectPosition[0] + radius * sin(rPhi) * sin(rTheta);
 	position[1] = subjectPosition[1] + radius * cos(rPhi);
 	position[2] = subjectPosition[2] + radius * sin(rPhi) * cos(rTheta);
+
+	//#ifdef DEBUG
+	for(int i = 0; i < 3; ++i)
+	{
+		cout << "position[" << i << "] " << position[0] << endl;
+		cout << "subjectPosition[" << i << "] " << subjectPosition[0] << endl;
+	}
+	//#endif
+
+	glLoadIdentity();
+	gluLookAt(position[0], position[1], position[2], subjectPosition[0], subjectPosition[1], subjectPosition[2], 0, 1, 0);
 }

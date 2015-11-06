@@ -2,10 +2,11 @@
 #define CAMERANODE_H
 
 #include <string>
+#include <iostream>
 #include "Node.h"
 #include "Camera.h"
 
-class CameraNode : Node
+class CameraNode : public Node
 {
 	private:
 		Camera camera;

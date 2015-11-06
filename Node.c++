@@ -5,24 +5,25 @@ int Node::staticCounter = 0;
 Node::Node()
 {
 	parent = NULL;
-	staticCounter++;
 	id = staticCounter;
+	staticCounter++;
 }
 
-Node* Node::addChild(Node& child)
+Node::~Node() {}
+
+void Node::addChild(Node* child)
 { 
-	child.parent = this;
+	child->parent = this;
 	children.push_back(child);
-	return &children.back();
 }
 
 void Node::traverseChildren()
 {
 	execute();
 	for(int i = 0; i < children.size(); ++i)
-		children.at(i).traverseChildren();
+		children.at(i)->traverseChildren();
 }
 
 void Node::execute() {}
-int Node::getID() { return id; }
-
+const int Node::getID() const { return id; }
+const vector<Node*>& Node::getChildren() const { return children; }
