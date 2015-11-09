@@ -12,3 +12,11 @@ void crossProduct(const GLfloat* u, const GLfloat* v, GLfloat* result)
 	result[1] = u[2] * v[0] - u[0] * v[2]; // UzVx - UxVz
 	result[2] = u[0] * v[1] - u[1] * v[0]; // UxVy - UyVx
 }
+
+void normalizeVector(GLfloat* vector)
+{
+	GLfloat magnitude = sqrt(pow(vector[0],2) + pow(vector[1],2) + pow(vector[2],2));
+	vector[0] = vector[0] / magnitude;
+	vector[1] = vector[1] / magnitude;
+	vector[2] = vector[2] / magnitude;
+}

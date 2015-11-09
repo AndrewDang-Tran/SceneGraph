@@ -14,6 +14,9 @@ class CameraNode : public Node
 		CameraNode(const Camera& c);
 		void execute();
 		void addChild(const Node& child);
+		void cameraNodeRotate(const GLfloat theta, const GLfloat phi);
+		void cameraNodeZoom(const GLfloat zoom);
+		void cameraNodePan(const GLfloat panX, const GLfloat panY);
 };
 
 #endif

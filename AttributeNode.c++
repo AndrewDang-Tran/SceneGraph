@@ -1,16 +1,27 @@
 #include <GL/glut.h>
 #include "AttributeNode.h"
+#ifdef DEBUG
+#include <iostream>
+#endif
 
 extern bool drawFaceNormal;
 extern bool drawVertexNormal;
 
-AttributeNode::AttributeNode(const Mode& m) : mode(m)
+AttributeNode::AttributeNode(const Mode& m, const int f, const int v) : mode(m)
 {
+	showFaceNormal = bool(f);
+	showVertexNormal = bool(v);
 	type = ATTRIBUTE;
 }
 
 void AttributeNode::execute()
 {
+	drawFaceNormal = showFaceNormal;
+	drawVertexNormal = showVertexNormal;
+	#ifdef DEBUG
+	//cout << "AttributeNode::drawFaceNormal = " << drawFaceNormal << endl;
+	//cout << "AttributeNode::drawVertexNormal = " << drawVertexNormal << endl;
+	#endif
 	switch(mode)
 	{
 		case POINT_MODE:
@@ -31,18 +42,6 @@ void AttributeNode::execute()
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			glEnable(GL_LIGHTING);
 			glEnable(GL_LIGHT0);
-			break;
-		case FACE_NORMAL_MODE:
-			if(drawFaceNormal)
-				drawFaceNormal = false;
-			else
-				drawFaceNormal = true;
-			break;
-		case VERTEX_NORMAL_MODE:
-			if(drawVertexNormal)
-				drawVertexNormal = false;
-			else
-				drawVertexNormal = true;
 			break;
 	}
 }

@@ -10,6 +10,7 @@
 #define ADD_CAMERA 105
 #define GET_NODE 106
 #define EDIT_NODE 107
+#define DELETE_NODE 108
 
 #define RADIO_TRANSFORM 201
 #define RADIO_ATTRIBUTE 202
@@ -28,6 +29,7 @@ static void createAttributePanel();
 static void createLightPanel();
 static void createCameraPanel();
 static void createEditingPanel();
+static void createDeletePanel();
 
 int windowWidth = 1024;
 int windowHeight = 768;
@@ -49,7 +51,7 @@ int mainWindow;
 GLUI *horizontalSubWindow, *verticalSubWindow;
 
 //GLUI minimizable panels / Rollouts
-GLUI_Rollout *objectRoll, *geometryRoll, *transformRoll, *attributeRoll, *lightRoll, *cameraRoll, *editRoll;
+GLUI_Rollout *objectRoll, *geometryRoll, *transformRoll, *attributeRoll, *lightRoll, *cameraRoll, *editRoll, *deleteRoll;
 
 //object rollout variables
 GLUI_EditText* nameEdit;
@@ -57,7 +59,7 @@ string objectName = "Name me";
 
 //geometry rollout variables
 GLUI_EditText* fileEdit;
-string objFileName = ".Obj file";
+string objFileName = "sphere.obj";
 
 //transform rollout variables
 GLUI_RadioGroup* transformRadio;
@@ -107,6 +109,12 @@ GLUI_Button* getNode;
 GLUI_StaticText* editType;
 GLUI_StaticText* editNodeID;
 
+//Deleting rollout variables
+GLUI_Spinner* deleteNodeID;
+int deleteID = -1;
+GLUI_Button* deleteButton;
+
+
 //Important spinner for adding nodes
 //when add node is clicked it will add it to this node ID
 GLUI_Spinner* addToParent;
@@ -115,7 +123,24 @@ int addToParentID;
 GLUI_Spinner* spinNear;
 GLUI_Spinner* spinFar;
 GLfloat near =  .01;
-GLfloat far = 10;
+GLfloat far = 10.0;
+
+
+//INTERACTIVE CONTROL VARIABLES
+GLfloat rotateX = 0.0;
+GLfloat rotateY = 0.0;
+GLfloat panX = 0.0;
+GLfloat panY = 0.0;
+GLfloat zoom = 0.0;
+GLfloat theta = 0.0;
+GLfloat phi = 0.0;
+
+GLfloat initialMouseX = 250;
+GLfloat initialMouseY = 250;
+
+bool leftDown = false;
+bool middleDown = false;
+bool rightDown = false;
 
 void drawAxis(GLfloat scale)
 {
@@ -142,8 +167,23 @@ void drawAxis(GLfloat scale)
  */
 void control_cb(int control)
 {
+
 	switch(control)
 	{
+		case CHECK_VERTEXNORMAL:
+			#ifdef DEBUG
+			cout << "inside check vertex normal" << endl;
+			cout << "showVertexNormal: " << showVertexNormal << endl;
+			#endif
+			drawVertexNormal = !drawVertexNormal;
+			break;
+		case CHECK_FACENORMAL:
+			#ifdef DEBUG
+			cout << "inside check face normal" << endl;
+			cout << "showFaceNormal: " << showFaceNormal << endl;
+			#endif
+			drawFaceNormal = !drawFaceNormal;
+			break;
 		case RADIO_TRANSFORM:
 			#ifdef DEBUG
 			cout << "Transform Type # " << currentTransformType << endl;
@@ -169,13 +209,72 @@ void control_cb(int control)
 			sceneGraph.addTransformNode(addToParentID, currentTransformType, xyzTheta);
 			break;
 		case ADD_ATTRIBUTE:
-			sceneGraph.addAttributeNode(addToParentID, currentMode);
+			sceneGraph.addAttributeNode(addToParentID, currentMode, showFaceNormal, showVertexNormal);
 			break;
 		case ADD_LIGHT:
 			sceneGraph.addLightNode(addToParentID, currentLightType, lightPosXYZ, lightTargetXYZ, ambientRGBI, diffuseRGBI, specularRGBI);
 			break;
+		case EDIT_NODE:
+
+			break;
+		case DELETE_NODE:
+			sceneGraph.deleteNode(deleteID);
+			break;
 	}
 
+}
+
+void mouseButton(int button, int state, int x, int y)
+{
+	if(button == GLUT_LEFT_BUTTON) 
+	{
+		leftDown = (state == GLUT_DOWN) ? true : false;
+		initialMouseX = x;
+		initialMouseY = y;
+	}
+	if(button == GLUT_MIDDLE_BUTTON)
+	{
+		middleDown = (state == GLUT_DOWN) ? true : false;
+		initialMouseX = x;
+		initialMouseY = y;
+	}
+	if(button == GLUT_RIGHT_BUTTON)
+	{
+		rightDown = (state == GLUT_DOWN) ? true : false;
+		initialMouseX = x;
+		initialMouseY = y;
+	}
+}
+
+void mouseMotion(int x, int y)
+{
+	if(leftDown)
+	{
+		rotateX = (x - initialMouseX) / 50;
+		rotateY = (y - initialMouseY) / 50;
+		theta -= rotateX; 
+		phi -= rotateY;
+
+		if(phi < -175)
+			phi = -175;
+		else if(phi > -1)
+			phi = -1;
+
+		sceneGraph.cameraRotate(theta, phi);
+	}
+	else if(middleDown)
+	{
+		zoom = (y - initialMouseY) / 75;
+		sceneGraph.cameraZoom(zoom);
+	}
+	else if(rightDown)
+	{
+		panX = (x - initialMouseX) / 50;
+		panY = (y - initialMouseY) / 50;
+		panY = -panY;
+		sceneGraph.cameraPan(panX, panY);
+	}
+	glutPostRedisplay();
 }
 
 void userInterface()
@@ -191,7 +290,7 @@ void display()
 	glClearColor(0.0, 0.0 , 0.0 , 0.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	drawAxis(2);
+	drawAxis(1.2);
 	sceneGraph.traversal();
 
 	glutSwapBuffers();
@@ -231,6 +330,8 @@ int main(int argc, char **argv)
 	//glut Callback functions
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
+	glutMouseFunc(mouseButton);
+	glutMotionFunc(mouseMotion);
 
 	/*
 	 * New Glui Code
@@ -246,6 +347,7 @@ int main(int argc, char **argv)
 	createLightPanel();
 	//createCameraPanel();
 	createEditingPanel();
+	createDeletePanel();
 	GLUI_Master.set_glutIdleFunc(userInterface);
 
 	glDepthFunc(GL_LESS);
@@ -363,4 +465,11 @@ static void createEditingPanel()
 	editNodeID = new GLUI_StaticText(nodeEditingPanel, "ID: ");
 	editType = new GLUI_StaticText(nodeEditingPanel, "Type: ");
 	new GLUI_Button(editRoll, "Edit Node", EDIT_NODE, control_cb);
+}
+
+static void createDeletePanel()
+{
+	deleteRoll = new GLUI_Rollout(verticalSubWindow, "Delete Node", false);
+	deleteNodeID = new GLUI_Spinner(deleteRoll, "Delete ID", &deleteID);
+	deleteButton = new GLUI_Button(deleteRoll, "Delete", DELETE_NODE, control_cb);
 }

@@ -5,20 +5,22 @@
 
 enum Mode
 {
-	POINT_MODE = 1,
+	POINT_MODE = 0,
 	WIREFRAME_MODE,
 	SOLID_MODE,
 	SHADED_MODE,
-	FACE_NORMAL_MODE,
-	VERTEX_NORMAL_MODE
+	//FACE_NORMAL_MODE,
+	//VERTEX_NORMAL_MODE
 };
 
 class AttributeNode : public Node
 {
 	private:
 		Mode mode;
+		bool showVertexNormal;
+		bool showFaceNormal;
 	public:
-		AttributeNode(const Mode& m);
+		AttributeNode(const Mode& m, const int f, const int v);
 		void execute();
 };
 

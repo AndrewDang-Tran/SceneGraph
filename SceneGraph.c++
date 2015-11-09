@@ -58,6 +58,7 @@ bool SceneGraph::addObjectNode(const int parentID, string n)
 	nodeMap.emplace(newObjectNode->getID(), newObjectNode);
 	#ifdef DEBUG
 	cout << "New ObjectNode ID: " << newObjectNode->getID() << endl <<  "Name: \"" << n << "\"" << endl;
+	cout << "Address of new Node: " << newObjectNode << endl;
 	#endif
 	return true;
 }
@@ -78,6 +79,7 @@ bool SceneGraph::addGeomNode(const int parentID, const string fileName, const bo
 	nodeMap.emplace(newGeomNode->getID(), newGeomNode);
 	#ifdef DEBUG
 	cout << "New GeomNode with ID: " << newGeomNode->getID() << endl;
+	cout << "Address of new Node: " <<  newGeomNode << endl;
 	#endif
 	return true;
 }
@@ -99,11 +101,12 @@ bool SceneGraph::addTransformNode(const int parentID, TransformType type, const 
 	nodeMap.emplace(newTransformNode->getID(), newTransformNode);
 	#ifdef DEBUG
 	cout << "New TransformNode with ID: " << newTransformNode->getID() << endl;
+	cout << "Address of new Node: " << newTransformNode << endl;
 	#endif
 	return true;
 }
 
-bool SceneGraph::addAttributeNode(const int parentID, Mode mode)
+bool SceneGraph::addAttributeNode(const int parentID, const Mode mode, const int showFaceNormal, const int showVertexNormal)
 {
 	Node* parentNode;
 	try
@@ -114,11 +117,12 @@ bool SceneGraph::addAttributeNode(const int parentID, Mode mode)
 	{
 		return false;
 	}
-	AttributeNode* newAttributeNode = new AttributeNode(mode);
+	AttributeNode* newAttributeNode = new AttributeNode(mode, showFaceNormal, showVertexNormal);
 	parentNode->addChild(newAttributeNode);
 	nodeMap.emplace(newAttributeNode->getID(), newAttributeNode);
 	#ifdef DEBUG
 	cout << "New AttributeNode with ID: " << newAttributeNode->getID() << endl;
+	cout << "Address of new Node: " << newAttributeNode << endl;
 	#endif
 	return true;
 }
@@ -140,12 +144,13 @@ bool SceneGraph::addLightNode(const int parentID, LightType type, const GLfloat*
 	nodeMap.emplace(newLightNode->getID(), newLightNode);
 	#ifdef DEBUG
 	cout << "New LightNode with ID: " << newLightNode->getID() << endl;
+	cout << "Address of new Node: " << newLightNode << endl;
 	#endif
 	++lightCount;
 	return true;
 }
 
-Node* SceneGraph::addCameraNode(const int parentID, const GLfloat* position, const GLfloat* subjectPosition, const GLfloat near, const GLfloat far, const GLfloat theta, const GLfloat phi, const GLfloat radius)
+CameraNode* SceneGraph::addCameraNode(const int parentID, const GLfloat* position, const GLfloat* subjectPosition, const GLfloat near, const GLfloat far, const GLfloat theta, const GLfloat phi, const GLfloat radius)
 {
 	Node* parentNode;
 	try
@@ -157,23 +162,31 @@ Node* SceneGraph::addCameraNode(const int parentID, const GLfloat* position, con
 		return NULL;
 	}
 	Camera newCamera(position, subjectPosition, near, far, theta, phi, radius);
-	Node* newCameraNode = new CameraNode(newCamera);
+	CameraNode* newCameraNode = new CameraNode(newCamera);
 	parentNode->addChild(newCameraNode);
 	nodeMap.emplace(newCameraNode->getID(), newCameraNode);
 	#ifdef DEBUG
 	cout << "New CameraNode with ID: " << newCameraNode->getID() << endl;
+	cout << "Address of new Node: " << newCameraNode << endl;
 	#endif
 	return newCameraNode;
 }
 
 bool SceneGraph::deleteNode(const int id)
 {
+	if(id == 0 || id == 1)
+		return false;
+	
 	Node* nodeToDelete = nodeMap.at(id);
+
+	#ifdef DEBUG
+	cout << "Delete Node Address: " << nodeToDelete << endl;
+	#endif
 	/**
 	 * May need to change this to make these nodes children have their grandparent as * parent
 	 */
-	 deleteGraph(nodeToDelete);
-	 return true;
+	deleteGraph(nodeToDelete);
+	return true;
 }
 
 bool SceneGraph::isValid()
@@ -199,3 +212,17 @@ void SceneGraph::deleteGraph(const Node* nodeToDelete)
 	delete nodeToDelete;
 }
 
+void SceneGraph::cameraRotate(const GLfloat theta, const GLfloat phi)
+{
+	camera->cameraNodeRotate(theta, phi);
+}
+
+void SceneGraph::cameraZoom(const GLfloat zoom)
+{
+	camera->cameraNodeZoom(zoom);
+}
+
+void SceneGraph::cameraPan(const GLfloat panX, const GLfloat panY)
+{
+	camera->cameraNodePan(panX, panY);
+}
