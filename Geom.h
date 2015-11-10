@@ -15,7 +15,6 @@
 class Trimesh
 {
 	private:
-
 		vector<Vertex> vertices;
 		list<Face> faces;
 		stack<Transform> transforms;

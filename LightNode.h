@@ -11,7 +11,8 @@ class LightNode : public Node
 	public:
 		LightNode(const Light& l);
 		void execute();
-		void addChild(const Node& child);
+		void addChild(const Node* child);
+		void setParameters(const LightType t, const GLfloat* pos, const GLfloat* spD, const GLfloat* a, const GLfloat* d, const GLfloat* s);
 };
 
 #endif

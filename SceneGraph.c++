@@ -16,7 +16,7 @@ SceneGraph::SceneGraph()
 	#endif
 	const GLfloat position[3] = {0.0, 0.0, 5.0};
 	const GLfloat subjectPosition[3] = {0.0, 0.0, 0.0};
-	camera = addCameraNode(0, position, subjectPosition, 1.0, 10.0, 45.0, 45.0, 5.0);
+	camera = addCameraNode(0, position, subjectPosition, 1.0, 100.0, 45.0, 45.0, 5.0);
 	++camCount;
 	camera->execute();
 }
@@ -31,6 +31,7 @@ void SceneGraph::traversal()
 	#ifdef DEBUG
 	//cout << "valid: " << isValid() << endl;
 	#endif
+	
 	if(isValid()) 
 		root->traverseChildren();
 }
@@ -63,6 +64,15 @@ bool SceneGraph::addObjectNode(const int parentID, string n)
 	return true;
 }
 
+void SceneGraph::editObjectNode(const int nodeID, const string newName)
+{
+	Node* nodeP = nodeMap.at(nodeID);
+	if(nodeP->getType() != OBJECT)
+		return;
+	ObjectNode* objectNodeP = static_cast<ObjectNode*>(nodeP);
+	objectNodeP->setName(newName);
+}
+
 bool SceneGraph::addGeomNode(const int parentID, const string fileName, const bool drawFN, const bool drawVN, const bool useFN)
 {
 	Node* parentNode;
@@ -82,6 +92,15 @@ bool SceneGraph::addGeomNode(const int parentID, const string fileName, const bo
 	cout << "Address of new Node: " <<  newGeomNode << endl;
 	#endif
 	return true;
+}
+
+void SceneGraph::editGeomNode(const int nodeID, const string newFileName, const bool drawFN, const bool drawVN, const bool useFN)
+{
+	Node* nodeP = nodeMap.at(nodeID);
+	if(nodeP->getType() != GEOM)
+		return;
+	GeomNode* geomNodeP = static_cast<GeomNode*>(nodeP);
+	geomNodeP->setParameters(loader, newFileName, drawFN, drawVN, useFN);
 }
 
 bool SceneGraph::addTransformNode(const int parentID, TransformType type, const GLfloat* args)
@@ -106,6 +125,15 @@ bool SceneGraph::addTransformNode(const int parentID, TransformType type, const 
 	return true;
 }
 
+void SceneGraph::editTransformNode(const int nodeID, TransformType t, const GLfloat* newArgs)
+{
+	Node* nodeP = nodeMap.at(nodeID);
+	if(nodeP->getType() != TRANSFORM)
+		return;
+	TransformNode* transformNodeP = static_cast<TransformNode*>(nodeP);
+	transformNodeP->setParameters(t, newArgs);
+}
+
 bool SceneGraph::addAttributeNode(const int parentID, const Mode mode, const int showFaceNormal, const int showVertexNormal)
 {
 	Node* parentNode;
@@ -125,6 +153,15 @@ bool SceneGraph::addAttributeNode(const int parentID, const Mode mode, const int
 	cout << "Address of new Node: " << newAttributeNode << endl;
 	#endif
 	return true;
+}
+
+void SceneGraph::editAttributeNode(const int nodeID, const Mode newMode, const int showFN, const int showVN)
+{
+	Node* nodeP = nodeMap.at(nodeID);
+	if(nodeP->getType() != ATTRIBUTE)
+		return;
+	AttributeNode* attributeNodeP = static_cast<AttributeNode*>(nodeP);
+	attributeNodeP->setParameters(newMode, showFN, showVN);
 }
 
 bool SceneGraph::addLightNode(const int parentID, LightType type, const GLfloat* position, const GLfloat* spotDirection, const GLfloat* ambient, const GLfloat* diffuse, const GLfloat* specular)
@@ -148,6 +185,14 @@ bool SceneGraph::addLightNode(const int parentID, LightType type, const GLfloat*
 	#endif
 	++lightCount;
 	return true;
+}
+void SceneGraph::editLightNode(const int nodeID, LightType newType, const GLfloat* newPos, const GLfloat* newSpotD, const GLfloat* newAmb, const GLfloat* newDif, const GLfloat* newSpec)
+{
+	Node* nodeP = nodeMap.at(nodeID);
+	if(nodeP->getType() != LIGHT)
+		return;
+	LightNode* lightNodeP = static_cast<LightNode*>(nodeP);
+	lightNodeP->setParameters(newType, newPos, newSpotD, newAmb, newDif, newSpec);
 }
 
 CameraNode* SceneGraph::addCameraNode(const int parentID, const GLfloat* position, const GLfloat* subjectPosition, const GLfloat near, const GLfloat far, const GLfloat theta, const GLfloat phi, const GLfloat radius)
@@ -225,4 +270,10 @@ void SceneGraph::cameraZoom(const GLfloat zoom)
 void SceneGraph::cameraPan(const GLfloat panX, const GLfloat panY)
 {
 	camera->cameraNodePan(panX, panY);
+}
+
+NodeType SceneGraph::getNodeType(const int id)
+{
+	Node* targetNode = nodeMap.at(id);
+	return targetNode->getType();
 }

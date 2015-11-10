@@ -36,6 +36,7 @@ class Node
 		const vector<Node*>& getChildren() const;
 		void addChild(Node* child);
 		void traverseChildren();
+		const NodeType getType() const;
 };
 
 #endif

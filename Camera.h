@@ -41,7 +41,6 @@ class Camera
 		void rotate(const GLfloat t, const GLfloat p);
 		void zoom(const GLfloat zoom);
 		void pan(const GLfloat panX, const GLfloat panY);
-		
  };
 
  #endif

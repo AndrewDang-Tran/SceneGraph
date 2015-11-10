@@ -45,3 +45,10 @@ void AttributeNode::execute()
 			break;
 	}
 }
+
+void AttributeNode::setParameters(const Mode m, const bool showVN, const bool showFN)
+{
+	mode = m;
+	showVertexNormal = showVN;
+	showFaceNormal = showFN;
+}

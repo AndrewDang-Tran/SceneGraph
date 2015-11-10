@@ -12,6 +12,7 @@ class ObjectNode : public Node
 		ObjectNode(const string& n = string("World"));
 		const string getName();
 		void execute();
+		void setName(const string newName);
 };
 
 #endif

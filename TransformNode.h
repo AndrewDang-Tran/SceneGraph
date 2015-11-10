@@ -11,6 +11,7 @@ class TransformNode : public Node
 	public:
 		TransformNode(const Transform& t);
 		void execute();
+		void setParameters(const TransformType t, const GLfloat* a);
 };
 
 #endif

@@ -19,8 +19,9 @@ class Light
 		GLfloat diffuse[4];
 		GLfloat specular[4];
 	public:
-		Light(const LightType& t, const GLfloat* pos, const GLfloat* spD, const GLfloat* a, const GLfloat* d, const GLfloat* s);
+		Light(const LightType t, const GLfloat* pos, const GLfloat* spD, const GLfloat* a, const GLfloat* d, const GLfloat* s);
 		void setLight();
+		void changeLighting(const LightType t, const GLfloat* pos, const GLfloat* spD, const GLfloat* a, const GLfloat* d, const GLfloat* s);
 };
 
 #endif

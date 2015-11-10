@@ -17,8 +17,9 @@ class Transform
 		TransformType type;
 
 	public:
-		Transform(const TransformType& t, const GLfloat* a);
+		Transform(const TransformType t, const GLfloat* a);
 		void apply() const;
+		void changeArguments(const TransformType t, const GLfloat* a);
 };
 
 #endif

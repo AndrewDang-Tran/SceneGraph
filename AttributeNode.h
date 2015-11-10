@@ -22,6 +22,7 @@ class AttributeNode : public Node
 	public:
 		AttributeNode(const Mode& m, const int f, const int v);
 		void execute();
+		void setParameters(const Mode m, const bool showVN, const bool showFN);
 };
 
 #endif

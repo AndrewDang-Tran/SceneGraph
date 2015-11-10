@@ -13,7 +13,7 @@ void CameraNode::execute()
 	#endif
 }
 
-void CameraNode::addChild(const Node& child)
+void CameraNode::addChild(const Node* child)
 {
 	throw string("Camera nodes cannot have children");
 }

@@ -16,6 +16,7 @@ class GeomNode : public Node
 	public:
 		GeomNode(TrimeshLoader& loader, const string& meshName, bool drawFN, bool drawVN, bool useFN);
 		void execute();
+		void setParameters(TrimeshLoader& loader, const string newObjFile, const bool drawFN, const bool drawVN, const bool useFN);
 };
 
 #endif

@@ -27,3 +27,12 @@ void GeomNode::execute()
 	//cout << "Displaying geometry" << endl;
 	#endif
 }
+
+void GeomNode::setParameters(TrimeshLoader& loader, const string newObjFile, const bool drawFN, const bool drawVN, const bool useFN)
+{
+	mesh = Trimesh();
+	loader.loadOBJ(newObjFile.c_str(), &mesh);
+	useFaceNormal = useFN;
+	drawFaceNormal = drawFN;
+	drawVertexNormal = drawVN;
+}

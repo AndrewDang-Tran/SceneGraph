@@ -1,4 +1,5 @@
 #include <GL/glut.h> //for linux
+#include <sstream> //ostringstream
 #include "./glui-2.36/src/include/GL/glui.h"
 #include "SceneGraph.h"
 
@@ -36,7 +37,7 @@ int windowHeight = 768;
 
 bool drawFaceNormal = false;
 bool drawVertexNormal = false;
-bool useFaceNormal = false;
+bool useFaceNormal = true;
 
 GLfloat tempNear = .01;
 GLfloat tempFar = 10;
@@ -52,6 +53,15 @@ GLUI *horizontalSubWindow, *verticalSubWindow;
 
 //GLUI minimizable panels / Rollouts
 GLUI_Rollout *objectRoll, *geometryRoll, *transformRoll, *attributeRoll, *lightRoll, *cameraRoll, *editRoll, *deleteRoll;
+
+/**
+ * 0 - object
+ * 1 - geometry
+ * 2 - transform
+ * 3 - attribute
+ * 4 - light
+ */
+
 
 //object rollout variables
 GLUI_EditText* nameEdit;
@@ -108,6 +118,8 @@ int findID = -1;
 GLUI_Button* getNode;
 GLUI_StaticText* editType;
 GLUI_StaticText* editNodeID;
+int currentEditNodeID = -1;
+NodeType currentEditNodeType;
 
 //Deleting rollout variables
 GLUI_Spinner* deleteNodeID;
@@ -162,12 +174,78 @@ void drawAxis(GLfloat scale)
   	glPopMatrix();
 }
 
+void changeEditInfo()
+{
+
+	objectRoll->close();
+	geometryRoll->close();
+	transformRoll->close();
+	attributeRoll->close();
+	lightRoll->close();
+	
+	ostringstream ss;
+	ss << "ID: " << currentEditNodeID;
+
+	editNodeID->set_text(ss.str().c_str());
+	switch(currentEditNodeType)
+	{
+		case OBJECT:
+			objectRoll->open();
+			editType->set_text("Type: Object");
+			break;
+		case GEOM:
+			geometryRoll->open();
+			editType->set_text("Type: Geometry");
+			#ifdef DEBUG
+			cout << "Entered changeEditInfo - GEOM" << endl;
+			#endif
+			break;
+		case TRANSFORM:
+			#ifdef DEBUG
+			cout << "entered changeEditInfo - TRANSFORM" << endl;
+			#endif
+			transformRoll->open();
+			editType->set_text("Type: Transform");
+			break;
+		case ATTRIBUTE:
+			attributeRoll->open();
+			editType->set_text("Type: Attribute");
+			break;
+		case LIGHT:
+			lightRoll->open();
+			editType->set_text("Type: Light");
+			break;
+	}
+}
+
+void editNode()
+{
+	switch(currentEditNodeType)
+	{
+		case OBJECT:
+			sceneGraph.editObjectNode(currentEditNodeID, objectName);
+			break;
+		case GEOM:
+			sceneGraph.editGeomNode(currentEditNodeID, objFileName, drawFaceNormal, drawVertexNormal, useFaceNormal);
+			break;
+		case TRANSFORM:
+			sceneGraph.editTransformNode(currentEditNodeID, currentTransformType, xyzTheta);
+			break;
+		case ATTRIBUTE:
+			sceneGraph.editAttributeNode(currentEditNodeID, currentMode, showFaceNormal, showVertexNormal);
+			break;
+		case LIGHT:
+			sceneGraph.editLightNode(currentEditNodeID, currentLightType, lightPosXYZ, lightTargetXYZ, ambientRGBI, diffuseRGBI, specularRGBI);
+			break;
+	}
+}
+
 /*
  * Control callback that will make changes according to the user's input
  */
 void control_cb(int control)
 {
-
+	bool check = true;
 	switch(control)
 	{
 		case CHECK_VERTEXNORMAL:
@@ -200,27 +278,36 @@ void control_cb(int control)
 			#endif
 			break;
 		case ADD_OBJECT:
-			sceneGraph.addObjectNode(addToParentID, objectName);
+			check = sceneGraph.addObjectNode(addToParentID, objectName);
 			break;
 		case ADD_GEOMETRY:
-			sceneGraph.addGeomNode(addToParentID, objFileName, drawFaceNormal, drawVertexNormal, useFaceNormal);
+			check = sceneGraph.addGeomNode(addToParentID, objFileName, drawFaceNormal, drawVertexNormal, useFaceNormal);
 			break;
 		case ADD_TRANSFORM:
-			sceneGraph.addTransformNode(addToParentID, currentTransformType, xyzTheta);
+			check = sceneGraph.addTransformNode(addToParentID, currentTransformType, xyzTheta);
 			break;
 		case ADD_ATTRIBUTE:
-			sceneGraph.addAttributeNode(addToParentID, currentMode, showFaceNormal, showVertexNormal);
+			check = sceneGraph.addAttributeNode(addToParentID, currentMode, showFaceNormal, showVertexNormal);
 			break;
 		case ADD_LIGHT:
-			sceneGraph.addLightNode(addToParentID, currentLightType, lightPosXYZ, lightTargetXYZ, ambientRGBI, diffuseRGBI, specularRGBI);
+			check = sceneGraph.addLightNode(addToParentID, currentLightType, lightPosXYZ, lightTargetXYZ, ambientRGBI, diffuseRGBI, specularRGBI);
+			break;
+		case GET_NODE:
+			currentEditNodeType = sceneGraph.getNodeType(findID);
+			currentEditNodeID = findID;
+			changeEditInfo();
 			break;
 		case EDIT_NODE:
-
+			editNode();
 			break;
 		case DELETE_NODE:
 			sceneGraph.deleteNode(deleteID);
 			break;
 	}
+
+	if(!check)
+		cout << "something went wrong" << endl << "control = " << control << endl;
+	
 
 }
 
@@ -285,14 +372,22 @@ void userInterface()
 	glutPostRedisplay();
 }
 
+static void defaultSettings()
+{
+	glLoadIdentity();
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+}
+
 void display() 
 {
 	glClearColor(0.0, 0.0 , 0.0 , 0.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	drawAxis(1.2);
+	defaultSettings();
+	drawAxis(2.0);
 	sceneGraph.traversal();
-
 	glutSwapBuffers();
 }
 
@@ -324,9 +419,8 @@ int main(int argc, char **argv)
 	mainWindow = glutCreateWindow("Scene Graph");
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
-
-
 	glShadeModel(GL_SMOOTH);
+
 	//glut Callback functions
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
@@ -439,7 +533,7 @@ static void createLightPanel()
 	new GLUI_Button(lightRoll, "Add Light Node", ADD_LIGHT, control_cb);
 }
 
-static void createCameraPanel()
+/*static void createCameraPanel()
 {
 	string xyztString[4] = {"X: ", "Y: ", "Z: ", "Theta: "};
 	cameraRoll = new GLUI_Rollout(verticalSubWindow, "Camera", false);
@@ -454,7 +548,7 @@ static void createCameraPanel()
 	spinNear = new GLUI_Spinner(cameraRoll, "Near", &near);
 	spinFar = new GLUI_Spinner(cameraRoll, "Far", &far);
 	new GLUI_Button(cameraRoll, "Add Camera Node", ADD_CAMERA, control_cb);
-}
+}*/
 
 static void createEditingPanel()
 {
