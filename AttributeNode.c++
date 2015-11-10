@@ -4,10 +4,7 @@
 #include <iostream>
 #endif
 
-AttributeNode::AttributeNode(const Mode m) : mode(m)
-{
-	type = ATTRIBUTE;
-}
+AttributeNode::AttributeNode(const Mode m) : mode(m) { type = ATTRIBUTE; }
 
 void AttributeNode::execute()
 {
@@ -35,7 +32,5 @@ void AttributeNode::execute()
 	}
 }
 
-void AttributeNode::setParameters(const Mode m)
-{
-	mode = m;
-}
+void AttributeNode::setParameters(const Mode m) { mode = m; }
+

@@ -415,6 +415,8 @@ void display()
 	glClearColor(0.0, 0.0 , 0.0 , 0.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	glEnable(GL_NORMALIZE);
+	
 	defaultSettings();
 	drawAxis(2.0);
 	sceneGraph.traversal();
@@ -456,7 +458,7 @@ int main(int argc, char **argv)
 	mainWindow = glutCreateWindow("Scene Graph");
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
-	glShadeModel(GL_SMOOTH);
+	//glShadeModel(GL_SMOOTH);
 
 	//glut Callback functions
 	glutDisplayFunc(display);

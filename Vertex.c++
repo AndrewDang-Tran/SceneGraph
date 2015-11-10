@@ -1,4 +1,5 @@
 #include "Vertex.h"
+#include "VectorMath.h"
 
 Vertex::Vertex(const GLfloat* c)
 {

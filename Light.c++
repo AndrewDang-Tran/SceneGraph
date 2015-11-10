@@ -1,4 +1,5 @@
 #include "Light.h"
+#define GL_LIGHT
 
 Light::Light(const LightType t, const GLfloat* pos, const GLfloat* spD, const GLfloat* a, const GLfloat* d, const GLfloat* s) : type(t)
 {

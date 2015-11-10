@@ -39,8 +39,8 @@ class Camera
 
 		void setCamera();
 		void setRadius(const GLfloat r);
-		void setNear(const GLfloat& n);
-		void setFar(const GLfloat& f);
+		void setNear(const GLfloat n);
+		void setFar(const GLfloat f);
 
 		/**
 		 * Orbits the camera around the subject position with the current

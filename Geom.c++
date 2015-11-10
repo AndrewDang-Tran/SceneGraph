@@ -122,7 +122,7 @@ void Trimesh::render(bool faceNormal)
 {
 	list<Face>::iterator b = faces.begin();
 	list<Face>::iterator e = faces.end();
-	GLfloat normal[3];
+	
 	while(b != e)
 	{
 		Vertex triangleVertices[3];
@@ -132,6 +132,7 @@ void Trimesh::render(bool faceNormal)
 		glColor3f(0, .5, .5);
 		if(faceNormal)
 		{
+			GLfloat normal[3];
 			for(int i = 0; i < 3; i++)
 				normal[i] = (*b).getNormal()[i];
 			glNormal3fv(normal);;
@@ -140,9 +141,10 @@ void Trimesh::render(bool faceNormal)
 		{
 			if(!faceNormal)
 			{
+				GLfloat normal[3][3];
 				for(int j = 0; j < 3; j++)
-					normal[i] = triangleVertices[i].getNormal()[j];
-				glNormal3fv(normal);
+					normal[i][j] = triangleVertices[i].getNormal()[j];
+				glNormal3fv(normal[i]);
 			}
 			glVertex3fv(triangleVertices[i].getCoordinates());
 		}
