@@ -26,7 +26,7 @@ class Node
 		static int staticCounter;
 		int id;
 	protected:
-		const Node* parent;
+		Node* parent;
 		NodeType type;
 	public:
 		Node();
@@ -36,7 +36,10 @@ class Node
 		const vector<Node*>& getChildren() const;
 		void addChild(Node* child);
 		void traverseChildren();
+		const Node* getParent() const;
+		Node* getParent();
 		const NodeType getType() const;
+		void removeChild(Node* targetChild);
 };
 
 #endif

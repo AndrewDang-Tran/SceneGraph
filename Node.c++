@@ -31,7 +31,24 @@ void Node::traverseChildren()
 		glPopMatrix();
 }
 
+void Node::removeChild(Node* targetChild)
+{
+	vector<Node*>::iterator b = children.begin();
+	vector<Node*>::iterator e = children.end();
+	while(b != e)
+	{
+		if(*b == targetChild)
+		{
+			children.erase(b);
+			return;
+		}
+		++b;
+	}
+}
+
 void Node::execute() {}
 const int Node::getID() const { return id; }
 const vector<Node*>& Node::getChildren() const { return children; }
 const NodeType Node::getType() const { return type; }
+const Node* Node::getParent() const { return parent; }
+Node* Node::getParent() { return parent; }

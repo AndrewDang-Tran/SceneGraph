@@ -27,11 +27,7 @@ SceneGraph::~SceneGraph()
 }
 
 void SceneGraph::traversal()
-{
-	#ifdef DEBUG
-	//cout << "valid: " << isValid() << endl;
-	#endif
-	
+{	
 	if(isValid()) 
 		root->traverseChildren();
 }
@@ -223,6 +219,9 @@ bool SceneGraph::deleteNode(const int id)
 		return false;
 	
 	Node* nodeToDelete = nodeMap.at(id);
+	nodeMap.erase(id);
+	Node* parentNode = nodeToDelete->getParent();
+	parentNode->removeChild(nodeToDelete);
 
 	#ifdef DEBUG
 	cout << "Delete Node Address: " << nodeToDelete << endl;
@@ -244,17 +243,27 @@ void SceneGraph::deleteGraph(const Node* nodeToDelete)
 {
 	if(!nodeToDelete)
 		return;
-	vector<Node*> childrenToDelete = nodeToDelete->getChildren();
+	const vector<Node*>& childrenToDelete = nodeToDelete->getChildren();
+	#ifdef DEBUG
+	cout << "childrenToDelete: " << &childrenToDelete << endl;
+	cout << "size: " << childrenToDelete.size() << endl;
+	#endif
 	for(int i = 0; i < childrenToDelete.size(); ++i)
 		deleteGraph(childrenToDelete.at(i));
+
 
 	#ifdef DEBUG
 	cout << "Deleted Node ID: " << nodeToDelete->getID() << endl;
 	cout << "deleting " << debugNodeCounter  << " nodes (not by id)" << endl;
 	debugNodeCounter++;
+	cout << "Deleting Node Address " << nodeToDelete << endl;
 	#endif
 
+
 	delete nodeToDelete;
+	#ifdef DEBUG
+	cout << "after delete nodeToDelete in SceneGraph::deleteGraph" << endl;
+	#endif
 }
 
 void SceneGraph::cameraRotate(const GLfloat theta, const GLfloat phi)

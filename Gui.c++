@@ -19,6 +19,7 @@
 
 #define CHECK_VERTEXNORMAL 301
 #define CHECK_FACENORMAL 302
+#define CHECK_FACEVERTEX 303
 
 #define TRANSLATE_LIMIT 1000.0
 
@@ -37,7 +38,7 @@ int windowHeight = 768;
 
 bool drawFaceNormal = false;
 bool drawVertexNormal = false;
-bool useFaceNormal = true;
+bool useFaceNormal = false;
 
 GLfloat tempNear = 1;
 GLfloat tempFar = 100;
@@ -70,6 +71,8 @@ string objectName = "Name me";
 //geometry rollout variables
 GLUI_EditText* fileEdit;
 string objFileName = "sphere.obj";
+GLUI_Checkbox *vertexNormalCheck, *faceNormalCheck, *useFaceNormalCheck; 
+int showVertexNormal, showFaceNormal, useFaceNormalInt;
 
 //transform rollout variables
 GLUI_RadioGroup* transformRadio;
@@ -80,8 +83,6 @@ GLfloat xyzTheta[4];
 //Attribute rollout variables
 GLUI_RadioGroup* attributeRadio;
 Mode currentMode = SHADED_MODE;
-GLUI_Checkbox* vertexNormalCheck, *faceNormalCheck;
-int showVertexNormal, showFaceNormal;
 
 //Light rollout variables
 GLUI_RadioGroup* lightTypeRadio;
@@ -106,11 +107,11 @@ GLUI_Spinner *spinSpecularRGBI[4];
 GLfloat specularRGBI[4] = {1.0, 1.0, 1.0, 1.0};
 
 //Camera rollout variables
-GLUI_Spinner* spinCameraXYZ[3];
+/*GLUI_Spinner* spinCameraXYZ[3];
 GLfloat cameraPositionXYZ[3];
 
 GLUI_Spinner* spinSubjectXYZ[3];
-GLfloat cameraSubjectXYZ[3];
+GLfloat cameraSubjectXYZ[3];*/
 
 //Editing rollout variables
 GLUI_Spinner* getNodeID;
@@ -154,6 +155,9 @@ bool leftDown = false;
 bool middleDown = false;
 bool rightDown = false;
 
+/**
+ * Simply draws the xyz axis for reference
+ */
 void drawAxis(GLfloat scale)
 {
 	glPushMatrix();
@@ -174,6 +178,9 @@ void drawAxis(GLfloat scale)
   	glPopMatrix();
 }
 
+/**
+ * Changes the GUI to represent which type of Node you want to edit.
+ */
 void changeEditInfo()
 {
 
@@ -218,6 +225,9 @@ void changeEditInfo()
 	}
 }
 
+/**
+ * Edits the current Edit Node with new parameters
+ */
 void editNode()
 {
 	switch(currentEditNodeType)
@@ -262,6 +272,9 @@ void control_cb(int control)
 			#endif
 			drawFaceNormal = !drawFaceNormal;
 			break;
+		case CHECK_FACEVERTEX:
+			useFaceNormal = !useFaceNormal;
+			break;
 		case RADIO_TRANSFORM:
 			#ifdef DEBUG
 			cout << "Transform Type # " << currentTransformType << endl;
@@ -304,13 +317,17 @@ void control_cb(int control)
 			sceneGraph.deleteNode(deleteID);
 			break;
 	}
-
+	#ifdef DEBUG
 	if(!check)
 		cout << "something went wrong" << endl << "control = " << control << endl;
+	#endif
 	
 
 }
 
+/**
+ * Callback for when the mouse is clicked within the viewport
+ */ 
 void mouseButton(int button, int state, int x, int y)
 {
 	if(button == GLUT_LEFT_BUTTON) 
@@ -333,6 +350,9 @@ void mouseButton(int button, int state, int x, int y)
 	}
 }
 
+/**
+ * Callback for when the mouse is moved within the viewport
+ */
 void mouseMotion(int x, int y)
 {
 	if(leftDown)
@@ -364,6 +384,9 @@ void mouseMotion(int x, int y)
 	glutPostRedisplay();
 }
 
+/**
+ * sets up the main window
+ */
 void userInterface()
 {
 	if(glutGetWindow() != mainWindow)
@@ -372,6 +395,10 @@ void userInterface()
 	glutPostRedisplay();
 }
 
+/**
+ * Return to the default settings before traversing through the scene graph again. This way the attributes of the last nodes don't carry on to the first.
+ * I may move this to a default method within the scene graph
+ */
 static void defaultSettings()
 {
 	glLoadIdentity();
@@ -380,6 +407,9 @@ static void defaultSettings()
 	glEnable(GL_LIGHT0);
 }
 
+/**
+ * Display callback which starts the traversal through the scene graph
+ */
 void display() 
 {
 	glClearColor(0.0, 0.0 , 0.0 , 0.0);
@@ -391,6 +421,9 @@ void display()
 	glutSwapBuffers();
 }
 
+/**
+ * Reshape callback which is only called once at the beginning in this program.
+ */
 void reshape(GLint width, GLint height) 
 {
 	windowWidth = width;
@@ -408,6 +441,10 @@ void reshape(GLint width, GLint height)
 	glutPostRedisplay();
 }
 
+/**
+ * Initializes many of the openGL values. Determines which functions are used as callbacks.
+ * Creates the GLUI interface, and starts the main loop.
+ */
 int main(int argc, char **argv) 
 {
 	/*
@@ -459,10 +496,11 @@ static void createGeometryPanel()
 {
 	geometryRoll = new GLUI_Rollout(verticalSubWindow, "Geometry", false);
 	fileEdit = new GLUI_EditText(geometryRoll, ".obj File: ", objFileName);
+	useFaceNormalCheck = new GLUI_Checkbox(geometryRoll, "Use Face Normals", &useFaceNormalInt, CHECK_FACEVERTEX, control_cb);
 	//separate panel to differentiate radio of modes and showing normals
-	GLUI_Panel *normalsPanel = new GLUI_Panel(geometryRoll, "Show Normals");
-	vertexNormalCheck = new GLUI_Checkbox(normalsPanel, "Vertex Normals", &showVertexNormal, CHECK_VERTEXNORMAL, control_cb);
-	faceNormalCheck = new GLUI_Checkbox(normalsPanel, "Face Normals", &showFaceNormal, CHECK_FACENORMAL, control_cb);
+	GLUI_Panel *normalsPanel = new GLUI_Panel(geometryRoll, "Show Normal Lines");
+	vertexNormalCheck = new GLUI_Checkbox(normalsPanel, "Vertex", &showVertexNormal, CHECK_VERTEXNORMAL, control_cb);
+	faceNormalCheck = new GLUI_Checkbox(normalsPanel, "Face", &showFaceNormal, CHECK_FACENORMAL, control_cb);
 	new GLUI_Button(geometryRoll, "Add Geometry Node", ADD_GEOMETRY, control_cb);
 }
 

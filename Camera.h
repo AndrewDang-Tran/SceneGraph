@@ -13,6 +13,9 @@ using namespace std;
 
 #define PI 3.14159265
 
+/**
+ * Encapsulates all of the variables of a typical OpenGL camera
+ */
 class Camera 
 {
 	private:
@@ -36,10 +39,26 @@ class Camera
 
 		void setCamera();
 		void setRadius(const GLfloat r);
-		void setNear(const GLfloat& n) { near = n; }
-		void setFar(const GLfloat& f) { far = f; }
+		void setNear(const GLfloat& n);
+		void setFar(const GLfloat& f);
+
+		/**
+		 * Orbits the camera around the subject position with the current
+		 * radius phi and theta.
+		 * @param theta 
+		 * @param phi
+		 */
 		void rotate(const GLfloat t, const GLfloat p);
+		/**
+		 * Moves the camera closer or farther away from the subject position
+		 * @param zoom amount
+		 */
 		void zoom(const GLfloat zoom);
+		/**
+		 * Pans in the camera's local x,y coordinate system
+		 * @param panX - amount of pan in x plane
+		 * @param panY - amount of pan in y plane
+		 */
 		void pan(const GLfloat panX, const GLfloat panY);
  };
 

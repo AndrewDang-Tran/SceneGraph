@@ -15,7 +15,15 @@ class Face
 
 	public:
 		Face(const int* vertices);
+		/**
+		 * Compute the normal of the face
+		 * @param normal - array of xyz[3] for the direction of the normal
+		 */
 		void setNormal(const GLfloat* n);
+		/**
+		 * Compute the center of the face to draw normal lines on
+		 * @param vertices - the three vertices which make up the face
+		 */
 		void computeCenter(const vector<Vertex>& vertices);
 		void drawNormal() const;
 		GLfloat* getNormal() { return normal; }

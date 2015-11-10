@@ -3,12 +3,18 @@
 
 #include <GL/glut.h>
 
+/**
+ * Could have been a boolean, but I made it a enum to match the other "types"
+ * Determines whether the light is a point light or directional.
+ */
 enum LightType
 {
 	POINT_LIGHT,
 	DIRECTIONAL_LIGHT
 };
-
+/**
+ * Encapsulates all of the variables of a typical OpenGL light
+ */
 class Light
 {
 	private:
@@ -20,6 +26,9 @@ class Light
 		GLfloat specular[4];
 	public:
 		Light(const LightType t, const GLfloat* pos, const GLfloat* spD, const GLfloat* a, const GLfloat* d, const GLfloat* s);
+		/**
+		 * Sets the light in the appropriate location and with the correct ambience, diffuse, and specular values.
+		 */
 		void setLight();
 		void changeLighting(const LightType t, const GLfloat* pos, const GLfloat* spD, const GLfloat* a, const GLfloat* d, const GLfloat* s);
 };

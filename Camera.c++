@@ -25,10 +25,9 @@ void Camera::setLocalDirections()
 	normalizeVector(localY);
 }
 
-void Camera::setRadius(const GLfloat r)
-{
-	radius = r;
-}
+void Camera::setRadius(const GLfloat r) { radius = r; }
+void Camera::setNear(const GLfloat n) { near = n; }
+void Camera::setFar(const GLfloat f) { far = f; }
 
 void Camera::setCamera()
 {

@@ -1,7 +1,7 @@
 #ifndef SCENEGRAPH_H
 #define SCENEGRAPH_H
 
-#include <map> // objectMap nodeMap
+#include <map> // nodeMap
 #include <stdexcept>
 #include "AttributeNode.h"
 #include "CameraNode.h"
@@ -14,7 +14,7 @@
 class SceneGraph
 {
 	private:
-		map<string, Node*> objectMap;
+		map<string, Node*> objectMap; //planning on deleting by name, but didn't end up doing it.
 		map<int, Node*> nodeMap;
 		ObjectNode* root;
 		TrimeshLoader loader;
