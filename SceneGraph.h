@@ -41,8 +41,8 @@ class SceneGraph
 		bool addTransformNode(const int parentID, TransformType type, const GLfloat* args);
 		void editTransformNode(const int nodeID, TransformType t, const GLfloat* newArgs);
 
-		bool addAttributeNode(const int parentID, const Mode mode, const int showFaceNormal, const int showVertexNormal);
-		void editAttributeNode(const int nodeID, const Mode newMode, const int showFN, const int showVN);
+		bool addAttributeNode(const int parentID, const Mode mode);
+		void editAttributeNode(const int nodeID, const Mode newMode);
 
 		bool addLightNode(const int parentID, LightType type, const GLfloat* position, const GLfloat* spotDirection, const GLfloat* ambient, const GLfloat* diffuse, const GLfloat* specular);
 		void editLightNode(const int nodeID, LightType newType, const GLfloat* newPos, const GLfloat* newSpotD, const GLfloat* newAmb, const GLfloat* newDif, const GLfloat* newSpec);

@@ -39,8 +39,8 @@ bool drawFaceNormal = false;
 bool drawVertexNormal = false;
 bool useFaceNormal = true;
 
-GLfloat tempNear = .01;
-GLfloat tempFar = 10;
+GLfloat tempNear = 1;
+GLfloat tempFar = 100;
 
 SceneGraph sceneGraph;
 
@@ -232,7 +232,7 @@ void editNode()
 			sceneGraph.editTransformNode(currentEditNodeID, currentTransformType, xyzTheta);
 			break;
 		case ATTRIBUTE:
-			sceneGraph.editAttributeNode(currentEditNodeID, currentMode, showFaceNormal, showVertexNormal);
+			sceneGraph.editAttributeNode(currentEditNodeID, currentMode);
 			break;
 		case LIGHT:
 			sceneGraph.editLightNode(currentEditNodeID, currentLightType, lightPosXYZ, lightTargetXYZ, ambientRGBI, diffuseRGBI, specularRGBI);
@@ -287,7 +287,7 @@ void control_cb(int control)
 			check = sceneGraph.addTransformNode(addToParentID, currentTransformType, xyzTheta);
 			break;
 		case ADD_ATTRIBUTE:
-			check = sceneGraph.addAttributeNode(addToParentID, currentMode, showFaceNormal, showVertexNormal);
+			check = sceneGraph.addAttributeNode(addToParentID, currentMode);
 			break;
 		case ADD_LIGHT:
 			check = sceneGraph.addLightNode(addToParentID, currentLightType, lightPosXYZ, lightTargetXYZ, ambientRGBI, diffuseRGBI, specularRGBI);
@@ -356,8 +356,8 @@ void mouseMotion(int x, int y)
 	}
 	else if(rightDown)
 	{
-		panX = (x - initialMouseX) / 50;
-		panY = (y - initialMouseY) / 50;
+		panX = (x - initialMouseX) / 500;
+		panY = (y - initialMouseY) / 500;
 		panY = -panY;
 		sceneGraph.cameraPan(panX, panY);
 	}
@@ -459,6 +459,10 @@ static void createGeometryPanel()
 {
 	geometryRoll = new GLUI_Rollout(verticalSubWindow, "Geometry", false);
 	fileEdit = new GLUI_EditText(geometryRoll, ".obj File: ", objFileName);
+	//separate panel to differentiate radio of modes and showing normals
+	GLUI_Panel *normalsPanel = new GLUI_Panel(geometryRoll, "Show Normals");
+	vertexNormalCheck = new GLUI_Checkbox(normalsPanel, "Vertex Normals", &showVertexNormal, CHECK_VERTEXNORMAL, control_cb);
+	faceNormalCheck = new GLUI_Checkbox(normalsPanel, "Face Normals", &showFaceNormal, CHECK_FACENORMAL, control_cb);
 	new GLUI_Button(geometryRoll, "Add Geometry Node", ADD_GEOMETRY, control_cb);
 }
 
@@ -489,10 +493,6 @@ static void createAttributePanel()
 	for(int i = 0; i < 4; ++i)
 		new GLUI_RadioButton(attributeRadio, modeStrings[i].c_str());
 	
-	//separate panel to differentiate radio of modes and showing normals
-	GLUI_Panel *normalsPanel = new GLUI_Panel(attributeRoll, "Show Normals");
-	vertexNormalCheck = new GLUI_Checkbox(normalsPanel, "Vertex Normals", &showVertexNormal, CHECK_VERTEXNORMAL, control_cb);
-	faceNormalCheck = new GLUI_Checkbox(normalsPanel, "Face Normals", &showFaceNormal, CHECK_FACENORMAL, control_cb);
 	new GLUI_Button(attributeRoll, "Add Attribute Node", ADD_ATTRIBUTE, control_cb);
 }
 

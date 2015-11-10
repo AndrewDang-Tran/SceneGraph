@@ -17,12 +17,10 @@ class AttributeNode : public Node
 {
 	private:
 		Mode mode;
-		bool showVertexNormal;
-		bool showFaceNormal;
 	public:
-		AttributeNode(const Mode& m, const int f, const int v);
+		AttributeNode(const Mode m);
 		void execute();
-		void setParameters(const Mode m, const bool showVN, const bool showFN);
+		void setParameters(const Mode m);
 };
 
 #endif

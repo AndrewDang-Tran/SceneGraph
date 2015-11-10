@@ -4,24 +4,13 @@
 #include <iostream>
 #endif
 
-extern bool drawFaceNormal;
-extern bool drawVertexNormal;
-
-AttributeNode::AttributeNode(const Mode& m, const int f, const int v) : mode(m)
+AttributeNode::AttributeNode(const Mode m) : mode(m)
 {
-	showFaceNormal = bool(f);
-	showVertexNormal = bool(v);
 	type = ATTRIBUTE;
 }
 
 void AttributeNode::execute()
 {
-	drawFaceNormal = showFaceNormal;
-	drawVertexNormal = showVertexNormal;
-	#ifdef DEBUG
-	//cout << "AttributeNode::drawFaceNormal = " << drawFaceNormal << endl;
-	//cout << "AttributeNode::drawVertexNormal = " << drawVertexNormal << endl;
-	#endif
 	switch(mode)
 	{
 		case POINT_MODE:
@@ -46,9 +35,7 @@ void AttributeNode::execute()
 	}
 }
 
-void AttributeNode::setParameters(const Mode m, const bool showVN, const bool showFN)
+void AttributeNode::setParameters(const Mode m)
 {
 	mode = m;
-	showVertexNormal = showVN;
-	showFaceNormal = showFN;
 }

@@ -134,7 +134,7 @@ void SceneGraph::editTransformNode(const int nodeID, TransformType t, const GLfl
 	transformNodeP->setParameters(t, newArgs);
 }
 
-bool SceneGraph::addAttributeNode(const int parentID, const Mode mode, const int showFaceNormal, const int showVertexNormal)
+bool SceneGraph::addAttributeNode(const int parentID, const Mode mode)
 {
 	Node* parentNode;
 	try
@@ -145,7 +145,7 @@ bool SceneGraph::addAttributeNode(const int parentID, const Mode mode, const int
 	{
 		return false;
 	}
-	AttributeNode* newAttributeNode = new AttributeNode(mode, showFaceNormal, showVertexNormal);
+	AttributeNode* newAttributeNode = new AttributeNode(mode);
 	parentNode->addChild(newAttributeNode);
 	nodeMap.emplace(newAttributeNode->getID(), newAttributeNode);
 	#ifdef DEBUG
@@ -155,13 +155,13 @@ bool SceneGraph::addAttributeNode(const int parentID, const Mode mode, const int
 	return true;
 }
 
-void SceneGraph::editAttributeNode(const int nodeID, const Mode newMode, const int showFN, const int showVN)
+void SceneGraph::editAttributeNode(const int nodeID, const Mode newMode)
 {
 	Node* nodeP = nodeMap.at(nodeID);
 	if(nodeP->getType() != ATTRIBUTE)
 		return;
 	AttributeNode* attributeNodeP = static_cast<AttributeNode*>(nodeP);
-	attributeNodeP->setParameters(newMode, showFN, showVN);
+	attributeNodeP->setParameters(newMode);
 }
 
 bool SceneGraph::addLightNode(const int parentID, LightType type, const GLfloat* position, const GLfloat* spotDirection, const GLfloat* ambient, const GLfloat* diffuse, const GLfloat* specular)
