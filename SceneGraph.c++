@@ -162,6 +162,8 @@ void SceneGraph::editAttributeNode(const int nodeID, const Mode newMode)
 
 bool SceneGraph::addLightNode(const int parentID, LightType type, const GLfloat* position, const GLfloat* spotDirection, const GLfloat* ambient, const GLfloat* diffuse, const GLfloat* specular)
 {
+	if(lightCount > 7)
+		return false;
 	Node* parentNode;
 	try
 	{
@@ -171,7 +173,7 @@ bool SceneGraph::addLightNode(const int parentID, LightType type, const GLfloat*
 	{
 		return false;
 	}
-	Light newLight(type, position, spotDirection, ambient, diffuse, specular);
+	Light newLight(type, position, spotDirection, ambient, diffuse, specular, lightCount);
 	LightNode* newLightNode = new LightNode(newLight);
 	parentNode->addChild(newLightNode);
 	nodeMap.emplace(newLightNode->getID(), newLightNode);

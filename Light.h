@@ -19,13 +19,14 @@ class Light
 {
 	private:
 		LightType type;
+		int lightNumber;
 		GLfloat position[3];
 		GLfloat spotDirection[3];
 		GLfloat ambient[4];
 		GLfloat diffuse[4];
 		GLfloat specular[4];
 	public:
-		Light(const LightType t, const GLfloat* pos, const GLfloat* spD, const GLfloat* a, const GLfloat* d, const GLfloat* s);
+		Light(const LightType t, const GLfloat* pos, const GLfloat* spD, const GLfloat* a, const GLfloat* d, const GLfloat* s, const int lN);
 		/**
 		 * Sets the light in the appropriate location and with the correct ambience, diffuse, and specular values.
 		 */
