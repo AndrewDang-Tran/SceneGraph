@@ -28,6 +28,7 @@ void Light::setLight()
 			glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
 			if(type == DIRECTIONAL_LIGHT)
 				glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spotDirection);
+			glEnable(GL_LIGHT0);
 			break;
 		case 1:	
 			glLightfv(GL_LIGHT1, GL_POSITION, position);
@@ -36,6 +37,7 @@ void Light::setLight()
 			glLightfv(GL_LIGHT1, GL_SPECULAR, specular);
 			if(type == DIRECTIONAL_LIGHT)
 				glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, spotDirection);
+			glEnable(GL_LIGHT1);
 			break;
 		case 2:
 			glLightfv(GL_LIGHT2, GL_POSITION, position);
@@ -44,6 +46,7 @@ void Light::setLight()
 			glLightfv(GL_LIGHT2, GL_SPECULAR, specular);
 			if(type == DIRECTIONAL_LIGHT)
 				glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, spotDirection);
+			glEnable(GL_LIGHT2);
 			break;
 		case 3:
 			glLightfv(GL_LIGHT3, GL_POSITION, position);
@@ -52,6 +55,7 @@ void Light::setLight()
 			glLightfv(GL_LIGHT3, GL_SPECULAR, specular);
 			if(type == DIRECTIONAL_LIGHT)
 				glLightfv(GL_LIGHT3, GL_SPOT_DIRECTION, spotDirection);
+			glEnable(GL_LIGHT3);
 			break;
 		case 4:
 			glLightfv(GL_LIGHT4, GL_POSITION, position);
@@ -60,6 +64,7 @@ void Light::setLight()
 			glLightfv(GL_LIGHT4, GL_SPECULAR, specular);
 			if(type == DIRECTIONAL_LIGHT)
 				glLightfv(GL_LIGHT4, GL_SPOT_DIRECTION, spotDirection);
+			glEnable(GL_LIGHT4);
 			break;
 		case 5:
 			glLightfv(GL_LIGHT5, GL_POSITION, position);
@@ -68,6 +73,7 @@ void Light::setLight()
 			glLightfv(GL_LIGHT5, GL_SPECULAR, specular);
 			if(type == DIRECTIONAL_LIGHT)
 				glLightfv(GL_LIGHT5, GL_SPOT_DIRECTION, spotDirection);
+			glEnable(GL_LIGHT5);
 			break;
 		case 6:
 			glLightfv(GL_LIGHT6, GL_POSITION, position);
@@ -76,6 +82,7 @@ void Light::setLight()
 			glLightfv(GL_LIGHT6, GL_SPECULAR, specular);
 			if(type == DIRECTIONAL_LIGHT)
 				glLightfv(GL_LIGHT6, GL_SPOT_DIRECTION, spotDirection);
+			glEnable(GL_LIGHT6);
 			break;
 		case 7:
 			glLightfv(GL_LIGHT7, GL_POSITION, position);
@@ -84,6 +91,7 @@ void Light::setLight()
 			glLightfv(GL_LIGHT7, GL_SPECULAR, specular);
 			if(type == DIRECTIONAL_LIGHT)
 				glLightfv(GL_LIGHT7, GL_SPOT_DIRECTION, spotDirection);
+			glEnable(GL_LIGHT7);
 			break;
 	}
 }
