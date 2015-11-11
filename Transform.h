@@ -18,6 +18,9 @@ class Transform
 
 	public:
 		Transform(const TransformType t, const GLfloat* a);
+		/**
+		 * Apply the transform to the matrix.
+		 */ 
 		void apply() const;
 		void changeArguments(const TransformType t, const GLfloat* a);
 };

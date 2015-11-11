@@ -50,7 +50,7 @@ SceneGraph sceneGraph;
  */
 //window variables
 int mainWindow;
-GLUI *horizontalSubWindow, *verticalSubWindow;
+GLUI* verticalSubWindow;
 
 //GLUI minimizable panels / Rollouts
 GLUI_Rollout *objectRoll, *geometryRoll, *transformRoll, *attributeRoll, *lightRoll, *cameraRoll, *editRoll, *deleteRoll;
@@ -469,7 +469,6 @@ int main(int argc, char **argv)
 	/*
 	 * New Glui Code
 	 */
-	horizontalSubWindow = GLUI_Master.create_glui_subwindow(mainWindow, GLUI_SUBWINDOW_BOTTOM);
 	verticalSubWindow = GLUI_Master.create_glui_subwindow(mainWindow, GLUI_SUBWINDOW_RIGHT);
 
 	addToParent = new GLUI_Spinner(verticalSubWindow, "Parent ID", &addToParentID);

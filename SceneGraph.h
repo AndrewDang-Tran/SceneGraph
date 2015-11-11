@@ -14,7 +14,7 @@
 class SceneGraph
 {
 	private:
-		map<string, Node*> objectMap; //planning on deleting by name, but didn't end up doing it.
+		map<string, Node*> objectMap; //planning on deleting by name, but didn't end up doing it yet.
 		map<int, Node*> nodeMap;
 		ObjectNode* root;
 		TrimeshLoader loader;
@@ -31,6 +31,10 @@ class SceneGraph
 	public:
 		SceneGraph();
 		~SceneGraph();
+
+		/**
+		 * Start the traversal of the graph from the root.
+		 */
 		void traversal();
 		bool addObjectNode(const int parentID, string n);
 		void editObjectNode(const int nodeID, const string newName);
@@ -46,7 +50,6 @@ class SceneGraph
 
 		bool addLightNode(const int parentID, LightType type, const GLfloat* position, const GLfloat* spotDirection, const GLfloat* ambient, const GLfloat* diffuse, const GLfloat* specular);
 		void editLightNode(const int nodeID, LightType newType, const GLfloat* newPos, const GLfloat* newSpotD, const GLfloat* newAmb, const GLfloat* newDif, const GLfloat* newSpec);
-
 		bool deleteNode(const int id);
 		void cameraRotate(const GLfloat theta, const GLfloat phi);
 		void cameraZoom(const GLfloat zoom);

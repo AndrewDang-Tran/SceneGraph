@@ -4,6 +4,10 @@
 #include <string> //name
 #include "Node.h"
 
+/**
+ * ObjectNodes serve as a link between other objects, and groups them together
+ * with a name.
+ */
 class ObjectNode : public Node 
 {
 	private:
@@ -11,6 +15,9 @@ class ObjectNode : public Node
 	public:
 		ObjectNode(const string& n = string("World"));
 		const string getName();
+		/**
+		 * Doesn't do anything for ObjectNodes.
+		 */
 		void execute();
 		void setName(const string newName);
 };
