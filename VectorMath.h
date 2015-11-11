@@ -12,7 +12,10 @@
  */
 void vectorSub3d(const GLfloat* minuend, const GLfloat* subtrahend, GLfloat* difference);
 /**
- * Computes cross product of u cross v. 
+ * Computes cross product of u cross v and stores it in result
+ * @param u
+ * @param v
+ * @param result
  */
 void crossProduct(const GLfloat* u, const GLfloat* v, GLfloat* result);
 
