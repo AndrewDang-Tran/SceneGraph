@@ -111,3 +111,41 @@ void Light::changeLighting(const LightType t, const GLfloat* pos, const GLfloat*
 		specular[i] = s[i];
 	}
 }
+
+void Light::disable() const
+{
+	#ifdef DEBUG
+	cout << "Light::disable" << endl;
+	cout << "lightNumber = " << lightNumber << endl;
+	#endif
+	switch(lightNumber)
+	{
+		case 0:
+			glDisable(GL_LIGHT0);
+			break;
+		case 1:
+			glDisable(GL_LIGHT1);
+			#ifdef DEBUG
+			cout << "Disabling light 1" << endl;
+			#endif
+			break;
+		case 2:
+			glDisable(GL_LIGHT2);
+			break;
+		case 3:
+			glDisable(GL_LIGHT3);
+			break;
+		case 4:
+			glDisable(GL_LIGHT4);
+			break;
+		case 5:
+			glDisable(GL_LIGHT5);
+			break;
+		case 6:
+			glDisable(GL_LIGHT6);
+			break;
+		case 7:
+			glDisable(GL_LIGHT7);
+			break;
+	}
+}

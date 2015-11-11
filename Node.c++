@@ -47,8 +47,28 @@ void Node::removeChild(Node* targetChild)
 }
 
 void Node::execute() {}
-const int Node::getID() const { return id; }
-const vector<Node*>& Node::getChildren() const { return children; }
-const NodeType Node::getType() const { return type; }
-const Node* Node::getParent() const { return parent; }
-Node* Node::getParent() { return parent; }
+
+const int Node::getID() const 
+{ 
+	return id; 
+}
+
+const vector<Node*>& Node::getChildren() const 
+{ 
+	return children; 
+}
+
+const NodeType Node::getType() const 
+{ 
+	return type; 
+}
+
+const Node* Node::getParent() const 
+{ 
+	return parent; 
+}
+
+Node* Node::getParent() 
+{ 
+	return parent; 
+}

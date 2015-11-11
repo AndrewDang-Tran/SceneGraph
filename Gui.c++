@@ -160,6 +160,8 @@ bool rightDown = false;
  */
 void drawAxis(GLfloat scale)
 {
+	glDisable(GL_LIGHTING);
+
 	glPushMatrix();
 	glScalef(scale, scale, scale);
 	glBegin(GL_LINES);
@@ -176,6 +178,8 @@ void drawAxis(GLfloat scale)
   	glEnd();
 
   	glPopMatrix();
+
+  	glEnable(GL_LIGHTING);
 }
 
 /**
@@ -404,7 +408,6 @@ static void defaultSettings()
 	glLoadIdentity();
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
 }
 
 /**

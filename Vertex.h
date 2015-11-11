@@ -22,13 +22,13 @@ class Vertex
 		 */
 		void averageNormals();
 		void drawNormal() const;
-		GLfloat* getNormal() { return normal; }
-		const GLfloat* getConstNormal() const { return normal; }
-		const GLfloat* getCoordinates() const { return coordinates; }
+		GLfloat* getNormal();
+		const GLfloat* getConstNormal() const;
+		const GLfloat* getCoordinates() const;
 		/**
 		 * Return the number of faces which is connected to this vertices
 		 */ 
-		const int getNumFaces() const { return numFaces; }
+		const int getNumFaces() const;
 };
 
 #endif

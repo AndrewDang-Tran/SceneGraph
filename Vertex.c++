@@ -43,3 +43,23 @@ void Vertex::drawNormal() const
 	glVertex3fv(coordinates);
 	glVertex3f(coordinates[0] + normal[0], coordinates[1] + normal[1], coordinates[2] + normal[2]);
 }
+
+GLfloat* Vertex::getNormal() 
+{ 
+	return normal; 
+}
+
+const GLfloat* Vertex::getConstNormal() const 
+{ 
+	return normal; 
+}
+
+const GLfloat* Vertex::getCoordinates() const 
+{ 
+	return coordinates; 
+}
+
+const int Vertex::getNumFaces() const 
+{ 
+	return numFaces; 
+}

@@ -232,6 +232,7 @@ bool SceneGraph::deleteNode(const int id)
 	 * May need to change this to make these nodes children have their grandparent as * parent
 	 */
 	deleteGraph(nodeToDelete);
+	glutPostRedisplay();
 	return true;
 }
 
@@ -245,6 +246,17 @@ void SceneGraph::deleteGraph(const Node* nodeToDelete)
 {
 	if(!nodeToDelete)
 		return;
+
+	if(nodeToDelete->getType() == LIGHT)
+	{
+		const LightNode* lightNodeToDelete = static_cast<const LightNode*>(nodeToDelete);
+		#ifdef DEBUG
+		cout << "inside light disable SceneGraph::deleteGraph" << endl;
+		#endif
+		lightNodeToDelete->disableLight();
+		--lightCount;
+	}
+
 	const vector<Node*>& childrenToDelete = nodeToDelete->getChildren();
 	#ifdef DEBUG
 	cout << "childrenToDelete: " << &childrenToDelete << endl;

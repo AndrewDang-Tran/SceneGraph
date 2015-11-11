@@ -3,6 +3,13 @@
 
 #include <GL/glut.h>
 
+#define DEBUG
+
+#ifdef DEBUG
+#include <iostream>
+using namespace std;
+#endif
+
 /**
  * Could have been a boolean, but I made it a enum to match the other "types"
  * Determines whether the light is a point light or directional.
@@ -32,6 +39,7 @@ class Light
 		 */
 		void setLight();
 		void changeLighting(const LightType t, const GLfloat* pos, const GLfloat* spD, const GLfloat* a, const GLfloat* d, const GLfloat* s);
+		void disable() const;
 };
 
 #endif
