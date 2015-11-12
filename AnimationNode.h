@@ -12,7 +12,6 @@ class AnimationNode : public Node
 {
 	private:
 		Transform transform;
-		//time_t currentTime;
 		clock_t currentTime;
 		int cycleTime;
 	public:

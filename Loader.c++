@@ -54,7 +54,6 @@ void TrimeshLoader::loadOBJ(const char * objfile, Trimesh * pmesh)
 		}
 	}
 	ifs.close();
-	pmesh->setSize();
 	pmesh->calculateNormals();
 }
 

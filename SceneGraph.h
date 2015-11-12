@@ -1,8 +1,8 @@
 #ifndef SCENEGRAPH_H
 #define SCENEGRAPH_H
 
-#include <map> // nodeMap
-#include <stdexcept>
+#include <map> // nodeMap, objectMap
+#include <stdexcept> //std::out_of_range
 #include "AttributeNode.h"
 #include "CameraNode.h"
 #include "GeomNode.h"
