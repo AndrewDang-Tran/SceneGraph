@@ -5,10 +5,10 @@
 
 enum Mode
 {
-	POINT_MODE = 0,
-	WIREFRAME_MODE,
-	SOLID_MODE,
-	SHADED_MODE,
+	POINT_MODE = 0, //Only render the vertexes
+	WIREFRAME_MODE, //Render the triangles
+	SOLID_MODE,		//Render the whole object with no shading
+	SHADED_MODE,	//Render whole object with shading
 };
 
 /**
