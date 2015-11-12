@@ -21,7 +21,7 @@ class Transform
 	public:
 		Transform(const TransformType t, const GLfloat* a);
 		/**
-		 * Apply the transform to the matrix.
+		 * Apply the transform to the OpenGL matrix.
 		 */ 
 		void apply(const bool anime = false) const;
 		void changeArguments(const TransformType t, const GLfloat* a);

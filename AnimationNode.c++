@@ -9,7 +9,6 @@ AnimationNode::AnimationNode(const Transform& t, int cT) : transform(t), cycleTi
 
 void AnimationNode::execute()
 {
-	//time(&currentTime);
 	currentTime = clock();
 	int currentTimeInt = static_cast<int>(currentTime);
 	transform.interpolate(cycleTime, currentTimeInt);

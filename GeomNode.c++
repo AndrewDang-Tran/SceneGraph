@@ -21,11 +21,6 @@ void GeomNode::execute()
 	glBegin(GL_LINES);
 		mesh.renderNormals(drawFaceNormal, drawVertexNormal);
 	glEnd();
-
-	glutPostRedisplay();
-	#ifdef DEBUG
-	//cout << "Displaying geometry" << endl;
-	#endif
 }
 
 void GeomNode::setParameters(TrimeshLoader& loader, const string newObjFile, const bool drawFN, const bool drawVN, const bool useFN)

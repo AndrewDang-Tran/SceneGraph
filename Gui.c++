@@ -158,7 +158,8 @@ bool middleDown = false;
 bool rightDown = false;
 
 /**
- * Simply draws the xyz axis for reference
+ * Draws the xyz axis for reference
+ * This code was taken from example 5 of GLUI
  */
 void drawAxis(GLfloat scale)
 {

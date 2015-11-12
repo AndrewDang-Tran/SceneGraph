@@ -26,8 +26,8 @@ class Face
 		 */
 		void computeCenter(const vector<Vertex>& vertices);
 		void drawNormal() const;
-		GLfloat* getNormal() { return normal; }
-		int* getTriangleIndex() { return triangleIndex; }
+		GLfloat* getNormal();
+		int* getTriangleIndex();
 };
 
 #endif

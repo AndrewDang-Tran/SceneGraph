@@ -15,7 +15,7 @@ void Trimesh::addFace(int* cornerIndexes)
 
 void Trimesh::calculateNormals()
 {
-	//saveNormal[0] = x, saveNormal[1] = y, newNoraml[2] = z DIRECTON
+	//saveNormal[0] = x, saveNormal[1] = y, newNormal[2] = z DIRECTON
 	GLfloat saveNormal[3];
 	list<Face>::iterator b = faces.begin();
 	list<Face>::iterator e = faces.end();

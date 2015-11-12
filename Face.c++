@@ -43,3 +43,14 @@ void Face::drawNormal() const
 	glVertex3fv(centerCoordinates);
 	glVertex3f(centerCoordinates[0] + normal[0], centerCoordinates[1] + normal[1], centerCoordinates[2] + normal[2]);
 }
+
+GLfloat* Face::getNormal() 
+{ 
+	return normal; 
+}
+
+int* Face::getTriangleIndex() 
+{ 
+	return triangleIndex; 
+}
+

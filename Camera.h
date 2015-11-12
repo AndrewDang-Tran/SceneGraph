@@ -6,6 +6,7 @@
 #include <GL/glut.h> //GLfloat
 #include <cmath> //sin(), cos()
 #include "VectorMath.h" //vectorSub3d(), normalize()
+
 #ifdef DEBUG
 #include <iostream>
 using namespace std;
