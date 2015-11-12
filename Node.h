@@ -13,6 +13,7 @@ enum NodeType
 	OBJECT,
 	GEOM,
 	TRANSFORM,
+	ANIMATION,
 	ATTRIBUTE,
 	LIGHT,
 	CAMERA,
@@ -43,6 +44,7 @@ class Node
 		/**
 		 * Traverses through the scene graph starting from the calling node.
 		 * Calls execute on each node it passes.
+		 * Makes sure to push and pop the correct matrixes so not everything is effected by every transform.
 		 */
 		void traverseChildren();
 		const Node* getParent() const;

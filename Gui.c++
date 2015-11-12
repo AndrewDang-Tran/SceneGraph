@@ -6,16 +6,18 @@
 #define ADD_OBJECT 100
 #define ADD_GEOMETRY 101
 #define ADD_TRANSFORM 102
-#define ADD_ATTRIBUTE 103
-#define ADD_LIGHT 104
-#define ADD_CAMERA 105
-#define GET_NODE 106
-#define EDIT_NODE 107
-#define DELETE_NODE 108
+#define ADD_ANIMATION 103
+#define ADD_ATTRIBUTE 104
+#define ADD_LIGHT 105
+#define ADD_CAMERA 106
+#define GET_NODE 107
+#define EDIT_NODE 108
+#define DELETE_NODE 109
 
 #define RADIO_TRANSFORM 201
 #define RADIO_ATTRIBUTE 202
 #define RADIO_LIGHTTYPE 203
+#define RADIO_ANIMATION 204
 
 #define CHECK_VERTEXNORMAL 301
 #define CHECK_FACENORMAL 302
@@ -27,6 +29,7 @@
 static void createObjectPanel();
 static void createGeometryPanel();
 static void createTransformPanel();
+static void createAnimationPanel();
 static void createAttributePanel();
 static void createLightPanel();
 static void createCameraPanel();
@@ -53,16 +56,7 @@ int mainWindow;
 GLUI* verticalSubWindow;
 
 //GLUI minimizable panels / Rollouts
-GLUI_Rollout *objectRoll, *geometryRoll, *transformRoll, *attributeRoll, *lightRoll, *cameraRoll, *editRoll, *deleteRoll;
-
-/**
- * 0 - object
- * 1 - geometry
- * 2 - transform
- * 3 - attribute
- * 4 - light
- */
-
+GLUI_Rollout *objectRoll, *geometryRoll, *transformRoll, *animationRoll, *attributeRoll, *lightRoll, *cameraRoll, *editRoll, *deleteRoll;
 
 //object rollout variables
 GLUI_EditText* nameEdit;
@@ -70,7 +64,7 @@ string objectName = "Name me";
 
 //geometry rollout variables
 GLUI_EditText* fileEdit;
-string objFileName = "sphere.obj";
+string objFileName = "sphere";
 GLUI_Checkbox *vertexNormalCheck, *faceNormalCheck, *useFaceNormalCheck; 
 int showVertexNormal, showFaceNormal, useFaceNormalInt;
 
@@ -79,6 +73,14 @@ GLUI_RadioGroup* transformRadio;
 TransformType currentTransformType = TRANSLATE;
 GLUI_Spinner* spinXYZT[4];
 GLfloat xyzTheta[4];
+
+//Animation rollout variables
+GLUI_RadioGroup* animationRadio;
+TransformType currentAnimationTransformType = ROTATE;
+GLUI_Spinner* animationSpinXYZT[4];
+GLfloat animationXYZTheta[4];
+GLUI_Spinner* spinCycleTime;
+int cycleTime = 5;
 
 //Attribute rollout variables
 GLUI_RadioGroup* attributeRadio;
@@ -191,6 +193,7 @@ void changeEditInfo()
 	objectRoll->close();
 	geometryRoll->close();
 	transformRoll->close();
+	animationRoll->close();
 	attributeRoll->close();
 	lightRoll->close();
 	
@@ -218,6 +221,13 @@ void changeEditInfo()
 			transformRoll->open();
 			editType->set_text("Type: Transform");
 			break;
+		case ANIMATION:
+			#ifdef DEBUG
+			cout << "entered changeEditInfo - ANIMATION" << endl;
+			#endif
+			animationRoll->open();
+			editType->set_text("Type: Animation");
+			break;
 		case ATTRIBUTE:
 			attributeRoll->open();
 			editType->set_text("Type: Attribute");
@@ -244,6 +254,9 @@ void editNode()
 			break;
 		case TRANSFORM:
 			sceneGraph.editTransformNode(currentEditNodeID, currentTransformType, xyzTheta);
+			break;
+		case ANIMATION:
+			sceneGraph.editAnimationNode(currentEditNodeID, currentAnimationTransformType, animationXYZTheta, cycleTime);
 			break;
 		case ATTRIBUTE:
 			sceneGraph.editAttributeNode(currentEditNodeID, currentMode);
@@ -302,6 +315,9 @@ void control_cb(int control)
 			break;
 		case ADD_TRANSFORM:
 			check = sceneGraph.addTransformNode(addToParentID, currentTransformType, xyzTheta);
+			break;
+		case ADD_ANIMATION:
+			check = sceneGraph.addAnimationNode(addToParentID, currentAnimationTransformType, animationXYZTheta, cycleTime);
 			break;
 		case ADD_ATTRIBUTE:
 			check = sceneGraph.addAttributeNode(addToParentID, currentMode);
@@ -405,7 +421,7 @@ void userInterface()
  */
 static void defaultSettings()
 {
-	glLoadIdentity();
+	//glLoadIdentity();
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnable(GL_LIGHTING);
 }
@@ -478,6 +494,7 @@ int main(int argc, char **argv)
 	createObjectPanel();
 	createGeometryPanel();
 	createTransformPanel();
+	createAnimationPanel();
 	createAttributePanel();
 	createLightPanel();
 	//createCameraPanel();
@@ -525,6 +542,26 @@ static void createTransformPanel()
 		spinXYZT[i]->set_alignment(GLUI_ALIGN_RIGHT);
 	}
 	new GLUI_Button(transformRoll, "Add Transform Node", ADD_TRANSFORM, control_cb);
+}
+
+static void createAnimationPanel()
+{
+	animationRoll = new GLUI_Rollout(verticalSubWindow, "Animation", false);
+	animationRadio = new GLUI_RadioGroup(animationRoll, (int*) &currentAnimationTransformType, RADIO_ANIMATION, control_cb);
+	string transformTypeStrings[3] = {"Translate", "Scale", "Rotate"};
+	for(int i = 0; i < 3; ++i)
+		new GLUI_RadioButton(animationRadio, transformTypeStrings[i].c_str());
+	//Spinners for x, y, z and theta arguments
+	string xyztString[4] = {"X: ", "Y: ", "Z: ", "Theta: "};
+	for(int i = 0; i < 4; ++i)
+	{
+		animationSpinXYZT[i] = new GLUI_Spinner(animationRoll, xyztString[i].c_str(), &animationXYZTheta[i]);
+		animationSpinXYZT[i]->set_float_limits(-TRANSLATE_LIMIT, TRANSLATE_LIMIT);
+		animationSpinXYZT[i]->set_alignment(GLUI_ALIGN_RIGHT);
+	}
+	spinCycleTime = new GLUI_Spinner(animationRoll, "Cycle Time: ", &cycleTime);
+	spinCycleTime->set_alignment(GLUI_ALIGN_RIGHT);
+	new GLUI_Button(animationRoll, "Add Animation Node", ADD_ANIMATION, control_cb);
 }
 
 static void createAttributePanel()

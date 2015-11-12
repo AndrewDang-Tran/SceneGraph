@@ -1,4 +1,5 @@
 #include "SceneGraph.h"
+#define SCALE_TIME 850000
 
 int SceneGraph::debugNodeCounter = 0;
 
@@ -69,7 +70,7 @@ void SceneGraph::editObjectNode(const int nodeID, const string newName)
 	objectNodeP->setName(newName);
 }
 
-bool SceneGraph::addGeomNode(const int parentID, const string fileName, const bool drawFN, const bool drawVN, const bool useFN)
+bool SceneGraph::addGeomNode(const int parentID, string& fileName, const bool drawFN, const bool drawVN, const bool useFN)
 {
 	Node* parentNode;
 	try
@@ -80,6 +81,10 @@ bool SceneGraph::addGeomNode(const int parentID, const string fileName, const bo
 	{
 		return false;
 	}
+
+	if(fileName.find(".obj") == string::npos)
+		fileName = fileName + ".obj";
+
 	Node* newGeomNode = new GeomNode(loader, fileName, drawFN, drawVN, useFN);
 	parentNode->addChild(newGeomNode);
 	nodeMap.emplace(newGeomNode->getID(), newGeomNode);
@@ -90,16 +95,18 @@ bool SceneGraph::addGeomNode(const int parentID, const string fileName, const bo
 	return true;
 }
 
-void SceneGraph::editGeomNode(const int nodeID, const string newFileName, const bool drawFN, const bool drawVN, const bool useFN)
+void SceneGraph::editGeomNode(const int nodeID, string& newFileName, const bool drawFN, const bool drawVN, const bool useFN)
 {
 	Node* nodeP = nodeMap.at(nodeID);
 	if(nodeP->getType() != GEOM)
 		return;
 	GeomNode* geomNodeP = static_cast<GeomNode*>(nodeP);
+	if(newFileName.find(".obj") == string::npos)
+		newFileName = newFileName + ".obj";
 	geomNodeP->setParameters(loader, newFileName, drawFN, drawVN, useFN);
 }
 
-bool SceneGraph::addTransformNode(const int parentID, TransformType type, const GLfloat* args)
+bool SceneGraph::addTransformNode(const int parentID, const TransformType type, const GLfloat* args)
 {
 	Node* parentNode;
 	try
@@ -121,13 +128,46 @@ bool SceneGraph::addTransformNode(const int parentID, TransformType type, const 
 	return true;
 }
 
-void SceneGraph::editTransformNode(const int nodeID, TransformType t, const GLfloat* newArgs)
+void SceneGraph::editTransformNode(const int nodeID, const TransformType t, const GLfloat* newArgs)
 {
 	Node* nodeP = nodeMap.at(nodeID);
 	if(nodeP->getType() != TRANSFORM)
 		return;
 	TransformNode* transformNodeP = static_cast<TransformNode*>(nodeP);
 	transformNodeP->setParameters(t, newArgs);
+}
+
+bool SceneGraph::addAnimationNode(const int parentID, const TransformType type, const GLfloat* args, int cycleTime)
+{
+	Node* parentNode;
+	try
+	{
+		parentNode = nodeMap.at(parentID);
+	}
+	catch(const out_of_range& oor)
+	{
+		return false;
+	}
+	Transform newTransform(type, args);
+	cycleTime = cycleTime * SCALE_TIME;
+	Node* newAnimationNode = new AnimationNode(newTransform, cycleTime);
+	parentNode->addChild(newAnimationNode);
+	nodeMap.emplace(newAnimationNode->getID(), newAnimationNode);
+	#ifdef DEBUG
+	cout << "New AnimationNode with ID: " << newAnimationNode->getID() << endl;
+	cout << "Address of new Node: " << newAnimationNode << endl;
+	#endif
+	return true;
+}
+
+void SceneGraph::editAnimationNode(const int nodeID, const TransformType t, const GLfloat* newArgs, int newCycleTime)
+{
+	Node* nodeP = nodeMap.at(nodeID);
+	if(nodeP->getType() != ANIMATION)
+		return;
+	AnimationNode* animationNodeP = static_cast<AnimationNode*>(nodeP);
+	newCycleTime = newCycleTime * SCALE_TIME;
+	animationNodeP->setParameters(t, newArgs, newCycleTime);
 }
 
 bool SceneGraph::addAttributeNode(const int parentID, const Mode mode)

@@ -37,6 +37,6 @@ void AttributeNode::execute()
 
 void AttributeNode::setParameters(const Mode m) 
 { 
-	mode = m; 
+	mode = m;
 }
 

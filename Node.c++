@@ -20,14 +20,14 @@ void Node::addChild(Node* child)
 
 void Node::traverseChildren()
 {
-	if(type == TRANSFORM || type == GEOM)
+	if(type == TRANSFORM || type == ANIMATION || type == GEOM)
 		glPushMatrix();
 
 	execute();
 	for(int i = 0; i < children.size(); ++i)
 		children.at(i)->traverseChildren();
 
-	if(type == TRANSFORM || type == GEOM)
+	if(type == TRANSFORM || type == ANIMATION || type == GEOM)
 		glPopMatrix();
 }
 
