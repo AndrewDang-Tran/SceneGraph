@@ -11,9 +11,13 @@ GLUT = -lGL -lGLU -lglut -lpthread
 GLUI = -L./glui-2.36/src/lib -lglui
 LIBS = $(STRINGFIX) $(GLUT) $(GLUI)
 
-test: $(FILES)
-	$(CXX) $(CXXFILES) -o test $(LIBS) > test.txt 2>&1
-	./test
+nothing: $(FILES)
+	$(CXX) $(CXXFILES) -o scene $(LIBS) > test.txt 2>&1
+	./scene
+
+example: $(FILES)
+	$(CXX) $(CXXFILES) -o scene $(LIBS) > test.txt 2>&1
+	./scene example
 
 clean:
 	rm test test.txt

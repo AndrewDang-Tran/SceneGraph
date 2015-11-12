@@ -13,6 +13,16 @@ Dependencies
 -GLUT
 -GLUI (The library is within my files, and the computer doesn't require the lib)
 
+*****************
+* MAKE COMMANDS *
+*****************
+make nothing
+-Creates a scene graph with only the basic nodes of a default scene graph
+	*read below for what that is*
+
+make example
+-Creates a scene graph populated with nodes which show most of the features
+
 ******************
 * TYPES OF NODES *
 ******************
@@ -99,7 +109,15 @@ The user interface is a bit convoluted due to the constricted nature of the GLUI
 library, but it is quite easy to use once the basic ideas are understood. 
 
 Rules
-- Each Node has a number identifier starting with
+- Before adding anything else to the scene graph it will look like this.
+
+								ROOT 0
+								/	\
+							   /	 \
+							  / 	  \
+						Camera 1	Light 2	
+
+- Each Node has a number identifier starting with a basic Scene Graph
 	Root - 0
 	Camera - 1
 	First Light - 2
@@ -117,20 +135,10 @@ Rules
 	tries to edit a node, and it they put in the wrong ID it just won't do
 	anything.
 
-- Before adding anything else to the scene graph it will look like this.
-
-
-								ROOT 0
-								/	\
-							   /	 \
-							  / 	  \
-						Camera 1	Light 2	
-
-
 Adding a Node
-1) At the top right, choose the id of the node which you want to be the parent
-2) Set the key parameters for the node you wish to add.
-3) Click add node!
+1) At the top right, choose the ID of the node which you want to be the parent
+2) Set the key parameters for the type of node you wish to add.
+3) Click add node for that node type.
 
 Editing a Node
 1) Under the edit node rollout, select which Node ID one wants to edit
@@ -144,3 +152,10 @@ Deleting a Node
 1) Under the Delete Node rollout select a node ID you wish to delete
 2) Click delete - That node, and all of its children will be removed from the
 					Scene graph.
+
+***************
+* EXTRA NOTES *
+***************
+
+- There will be some useful information in the console. Namely node IDs and 
+	information on whether some actions succeeded.

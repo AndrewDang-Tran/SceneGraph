@@ -25,7 +25,7 @@ SceneGraph::SceneGraph()
 	const GLfloat dif[4] = {1.0, 1.0, 1.0, 1.0};
 	const GLfloat spec[4] = {1.0, 1.0, 1.0, 1.0};
 	addLightNode(0, POINT_LIGHT, lightPosition, lightDirection, amb, dif, spec);
-
+	
 	++camCount;
 	camera->execute();
 }
@@ -316,7 +316,15 @@ bool SceneGraph::deleteNode(const int id)
 	if(id == 0 || id == 1)
 		return false;
 	
-	Node* nodeToDelete = nodeMap.at(id);
+	Node* nodeToDelete;
+	try
+	{
+		nodeToDelete = nodeMap.at(id);
+	}
+	catch(const out_of_range& oor)
+	{
+		return false;
+	}
 	nodeMap.erase(id);
 	Node* parentNode = nodeToDelete->getParent();
 	parentNode->removeChild(nodeToDelete);
