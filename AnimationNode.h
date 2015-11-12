@@ -18,7 +18,7 @@ class AnimationNode : public Node
 		AnimationNode(const Transform& t, int cT);
 		/**
 		 * Interpolates the transform according to the current clock time.
-		 * Then adds the transform to the current matrix.
+		 * Then multiplies the transform to the current matrix.
 		 */
 		void execute();
 		void setParameters(const TransformType, const GLfloat* a, const int cT);

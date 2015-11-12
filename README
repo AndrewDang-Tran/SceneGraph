@@ -1,0 +1,146 @@
+Scene Graph + User Interface to change the Scene Graph
+@author Andrew Dang-Tran
+@date November 12 2015
+
+***************
+* DESCRIPTION *
+***************
+Render a Scene Graph using a graphical user interface to add, remove, and edit 
+nodes. The Scene Graph will use a depth first traversal to traverse the graph
+and render the scene.
+
+Dependencies
+-GLUT
+-GLUI (The library is within my files, and the computer doesn't require the lib)
+
+******************
+* TYPES OF NODES *
+******************
+Animation - Animates all of it's childen by linearly interpolating a transform
+			over a period of time. At the end of the cycle time, the animation
+			will repeat from its original starting point. One can animate in
+			three ways.
+
+			1) TRANSLATE
+			2) SCALE
+			3) ROTATE
+
+			When Traversed - Applies the appropriate transform for the animation.
+
+Attribute - All of this node's children will be effected by the attributes
+			in this node. Attribute Nodes come in 4 different types. 
+
+			1) POINT - Only show the vertexes
+			2) WIREFRAME - Show the triangle mesh
+			3) SOLID - Show the solid object without any shading
+			4) SHADED - Show the solid object with shading
+
+			When Traversed - Changes to the appropriate mode for rendering.
+
+Camera	  -	There is only one camera node per scene graph, and it cannot have 
+			children. This camera contains information about its position, the
+			coordinates of where it is looking, and its own local directions. 
+			This information cannot be directly edited by the user, but the 
+			camera can zoom, rotate, and pan.
+
+			It isn't directly a part of the Scene Graph, but I also implemented
+			interactive camera controls with the mouse within my GUI.
+
+			Left Click + drag - Orbit the camera around the camera's point of
+								interest. To avoid gimbal lock I limit the 
+								camera from orbiting to the very top or bottom
+								of the object.
+
+			Middle Click + drag up / down - Zoom the camera in and out. The
+											camera will invert when it goes past
+											its point of interest.
+
+			Right Click + drag - Pan the camera in its local x and y directions.
+								Panning the camera will move its point of 
+								interest a long with the camera.
+
+			When Traversed - Sets the camera to the correct location.
+
+Geometry - 	These nodes are the ones that actually contain information about the
+			triangle mesh. They require a .obj file input, which is then parsed,
+			by the TrimeshLoader. This node also has options to use the face 
+			normals for shading or draw lines for face/vertex normals. 
+
+			When Traversed - Renders the object with the appropriate options.
+
+Light	 - 	Up to 8 lights can be created, and these nodes cannot have children.
+			The light contains information about its position, ambience, 
+			diffuse, and specular values. Lights can be point lights or 
+			directional. They can be inserted anywhere in the graph, but unlike
+			geomtry nodes, they will not be affected by the transforms in the 
+			graph.
+
+			When Traversed - Sets the light parameters and enables it.
+
+Object 	 - 	Object Nodes don't serve much purpose other than linking other nodes
+			together. I added a name to them so one can categorize their nodes
+			more easily.
+
+			When Traversed - Doesn't do anything.
+
+Transform - Transform nodes are used to move the object within the scene graph, 
+			and are of three forms.
+
+			1) TRANSLATE
+			2) SCALE
+			3) ROTATE
+
+			When Traversed - Applies the transform to the model view matrix.
+
+*****************
+* USING THE GUI *
+*****************
+The user interface is a bit convoluted due to the constricted nature of the GLUI
+library, but it is quite easy to use once the basic ideas are understood. 
+
+Rules
+- Each Node has a number identifier starting with
+	Root - 0
+	Camera - 1
+	First Light - 2
+
+- As one adds more nodes, the counter will continually go up, and when a node is
+	removed that ID # is forever lost.
+
+- When deleting a node, it also deletes all of its children.
+	Cannot delete the root or camera node.
+
+- For the Scene Graph to render, there must be at least one Object, Camera, and
+	light node.
+
+- Every Node is editable except the root "world" node and the camera. If one 
+	tries to edit a node, and it they put in the wrong ID it just won't do
+	anything.
+
+- Before adding anything else to the scene graph it will look like this.
+
+
+								ROOT 0
+								/	\
+							   /	 \
+							  / 	  \
+						Camera 1	Light 2	
+
+
+Adding a Node
+1) At the top right, choose the id of the node which you want to be the parent
+2) Set the key parameters for the node you wish to add.
+3) Click add node!
+
+Editing a Node
+1) Under the edit node rollout, select which Node ID one wants to edit
+	and click get ID.
+2) The information of which ID / Type of the node will be showcased.
+	The correct rollout will also be opened.
+3) In the rollout for that node type adjust the key parameters
+4) Click edit node, and the node will be changed with the new values.
+
+Deleting a Node
+1) Under the Delete Node rollout select a node ID you wish to delete
+2) Click delete - That node, and all of its children will be removed from the
+					Scene graph.

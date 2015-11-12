@@ -15,9 +15,17 @@ SceneGraph::SceneGraph()
 	cout << "Root Name: " << root->getName() << endl;
 	cout << "Root ID: " << root->getID() << endl;
 	#endif
-	const GLfloat position[3] = {0.0, 0.0, 5.0};
+	const GLfloat cameraPosition[3] = {0.0, 0.0, 5.0};
 	const GLfloat subjectPosition[3] = {0.0, 0.0, 0.0};
-	camera = addCameraNode(0, position, subjectPosition, 1.0, 100.0, 45.0, 45.0, 5.0);
+	camera = addCameraNode(0, cameraPosition, subjectPosition, 1.0, 100.0, 45.0, 45.0, 5.0);
+
+	const GLfloat lightPosition[3] = {1.0, 1.0, 1.0};
+	const GLfloat lightDirection[3] = {0.0, 0.0, 0.0};
+	const GLfloat amb[4] = {0.0, 0.0, 0.0, 1.0};
+	const GLfloat dif[4] = {1.0, 1.0, 1.0, 1.0};
+	const GLfloat spec[4] = {1.0, 1.0, 1.0, 1.0};
+	addLightNode(0, POINT_LIGHT, lightPosition, lightDirection, amb, dif, spec);
+
 	++camCount;
 	camera->execute();
 }
@@ -62,8 +70,16 @@ bool SceneGraph::addObjectNode(const int parentID, string n)
 }
 
 void SceneGraph::editObjectNode(const int nodeID, const string newName)
-{
-	Node* nodeP = nodeMap.at(nodeID);
+{	
+	Node* nodeP;
+	try
+	{
+		nodeP = nodeMap.at(nodeID);
+	}
+	catch(const out_of_range& oor)
+	{
+		return;
+	}
 	if(nodeP->getType() != OBJECT)
 		return;
 	ObjectNode* objectNodeP = static_cast<ObjectNode*>(nodeP);
@@ -96,8 +112,16 @@ bool SceneGraph::addGeomNode(const int parentID, string& fileName, const bool dr
 }
 
 void SceneGraph::editGeomNode(const int nodeID, string& newFileName, const bool drawFN, const bool drawVN, const bool useFN)
-{
-	Node* nodeP = nodeMap.at(nodeID);
+{	
+	Node* nodeP;
+	try
+	{
+		nodeP = nodeMap.at(nodeID);
+	}
+	catch(const out_of_range& oor)
+	{
+		return;
+	}
 	if(nodeP->getType() != GEOM)
 		return;
 	GeomNode* geomNodeP = static_cast<GeomNode*>(nodeP);
@@ -130,7 +154,15 @@ bool SceneGraph::addTransformNode(const int parentID, const TransformType type, 
 
 void SceneGraph::editTransformNode(const int nodeID, const TransformType t, const GLfloat* newArgs)
 {
-	Node* nodeP = nodeMap.at(nodeID);
+	Node* nodeP;
+	try
+	{
+		nodeP = nodeMap.at(nodeID);
+	}
+	catch(const out_of_range& oor)
+	{
+		return;
+	}
 	if(nodeP->getType() != TRANSFORM)
 		return;
 	TransformNode* transformNodeP = static_cast<TransformNode*>(nodeP);
@@ -162,7 +194,15 @@ bool SceneGraph::addAnimationNode(const int parentID, const TransformType type, 
 
 void SceneGraph::editAnimationNode(const int nodeID, const TransformType t, const GLfloat* newArgs, int newCycleTime)
 {
-	Node* nodeP = nodeMap.at(nodeID);
+	Node* nodeP;
+	try
+	{
+		nodeP = nodeMap.at(nodeID);
+	}
+	catch(const out_of_range& oor)
+	{
+		return;
+	}
 	if(nodeP->getType() != ANIMATION)
 		return;
 	AnimationNode* animationNodeP = static_cast<AnimationNode*>(nodeP);
@@ -193,7 +233,15 @@ bool SceneGraph::addAttributeNode(const int parentID, const Mode mode)
 
 void SceneGraph::editAttributeNode(const int nodeID, const Mode newMode)
 {
-	Node* nodeP = nodeMap.at(nodeID);
+	Node* nodeP;
+	try
+	{
+		nodeP = nodeMap.at(nodeID);
+	}
+	catch(const out_of_range& oor)
+	{
+		return;
+	}
 	if(nodeP->getType() != ATTRIBUTE)
 		return;
 	AttributeNode* attributeNodeP = static_cast<AttributeNode*>(nodeP);
@@ -226,7 +274,15 @@ bool SceneGraph::addLightNode(const int parentID, LightType type, const GLfloat*
 }
 void SceneGraph::editLightNode(const int nodeID, LightType newType, const GLfloat* newPos, const GLfloat* newSpotD, const GLfloat* newAmb, const GLfloat* newDif, const GLfloat* newSpec)
 {
-	Node* nodeP = nodeMap.at(nodeID);
+	Node* nodeP;
+	try
+	{
+		nodeP = nodeMap.at(nodeID);
+	}
+	catch(const out_of_range& oor)
+	{
+		return;
+	}
 	if(nodeP->getType() != LIGHT)
 		return;
 	LightNode* lightNodeP = static_cast<LightNode*>(nodeP);

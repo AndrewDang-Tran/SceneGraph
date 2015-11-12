@@ -31,10 +31,6 @@ void Camera::setFar(const GLfloat f) { far = f; }
 
 void Camera::setCamera()
 {
-	#ifdef DEBUG
-	//cout << "Setting Camera" << endl;
-	#endif
-
 	GLfloat rTheta = theta * PI / 180;
 	GLfloat rPhi = phi * PI / 180;
 	position[0] = subjectPosition[0] + radius * sin(rPhi) * sin(rTheta);
@@ -42,14 +38,6 @@ void Camera::setCamera()
 	position[2] = subjectPosition[2] + radius * sin(rPhi) * cos(rTheta);
 
 	setLocalDirections();
-
-	//#ifdef DEBUG
-	/*for(int i = 0; i < 3; ++i)
-	{
-		cout << "position[" << i << "] " << position[0] << endl;
-		cout << "subjectPosition[" << i << "] " << subjectPosition[0] << endl;
-	}*/
-	//#endif
 
 	glLoadIdentity();
 	gluLookAt(position[0], position[1], position[2], subjectPosition[0], subjectPosition[1], subjectPosition[2], 0, 1, 0);

@@ -6,7 +6,7 @@
 
 AttributeNode::AttributeNode(const Mode m) : mode(m) 
 { 
-	type = ATTRIBUTE; 
+	type = ATTRIBUTE;
 }
 
 void AttributeNode::execute()
