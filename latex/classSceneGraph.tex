@@ -1,0 +1,386 @@
+\hypertarget{classSceneGraph}{\section{Scene\-Graph Class Reference}
+\label{classSceneGraph}\index{Scene\-Graph@{Scene\-Graph}}
+}
+
+
+{\ttfamily \#include $<$Scene\-Graph.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classSceneGraph_a10cb00465716a38ceff196f9ee220620}{Scene\-Graph} ()
+\item 
+\hyperlink{classSceneGraph_a4f7164675d0787d1ab73dea9da097db7}{$\sim$\-Scene\-Graph} ()
+\item 
+void \hyperlink{classSceneGraph_aec1ab0dea305ce38e77fdf0c2eff663a}{traversal} ()
+\item 
+bool \hyperlink{classSceneGraph_a6b81c95f19b42385e5f0c97212884bb7}{add\-Object\-Node} (const int parent\-I\-D, string n)
+\item 
+void \hyperlink{classSceneGraph_aa700695f92cfc45d639f12013c5d8041}{edit\-Object\-Node} (const int node\-I\-D, const string new\-Name)
+\item 
+bool \hyperlink{classSceneGraph_a485de4aab6468a0b744c90e6300b4560}{add\-Geom\-Node} (const int parent\-I\-D, string \&file\-Name, const bool draw\-F\-N, const bool draw\-V\-N, const bool use\-F\-N)
+\item 
+void \hyperlink{classSceneGraph_a4d3d9842a52c7d08a7ec8167e7b63f22}{edit\-Geom\-Node} (const int node\-I\-D, string \&new\-File\-Name, const bool draw\-F\-N, const bool draw\-V\-N, const bool use\-F\-N)
+\item 
+bool \hyperlink{classSceneGraph_aa08d1e21cd6eb46623aedf5365515476}{add\-Transform\-Node} (const int parent\-I\-D, const Transform\-Type type, const G\-Lfloat $\ast$args)
+\item 
+void \hyperlink{classSceneGraph_a0ee6318b0f71b81fc70587038aa06fcd}{edit\-Transform\-Node} (const int node\-I\-D, const Transform\-Type t, const G\-Lfloat $\ast$new\-Args)
+\item 
+bool \hyperlink{classSceneGraph_a50057912223b1fde361a661846efc30a}{add\-Animation\-Node} (const int parent\-I\-D, const Transform\-Type type, const G\-Lfloat $\ast$args, float cycle\-Time)
+\item 
+void \hyperlink{classSceneGraph_a3926097010b35104826c42d3e880eaf1}{edit\-Animation\-Node} (const int node\-I\-D, const Transform\-Type t, const G\-Lfloat $\ast$new\-Args, float new\-Cycle\-Time)
+\item 
+bool \hyperlink{classSceneGraph_a08c22573bfb236c5d100d2e0852eb827}{add\-Attribute\-Node} (const int parent\-I\-D, const Mode mode)
+\item 
+void \hyperlink{classSceneGraph_a2b54cadc617d3cdc828005ece998e3d0}{edit\-Attribute\-Node} (const int node\-I\-D, const Mode new\-Mode)
+\item 
+bool \hyperlink{classSceneGraph_aa5ce83892a3786d9a6ff6a05994d1323}{add\-Light\-Node} (const int parent\-I\-D, Light\-Type type, const G\-Lfloat $\ast$position, const G\-Lfloat $\ast$spot\-Direction, const G\-Lfloat $\ast$ambient, const G\-Lfloat $\ast$diffuse, const G\-Lfloat $\ast$specular)
+\item 
+void \hyperlink{classSceneGraph_ae7eaaa12346ede54a8a6ce4c6bf5d89d}{edit\-Light\-Node} (const int node\-I\-D, Light\-Type new\-Type, const G\-Lfloat $\ast$new\-Pos, const G\-Lfloat $\ast$new\-Spot\-D, const G\-Lfloat $\ast$new\-Amb, const G\-Lfloat $\ast$new\-Dif, const G\-Lfloat $\ast$new\-Spec)
+\item 
+bool \hyperlink{classSceneGraph_a5d945279fb8acf87519ec0050486441c}{delete\-Node} (const int id)
+\item 
+void \hyperlink{classSceneGraph_addbd59946f266cd0f29bc47e68918a0a}{camera\-Rotate} (const G\-Lfloat theta, const G\-Lfloat phi)
+\item 
+void \hyperlink{classSceneGraph_a595a0a4fb507ce008bca05ccf284c5ab}{camera\-Zoom} (const G\-Lfloat zoom)
+\item 
+void \hyperlink{classSceneGraph_a8fad2a82153647e4a91a197f2445a7ca}{camera\-Pan} (const G\-Lfloat pan\-X, const G\-Lfloat pan\-Y)
+\item 
+\hypertarget{classSceneGraph_a3c26e0dda954dd444ade94c18bf831e8}{Node\-Type {\bfseries get\-Node\-Type} (const int id)}\label{classSceneGraph_a3c26e0dda954dd444ade94c18bf831e8}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Purpose\-: Class which brings all the nodes together, and creates the scene. \begin{DoxyAuthor}{Author}
+Andrew Dang-\/\-Tran 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classSceneGraph_a10cb00465716a38ceff196f9ee220620}{\index{Scene\-Graph@{Scene\-Graph}!Scene\-Graph@{Scene\-Graph}}
+\index{Scene\-Graph@{Scene\-Graph}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{Scene\-Graph}]{\setlength{\rightskip}{0pt plus 5cm}Scene\-Graph\-::\-Scene\-Graph (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_a10cb00465716a38ceff196f9ee220620}
+Construct a typical \hyperlink{classSceneGraph}{Scene\-Graph} with a root \char`\"{}\-World\char`\"{} node, (I\-D = 0) \hyperlink{classCamera}{Camera} \hyperlink{classNode}{Node} (I\-D = 1) and \hyperlink{classLight}{Light} \hyperlink{classNode}{Node} (I\-D = 2) The nodes your adding should be the children of the root. \hypertarget{classSceneGraph_a4f7164675d0787d1ab73dea9da097db7}{\index{Scene\-Graph@{Scene\-Graph}!$\sim$\-Scene\-Graph@{$\sim$\-Scene\-Graph}}
+\index{$\sim$\-Scene\-Graph@{$\sim$\-Scene\-Graph}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{$\sim$\-Scene\-Graph}]{\setlength{\rightskip}{0pt plus 5cm}Scene\-Graph\-::$\sim$\-Scene\-Graph (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_a4f7164675d0787d1ab73dea9da097db7}
+Makes sure to properly free the memory of all the Nodes in the Scene Graph 
+
+\subsection{Member Function Documentation}
+\hypertarget{classSceneGraph_a50057912223b1fde361a661846efc30a}{\index{Scene\-Graph@{Scene\-Graph}!add\-Animation\-Node@{add\-Animation\-Node}}
+\index{add\-Animation\-Node@{add\-Animation\-Node}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{add\-Animation\-Node}]{\setlength{\rightskip}{0pt plus 5cm}bool Scene\-Graph\-::add\-Animation\-Node (
+\begin{DoxyParamCaption}
+\item[{const int}]{parent\-I\-D, }
+\item[{const Transform\-Type}]{type, }
+\item[{const G\-Lfloat $\ast$}]{args, }
+\item[{float}]{cycle\-Time}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_a50057912223b1fde361a661846efc30a}
+Add an Animation \hyperlink{classNode}{Node} to the Scene Graph 
+\begin{DoxyParams}{Parameters}
+{\em parent\-I\-D} & \\
+\hline
+{\em Transform\-Type} & -\/ Translate, Scale, Rotate \\
+\hline
+{\em Arguments} & -\/ x y z Theta array \\
+\hline
+{\em cycle\-Time} & -\/ Estimate of Seconds \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSceneGraph_a08c22573bfb236c5d100d2e0852eb827}{\index{Scene\-Graph@{Scene\-Graph}!add\-Attribute\-Node@{add\-Attribute\-Node}}
+\index{add\-Attribute\-Node@{add\-Attribute\-Node}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{add\-Attribute\-Node}]{\setlength{\rightskip}{0pt plus 5cm}bool Scene\-Graph\-::add\-Attribute\-Node (
+\begin{DoxyParamCaption}
+\item[{const int}]{parent\-I\-D, }
+\item[{const Mode}]{mode}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_a08c22573bfb236c5d100d2e0852eb827}
+Add an \hyperlink{classAnimationNode}{Animation\-Node} to the Scene Graph 
+\begin{DoxyParams}{Parameters}
+{\em parent\-I\-D} & \\
+\hline
+{\em Mode} & -\/ P\-O\-I\-N\-T\-\_\-\-M\-O\-D\-E, W\-I\-R\-E\-F\-R\-A\-M\-E\-\_\-\-M\-O\-D\-E, S\-O\-L\-I\-D\-\_\-\-M\-O\-D\-E, S\-H\-A\-D\-E\-D\-\_\-\-M\-O\-D\-E \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSceneGraph_a485de4aab6468a0b744c90e6300b4560}{\index{Scene\-Graph@{Scene\-Graph}!add\-Geom\-Node@{add\-Geom\-Node}}
+\index{add\-Geom\-Node@{add\-Geom\-Node}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{add\-Geom\-Node}]{\setlength{\rightskip}{0pt plus 5cm}bool Scene\-Graph\-::add\-Geom\-Node (
+\begin{DoxyParamCaption}
+\item[{const int}]{parent\-I\-D, }
+\item[{string \&}]{file\-Name, }
+\item[{const bool}]{draw\-F\-N, }
+\item[{const bool}]{draw\-V\-N, }
+\item[{const bool}]{use\-F\-N}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_a485de4aab6468a0b744c90e6300b4560}
+Add a Geometry \hyperlink{classNode}{Node} to the Scene Graph 
+\begin{DoxyParams}{Parameters}
+{\em parent\-I\-D} & \\
+\hline
+{\em draw\-Face\-Normals} & -\/ show the lines which represent face normals \\
+\hline
+{\em draw\-Vertex\-Normals} & -\/ show the lines representing vertex normals \\
+\hline
+{\em use\-Face\-Normals} & -\/ use face or vertex normals for shading \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSceneGraph_aa5ce83892a3786d9a6ff6a05994d1323}{\index{Scene\-Graph@{Scene\-Graph}!add\-Light\-Node@{add\-Light\-Node}}
+\index{add\-Light\-Node@{add\-Light\-Node}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{add\-Light\-Node}]{\setlength{\rightskip}{0pt plus 5cm}bool Scene\-Graph\-::add\-Light\-Node (
+\begin{DoxyParamCaption}
+\item[{const int}]{parent\-I\-D, }
+\item[{Light\-Type}]{type, }
+\item[{const G\-Lfloat $\ast$}]{position, }
+\item[{const G\-Lfloat $\ast$}]{spot\-Direction, }
+\item[{const G\-Lfloat $\ast$}]{ambient, }
+\item[{const G\-Lfloat $\ast$}]{diffuse, }
+\item[{const G\-Lfloat $\ast$}]{specular}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_aa5ce83892a3786d9a6ff6a05994d1323}
+Add a \hyperlink{classLight}{Light} \hyperlink{classNode}{Node} to the Scene Graph 
+\begin{DoxyParams}{Parameters}
+{\em parent\-I\-D} & \\
+\hline
+{\em Light\-Type} & -\/ P\-O\-I\-N\-T, D\-I\-R\-E\-C\-T\-I\-O\-N\-A\-L \\
+\hline
+{\em position} & -\/ x y z array \\
+\hline
+{\em spot\-Direction} & -\/ x y z array \\
+\hline
+{\em ambient} & -\/ r g b i array \\
+\hline
+{\em diffuse} & -\/ r g b i array \\
+\hline
+{\em specular} & -\/ r g b i array \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSceneGraph_a6b81c95f19b42385e5f0c97212884bb7}{\index{Scene\-Graph@{Scene\-Graph}!add\-Object\-Node@{add\-Object\-Node}}
+\index{add\-Object\-Node@{add\-Object\-Node}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{add\-Object\-Node}]{\setlength{\rightskip}{0pt plus 5cm}bool Scene\-Graph\-::add\-Object\-Node (
+\begin{DoxyParamCaption}
+\item[{const int}]{parent\-I\-D, }
+\item[{string}]{n}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_a6b81c95f19b42385e5f0c97212884bb7}
+Add an \hyperlink{classObjectNode}{Object\-Node} to the Scene Graph 
+\begin{DoxyParams}{Parameters}
+{\em parent\-I\-D} & \\
+\hline
+{\em name} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSceneGraph_aa08d1e21cd6eb46623aedf5365515476}{\index{Scene\-Graph@{Scene\-Graph}!add\-Transform\-Node@{add\-Transform\-Node}}
+\index{add\-Transform\-Node@{add\-Transform\-Node}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{add\-Transform\-Node}]{\setlength{\rightskip}{0pt plus 5cm}bool Scene\-Graph\-::add\-Transform\-Node (
+\begin{DoxyParamCaption}
+\item[{const int}]{parent\-I\-D, }
+\item[{const Transform\-Type}]{type, }
+\item[{const G\-Lfloat $\ast$}]{args}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_aa08d1e21cd6eb46623aedf5365515476}
+Add a \hyperlink{classTransform}{Transform} \hyperlink{classNode}{Node} to the Scene Graph 
+\begin{DoxyParams}{Parameters}
+{\em parent\-I\-D} & \\
+\hline
+{\em Transform\-Type} & -\/ Translate, Scale, Rotate \\
+\hline
+{\em Arguments} & -\/ x y z Theta array \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSceneGraph_a8fad2a82153647e4a91a197f2445a7ca}{\index{Scene\-Graph@{Scene\-Graph}!camera\-Pan@{camera\-Pan}}
+\index{camera\-Pan@{camera\-Pan}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{camera\-Pan}]{\setlength{\rightskip}{0pt plus 5cm}void Scene\-Graph\-::camera\-Pan (
+\begin{DoxyParamCaption}
+\item[{const G\-Lfloat}]{pan\-X, }
+\item[{const G\-Lfloat}]{pan\-Y}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_a8fad2a82153647e4a91a197f2445a7ca}
+pan the camera 
+\begin{DoxyParams}{Parameters}
+{\em pan\-X} & \\
+\hline
+{\em pan\-Y} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSceneGraph_addbd59946f266cd0f29bc47e68918a0a}{\index{Scene\-Graph@{Scene\-Graph}!camera\-Rotate@{camera\-Rotate}}
+\index{camera\-Rotate@{camera\-Rotate}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{camera\-Rotate}]{\setlength{\rightskip}{0pt plus 5cm}void Scene\-Graph\-::camera\-Rotate (
+\begin{DoxyParamCaption}
+\item[{const G\-Lfloat}]{theta, }
+\item[{const G\-Lfloat}]{phi}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_addbd59946f266cd0f29bc47e68918a0a}
+rotate the camera 
+\begin{DoxyParams}{Parameters}
+{\em theta} & \\
+\hline
+{\em phi} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSceneGraph_a595a0a4fb507ce008bca05ccf284c5ab}{\index{Scene\-Graph@{Scene\-Graph}!camera\-Zoom@{camera\-Zoom}}
+\index{camera\-Zoom@{camera\-Zoom}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{camera\-Zoom}]{\setlength{\rightskip}{0pt plus 5cm}void Scene\-Graph\-::camera\-Zoom (
+\begin{DoxyParamCaption}
+\item[{const G\-Lfloat}]{zoom}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_a595a0a4fb507ce008bca05ccf284c5ab}
+zoom the camera 
+\begin{DoxyParams}{Parameters}
+{\em zoom} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSceneGraph_a5d945279fb8acf87519ec0050486441c}{\index{Scene\-Graph@{Scene\-Graph}!delete\-Node@{delete\-Node}}
+\index{delete\-Node@{delete\-Node}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{delete\-Node}]{\setlength{\rightskip}{0pt plus 5cm}bool Scene\-Graph\-::delete\-Node (
+\begin{DoxyParamCaption}
+\item[{const int}]{id}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_a5d945279fb8acf87519ec0050486441c}
+Delete a node and all of its children 
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+May need to change this to make these nodes children have their grandparent as $\ast$ parent\hypertarget{classSceneGraph_a3926097010b35104826c42d3e880eaf1}{\index{Scene\-Graph@{Scene\-Graph}!edit\-Animation\-Node@{edit\-Animation\-Node}}
+\index{edit\-Animation\-Node@{edit\-Animation\-Node}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{edit\-Animation\-Node}]{\setlength{\rightskip}{0pt plus 5cm}void Scene\-Graph\-::edit\-Animation\-Node (
+\begin{DoxyParamCaption}
+\item[{const int}]{node\-I\-D, }
+\item[{const Transform\-Type}]{t, }
+\item[{const G\-Lfloat $\ast$}]{new\-Args, }
+\item[{float}]{new\-Cycle\-Time}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_a3926097010b35104826c42d3e880eaf1}
+Edit an \hyperlink{classAnimationNode}{Animation\-Node} within the Scene Graph 
+\begin{DoxyParams}{Parameters}
+{\em node\-I\-D} & \\
+\hline
+{\em new\-Transform\-Type} & -\/ Translate, Scale, Rotate \\
+\hline
+{\em new\-Arguments} & -\/ x y z Theta array \\
+\hline
+{\em newcycle\-Time} & -\/ Estimate of Seconds for the animation complete and restart. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSceneGraph_a2b54cadc617d3cdc828005ece998e3d0}{\index{Scene\-Graph@{Scene\-Graph}!edit\-Attribute\-Node@{edit\-Attribute\-Node}}
+\index{edit\-Attribute\-Node@{edit\-Attribute\-Node}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{edit\-Attribute\-Node}]{\setlength{\rightskip}{0pt plus 5cm}void Scene\-Graph\-::edit\-Attribute\-Node (
+\begin{DoxyParamCaption}
+\item[{const int}]{node\-I\-D, }
+\item[{const Mode}]{new\-Mode}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_a2b54cadc617d3cdc828005ece998e3d0}
+Edit an Attribute \hyperlink{classNode}{Node} within the Scene Graph 
+\begin{DoxyParams}{Parameters}
+{\em node\-I\-D} & \\
+\hline
+{\em new\-Mode} & -\/ P\-O\-I\-N\-T\-\_\-\-M\-O\-D\-E, W\-I\-R\-E\-F\-R\-A\-M\-E\-\_\-\-M\-O\-D\-E, S\-O\-L\-I\-D\-\_\-\-M\-O\-D\-E, S\-H\-A\-D\-E\-D\-\_\-\-M\-O\-D\-E \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSceneGraph_a4d3d9842a52c7d08a7ec8167e7b63f22}{\index{Scene\-Graph@{Scene\-Graph}!edit\-Geom\-Node@{edit\-Geom\-Node}}
+\index{edit\-Geom\-Node@{edit\-Geom\-Node}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{edit\-Geom\-Node}]{\setlength{\rightskip}{0pt plus 5cm}void Scene\-Graph\-::edit\-Geom\-Node (
+\begin{DoxyParamCaption}
+\item[{const int}]{node\-I\-D, }
+\item[{string \&}]{new\-File\-Name, }
+\item[{const bool}]{draw\-F\-N, }
+\item[{const bool}]{draw\-V\-N, }
+\item[{const bool}]{use\-F\-N}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_a4d3d9842a52c7d08a7ec8167e7b63f22}
+Edit a Geometry \hyperlink{classNode}{Node} within the Scene Graph 
+\begin{DoxyParams}{Parameters}
+{\em parent\-I\-D} & \\
+\hline
+{\em draw\-Face\-Normals} & -\/ show the lines which represent face normals \\
+\hline
+{\em draw\-Vertex\-Normals} & -\/ show the lines representing vertex normals \\
+\hline
+{\em use\-Face\-Normals} & -\/ use face or vertex normals for shading \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSceneGraph_ae7eaaa12346ede54a8a6ce4c6bf5d89d}{\index{Scene\-Graph@{Scene\-Graph}!edit\-Light\-Node@{edit\-Light\-Node}}
+\index{edit\-Light\-Node@{edit\-Light\-Node}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{edit\-Light\-Node}]{\setlength{\rightskip}{0pt plus 5cm}void Scene\-Graph\-::edit\-Light\-Node (
+\begin{DoxyParamCaption}
+\item[{const int}]{node\-I\-D, }
+\item[{Light\-Type}]{new\-Type, }
+\item[{const G\-Lfloat $\ast$}]{new\-Pos, }
+\item[{const G\-Lfloat $\ast$}]{new\-Spot\-D, }
+\item[{const G\-Lfloat $\ast$}]{new\-Amb, }
+\item[{const G\-Lfloat $\ast$}]{new\-Dif, }
+\item[{const G\-Lfloat $\ast$}]{new\-Spec}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_ae7eaaa12346ede54a8a6ce4c6bf5d89d}
+Edit a \hyperlink{classLight}{Light} \hyperlink{classNode}{Node} within the Scene Graph 
+\begin{DoxyParams}{Parameters}
+{\em node\-I\-D} & \\
+\hline
+{\em new\-Light\-Type} & -\/ P\-O\-I\-N\-T, D\-I\-R\-E\-C\-T\-I\-O\-N\-A\-L \\
+\hline
+{\em newposition} & -\/ x y z array \\
+\hline
+{\em new\-Spot\-Direction} & -\/ x y z array \\
+\hline
+{\em new\-Ambient} & -\/ r g b i array \\
+\hline
+{\em new\-Diffuse} & -\/ r g b i array \\
+\hline
+{\em new\-Specular} & -\/ r g b i array \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSceneGraph_aa700695f92cfc45d639f12013c5d8041}{\index{Scene\-Graph@{Scene\-Graph}!edit\-Object\-Node@{edit\-Object\-Node}}
+\index{edit\-Object\-Node@{edit\-Object\-Node}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{edit\-Object\-Node}]{\setlength{\rightskip}{0pt plus 5cm}void Scene\-Graph\-::edit\-Object\-Node (
+\begin{DoxyParamCaption}
+\item[{const int}]{node\-I\-D, }
+\item[{const string}]{new\-Name}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_aa700695f92cfc45d639f12013c5d8041}
+Edit a \hyperlink{classNode}{Node} within the Scene Graph 
+\begin{DoxyParams}{Parameters}
+{\em node\-I\-D} & \\
+\hline
+{\em new\-Name} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSceneGraph_a0ee6318b0f71b81fc70587038aa06fcd}{\index{Scene\-Graph@{Scene\-Graph}!edit\-Transform\-Node@{edit\-Transform\-Node}}
+\index{edit\-Transform\-Node@{edit\-Transform\-Node}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{edit\-Transform\-Node}]{\setlength{\rightskip}{0pt plus 5cm}void Scene\-Graph\-::edit\-Transform\-Node (
+\begin{DoxyParamCaption}
+\item[{const int}]{node\-I\-D, }
+\item[{const Transform\-Type}]{t, }
+\item[{const G\-Lfloat $\ast$}]{new\-Args}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_a0ee6318b0f71b81fc70587038aa06fcd}
+Edit a \hyperlink{classTransform}{Transform} \hyperlink{classNode}{Node} within a Scene Graph 
+\begin{DoxyParams}{Parameters}
+{\em node\-I\-D} & \\
+\hline
+{\em Transform\-Type} & -\/ Translate, Scale, Rotate \\
+\hline
+{\em Arguments} & -\/ x y z Theta array \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSceneGraph_aec1ab0dea305ce38e77fdf0c2eff663a}{\index{Scene\-Graph@{Scene\-Graph}!traversal@{traversal}}
+\index{traversal@{traversal}!SceneGraph@{Scene\-Graph}}
+\subsubsection[{traversal}]{\setlength{\rightskip}{0pt plus 5cm}void Scene\-Graph\-::traversal (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classSceneGraph_aec1ab0dea305ce38e77fdf0c2eff663a}
+Start the traversal of the graph from the root. 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Scene\-Graph.\-h\item 
+Scene\-Graph.\-c++\end{DoxyCompactItemize}

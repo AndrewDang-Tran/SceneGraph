@@ -1,0 +1,57 @@
+\hypertarget{classTrimeshLoader}{\section{Trimesh\-Loader Class Reference}
+\label{classTrimeshLoader}\index{Trimesh\-Loader@{Trimesh\-Loader}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classTrimeshLoader_a00499ce6cb6cd4f9f57d62ebabf23b22}{\hyperlink{structTokenPair}{Token\-Pair} $\ast$ {\bfseries token\-Match} (char $\ast$srchtok)}\label{classTrimeshLoader_a00499ce6cb6cd4f9f57d62ebabf23b22}
+
+\item 
+\hypertarget{classTrimeshLoader_a28a863ff38d4b4c6760efd42d9df86b2}{void {\bfseries load\-O\-B\-J} (const char $\ast$objfile, \hyperlink{classTrimesh}{Trimesh} $\ast$pmesh)}\label{classTrimeshLoader_a28a863ff38d4b4c6760efd42d9df86b2}
+
+\item 
+\hypertarget{classTrimeshLoader_a0da06aba10239fca53a38b44ea8b9a02}{int {\bfseries read\-Floats} (char $\ast$tok, float $\ast$buf, int bufsz)}\label{classTrimeshLoader_a0da06aba10239fca53a38b44ea8b9a02}
+
+\item 
+\hypertarget{classTrimeshLoader_a8e0ecbde14c2bb56824cf58dd4145168}{int {\bfseries read\-Ints} (char $\ast$tok, int $\ast$buf, int bufsz)}\label{classTrimeshLoader_a8e0ecbde14c2bb56824cf58dd4145168}
+
+\item 
+\hypertarget{classTrimeshLoader_a4af576992a8daadfa5122a94832ab6cd}{void {\bfseries process\-Skip} (char $\ast$tok)}\label{classTrimeshLoader_a4af576992a8daadfa5122a94832ab6cd}
+
+\item 
+\hypertarget{classTrimeshLoader_ad3b0d9cb78d5e9bc2c1b7deb0854da03}{void {\bfseries process\-Vertex} (char $\ast$tok, \hyperlink{classTrimesh}{Trimesh} $\ast$pmsh)}\label{classTrimeshLoader_ad3b0d9cb78d5e9bc2c1b7deb0854da03}
+
+\item 
+\hypertarget{classTrimeshLoader_a43b17b012e2a53f3ee21efb079ae9a01}{bool {\bfseries process\-Face} (char $\ast$tok, \hyperlink{classTrimesh}{Trimesh} $\ast$pmsh)}\label{classTrimeshLoader_a43b17b012e2a53f3ee21efb079ae9a01}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classTrimeshLoader_afbfd2f0835786c1a96423ebfe047d68a}{static \hyperlink{structTokenPair}{Token\-Pair} {\bfseries E\-M\-P\-T\-Y\-\_\-\-P\-A\-I\-R} =\{\char`\"{}\char`\"{},T\-\_\-\-N\-O\-N\-E\}}\label{classTrimeshLoader_afbfd2f0835786c1a96423ebfe047d68a}
+
+\item 
+static \hyperlink{structTokenPair}{Token\-Pair} {\bfseries token\-Map} \mbox{[}$\,$\mbox{]}
+\item 
+\hypertarget{classTrimeshLoader_a1ad0bd375daefe6b0989d0393a2bd516}{static char {\bfseries T\-O\-K\-\_\-\-S\-E\-P\-S} \mbox{[}$\,$\mbox{]} = \char`\"{} \textbackslash{}t\char`\"{}}\label{classTrimeshLoader_a1ad0bd375daefe6b0989d0393a2bd516}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classTrimeshLoader_acc3b92a5900000c950c6aee14bea3569}{\index{Trimesh\-Loader@{Trimesh\-Loader}!token\-Map@{token\-Map}}
+\index{token\-Map@{token\-Map}!TrimeshLoader@{Trimesh\-Loader}}
+\subsubsection[{token\-Map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Token\-Pair} Trimesh\-Loader\-::token\-Map\hspace{0.3cm}{\ttfamily [static]}}}\label{classTrimeshLoader_acc3b92a5900000c950c6aee14bea3569}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+= \{ 
+    \{\textcolor{stringliteral}{"v"}, T\_VERT\}, \{\textcolor{stringliteral}{"f"},T\_FACE\}, 
+    EMPTY\_PAIR  
+\}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Loader.\-h\item 
+Loader.\-c++\end{DoxyCompactItemize}

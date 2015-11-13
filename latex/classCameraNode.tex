@@ -1,0 +1,105 @@
+\hypertarget{classCameraNode}{\section{Camera\-Node Class Reference}
+\label{classCameraNode}\index{Camera\-Node@{Camera\-Node}}
+}
+
+
+{\ttfamily \#include $<$Camera\-Node.\-h$>$}
+
+Inheritance diagram for Camera\-Node\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCameraNode}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classCameraNode_a9975897c31197e56a4ea5bf7e0fb6f7a}{{\bfseries Camera\-Node} (const \hyperlink{classCamera}{Camera} \&c)}\label{classCameraNode_a9975897c31197e56a4ea5bf7e0fb6f7a}
+
+\item 
+void \hyperlink{classCameraNode_afc9b202cd080ee7e3a62e4e5676ab8a6}{execute} ()
+\item 
+void \hyperlink{classCameraNode_ad87fec242725e3eeb0546b8bfe8df6b7}{add\-Child} (const \hyperlink{classNode}{Node} $\ast$child)
+\item 
+void \hyperlink{classCameraNode_ae800e4fab63b5d3f9762a5532ffc201a}{camera\-Node\-Rotate} (const G\-Lfloat theta, const G\-Lfloat phi)
+\item 
+void \hyperlink{classCameraNode_adb8b1de4bcc623e2e4eebb4f4fd77e86}{camera\-Node\-Zoom} (const G\-Lfloat zoom)
+\item 
+void \hyperlink{classCameraNode_a994a0e7f079982f87d8470919fd3aea7}{camera\-Node\-Pan} (const G\-Lfloat pan\-X, const G\-Lfloat pan\-Y)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Purpose\-: \hyperlink{classCameraNode}{Camera\-Node} wraps the camera class in a node object to add to the scene. \begin{DoxyAuthor}{Author}
+Andrew Dang-\/\-Tran 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classCameraNode_ad87fec242725e3eeb0546b8bfe8df6b7}{\index{Camera\-Node@{Camera\-Node}!add\-Child@{add\-Child}}
+\index{add\-Child@{add\-Child}!CameraNode@{Camera\-Node}}
+\subsubsection[{add\-Child}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-Node\-::add\-Child (
+\begin{DoxyParamCaption}
+\item[{const {\bf Node} $\ast$}]{child}
+\end{DoxyParamCaption}
+)}}\label{classCameraNode_ad87fec242725e3eeb0546b8bfe8df6b7}
+\hyperlink{classCamera}{Camera} Nodes cannot have children, and this will throw an error \hypertarget{classCameraNode_a994a0e7f079982f87d8470919fd3aea7}{\index{Camera\-Node@{Camera\-Node}!camera\-Node\-Pan@{camera\-Node\-Pan}}
+\index{camera\-Node\-Pan@{camera\-Node\-Pan}!CameraNode@{Camera\-Node}}
+\subsubsection[{camera\-Node\-Pan}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-Node\-::camera\-Node\-Pan (
+\begin{DoxyParamCaption}
+\item[{const G\-Lfloat}]{pan\-X, }
+\item[{const G\-Lfloat}]{pan\-Y}
+\end{DoxyParamCaption}
+)}}\label{classCameraNode_a994a0e7f079982f87d8470919fd3aea7}
+Passes the values along to the camera to pan 
+\begin{DoxyParams}{Parameters}
+{\em pan\-X} & \\
+\hline
+{\em pan\-Y} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCameraNode_ae800e4fab63b5d3f9762a5532ffc201a}{\index{Camera\-Node@{Camera\-Node}!camera\-Node\-Rotate@{camera\-Node\-Rotate}}
+\index{camera\-Node\-Rotate@{camera\-Node\-Rotate}!CameraNode@{Camera\-Node}}
+\subsubsection[{camera\-Node\-Rotate}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-Node\-::camera\-Node\-Rotate (
+\begin{DoxyParamCaption}
+\item[{const G\-Lfloat}]{theta, }
+\item[{const G\-Lfloat}]{phi}
+\end{DoxyParamCaption}
+)}}\label{classCameraNode_ae800e4fab63b5d3f9762a5532ffc201a}
+Passes the values along to the camera to rotate 
+\begin{DoxyParams}{Parameters}
+{\em theta} & \\
+\hline
+{\em phi} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCameraNode_adb8b1de4bcc623e2e4eebb4f4fd77e86}{\index{Camera\-Node@{Camera\-Node}!camera\-Node\-Zoom@{camera\-Node\-Zoom}}
+\index{camera\-Node\-Zoom@{camera\-Node\-Zoom}!CameraNode@{Camera\-Node}}
+\subsubsection[{camera\-Node\-Zoom}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-Node\-::camera\-Node\-Zoom (
+\begin{DoxyParamCaption}
+\item[{const G\-Lfloat}]{zoom}
+\end{DoxyParamCaption}
+)}}\label{classCameraNode_adb8b1de4bcc623e2e4eebb4f4fd77e86}
+Passes the values along to the camera to zoom 
+\begin{DoxyParams}{Parameters}
+{\em zoom} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCameraNode_afc9b202cd080ee7e3a62e4e5676ab8a6}{\index{Camera\-Node@{Camera\-Node}!execute@{execute}}
+\index{execute@{execute}!CameraNode@{Camera\-Node}}
+\subsubsection[{execute}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-Node\-::execute (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classCameraNode_afc9b202cd080ee7e3a62e4e5676ab8a6}
+Sets the camera in the correct position 
+
+Reimplemented from \hyperlink{classNode_a6890991303fcc6c9b2b3dec678c8b5db}{Node}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Camera\-Node.\-h\item 
+Camera\-Node.\-c++\end{DoxyCompactItemize}

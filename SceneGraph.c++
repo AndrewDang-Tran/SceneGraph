@@ -63,7 +63,7 @@ bool SceneGraph::addObjectNode(const int parentID, string n)
 	}
 	parentNode->addChild(newObjectNode);
 	nodeMap.emplace(newObjectNode->getID(), newObjectNode);
-	cout << "New ObjectNode ID: " << newObjectNode->getID() << endl  << "Parent ID: " << parentID << endl << "" << endl <<  "Name: \"" << n << "\"" << endl;
+	cout << "New ObjectNode ID: " << newObjectNode->getID() << endl  << "Parent ID: " << parentID << endl << "Name: \"" << n << "\"" << endl << "" << endl;
 	#ifdef DEBUG
 	cout << "Address of new Node: " << newObjectNode << endl;
 	#endif

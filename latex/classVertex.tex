@@ -1,0 +1,70 @@
+\hypertarget{classVertex}{\section{Vertex Class Reference}
+\label{classVertex}\index{Vertex@{Vertex}}
+}
+
+
+{\ttfamily \#include $<$Vertex.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classVertex_aaeb85c70765a8a11cc54148054746129}{{\bfseries Vertex} (const G\-Lfloat $\ast$c=N\-U\-L\-L)}\label{classVertex_aaeb85c70765a8a11cc54148054746129}
+
+\item 
+\hypertarget{classVertex_a00ad86006f91af73121896906b2e0faa}{\hyperlink{classVertex}{Vertex} \& {\bfseries operator=} (const \hyperlink{classVertex}{Vertex} \&)}\label{classVertex_a00ad86006f91af73121896906b2e0faa}
+
+\item 
+void \hyperlink{classVertex_a437201cc8e7ae5b8f49f47fe9dd4beba}{contribute\-Normal} (const G\-Lfloat $\ast$n)
+\item 
+void \hyperlink{classVertex_a8ab3c20d57d0626ebbc15271376a7a8d}{average\-Normals} ()
+\item 
+\hypertarget{classVertex_a5b5b877aedb2ca726643302fe440ca19}{void {\bfseries draw\-Normal} () const }\label{classVertex_a5b5b877aedb2ca726643302fe440ca19}
+
+\item 
+\hypertarget{classVertex_a17aebadfb3748f956ddf098b171c09ca}{G\-Lfloat $\ast$ {\bfseries get\-Normal} ()}\label{classVertex_a17aebadfb3748f956ddf098b171c09ca}
+
+\item 
+\hypertarget{classVertex_af674e1c88da20e86a18a7e06370eac5d}{const G\-Lfloat $\ast$ {\bfseries get\-Const\-Normal} () const }\label{classVertex_af674e1c88da20e86a18a7e06370eac5d}
+
+\item 
+\hypertarget{classVertex_a5963c45ed490edba17cb4e0030e6781e}{const G\-Lfloat $\ast$ {\bfseries get\-Coordinates} () const }\label{classVertex_a5963c45ed490edba17cb4e0030e6781e}
+
+\item 
+const int \hyperlink{classVertex_ad378995fa3c86a6d37e7746c7cb6873e}{get\-Num\-Faces} () const 
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Purpose\-: Class stores vertex information for meshes \begin{DoxyAuthor}{Author}
+Andrew Dang-\/\-Tran 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classVertex_a8ab3c20d57d0626ebbc15271376a7a8d}{\index{Vertex@{Vertex}!average\-Normals@{average\-Normals}}
+\index{average\-Normals@{average\-Normals}!Vertex@{Vertex}}
+\subsubsection[{average\-Normals}]{\setlength{\rightskip}{0pt plus 5cm}void Vertex\-::average\-Normals (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classVertex_a8ab3c20d57d0626ebbc15271376a7a8d}
+Average the normals of all the connecting faces of this vertex. \hypertarget{classVertex_a437201cc8e7ae5b8f49f47fe9dd4beba}{\index{Vertex@{Vertex}!contribute\-Normal@{contribute\-Normal}}
+\index{contribute\-Normal@{contribute\-Normal}!Vertex@{Vertex}}
+\subsubsection[{contribute\-Normal}]{\setlength{\rightskip}{0pt plus 5cm}void Vertex\-::contribute\-Normal (
+\begin{DoxyParamCaption}
+\item[{const G\-Lfloat $\ast$}]{n}
+\end{DoxyParamCaption}
+)}}\label{classVertex_a437201cc8e7ae5b8f49f47fe9dd4beba}
+Add the normal of a face to the vertex \hypertarget{classVertex_ad378995fa3c86a6d37e7746c7cb6873e}{\index{Vertex@{Vertex}!get\-Num\-Faces@{get\-Num\-Faces}}
+\index{get\-Num\-Faces@{get\-Num\-Faces}!Vertex@{Vertex}}
+\subsubsection[{get\-Num\-Faces}]{\setlength{\rightskip}{0pt plus 5cm}const int Vertex\-::get\-Num\-Faces (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classVertex_ad378995fa3c86a6d37e7746c7cb6873e}
+Return the number of faces which is connected to this vertices 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Vertex.\-h\item 
+Vertex.\-c++\end{DoxyCompactItemize}

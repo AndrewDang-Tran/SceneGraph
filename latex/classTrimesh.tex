@@ -1,0 +1,54 @@
+\hypertarget{classTrimesh}{\section{Trimesh Class Reference}
+\label{classTrimesh}\index{Trimesh@{Trimesh}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classTrimesh_aee77f52567186fe071be314368a95a17}{void {\bfseries add\-Vertex} (const G\-Lfloat $\ast$coordinates)}\label{classTrimesh_aee77f52567186fe071be314368a95a17}
+
+\item 
+\hypertarget{classTrimesh_a38056e42e653cc58dcbd52f43db0ca75}{void {\bfseries add\-Face} (int $\ast$corner\-Indexes)}\label{classTrimesh_a38056e42e653cc58dcbd52f43db0ca75}
+
+\item 
+void \hyperlink{classTrimesh_aac7027d5aeb0af14e4503791e13d84fe}{calculate\-Normals} ()
+\item 
+void \hyperlink{classTrimesh_a817f3ec53aa8f052dcdb8c0cc54b0c4d}{render} (bool face\-Normal)
+\item 
+void \hyperlink{classTrimesh_ab05eecb8be123c1d1e65b94831a4c264}{render\-Normals} (bool face\-Normal, bool vertex\-Normal)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classTrimesh_aac7027d5aeb0af14e4503791e13d84fe}{\index{Trimesh@{Trimesh}!calculate\-Normals@{calculate\-Normals}}
+\index{calculate\-Normals@{calculate\-Normals}!Trimesh@{Trimesh}}
+\subsubsection[{calculate\-Normals}]{\setlength{\rightskip}{0pt plus 5cm}void Trimesh\-::calculate\-Normals (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classTrimesh_aac7027d5aeb0af14e4503791e13d84fe}
+Calculate the face and vertex normals of the mesh \hypertarget{classTrimesh_a817f3ec53aa8f052dcdb8c0cc54b0c4d}{\index{Trimesh@{Trimesh}!render@{render}}
+\index{render@{render}!Trimesh@{Trimesh}}
+\subsubsection[{render}]{\setlength{\rightskip}{0pt plus 5cm}void Trimesh\-::render (
+\begin{DoxyParamCaption}
+\item[{bool}]{face\-Normal}
+\end{DoxyParamCaption}
+)}}\label{classTrimesh_a817f3ec53aa8f052dcdb8c0cc54b0c4d}
+Render the mesh 
+\begin{DoxyParams}{Parameters}
+{\em face\-Normal} & -\/ variable determining whether the normals are face normals or vertex normals. primarily affects lighting. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classTrimesh_ab05eecb8be123c1d1e65b94831a4c264}{\index{Trimesh@{Trimesh}!render\-Normals@{render\-Normals}}
+\index{render\-Normals@{render\-Normals}!Trimesh@{Trimesh}}
+\subsubsection[{render\-Normals}]{\setlength{\rightskip}{0pt plus 5cm}void Trimesh\-::render\-Normals (
+\begin{DoxyParamCaption}
+\item[{bool}]{face\-Normal, }
+\item[{bool}]{vertex\-Normal}
+\end{DoxyParamCaption}
+)}}\label{classTrimesh_ab05eecb8be123c1d1e65b94831a4c264}
+Render lines which represent the normals. 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Geom.\-h\item 
+Geom.\-c++\end{DoxyCompactItemize}

@@ -1,0 +1,55 @@
+\hypertarget{classFace}{\section{Face Class Reference}
+\label{classFace}\index{Face@{Face}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classFace_a7655f5c584e03c266cba1cfbd6877e05}{{\bfseries Face} (const int $\ast$vertices)}\label{classFace_a7655f5c584e03c266cba1cfbd6877e05}
+
+\item 
+void \hyperlink{classFace_af200efb8cdd7ee66139bdf8be198c53e}{set\-Normal} (const G\-Lfloat $\ast$n)
+\item 
+void \hyperlink{classFace_a1486f1762166b2cc77b1806dfcc4a12a}{compute\-Center} (const vector$<$ \hyperlink{classVertex}{Vertex} $>$ \&vertices)
+\item 
+\hypertarget{classFace_a17212b0377c8279369d1b57bff5df503}{void {\bfseries draw\-Normal} () const }\label{classFace_a17212b0377c8279369d1b57bff5df503}
+
+\item 
+\hypertarget{classFace_a107b157049a2b38e12b4666babf62823}{G\-Lfloat $\ast$ {\bfseries get\-Normal} ()}\label{classFace_a107b157049a2b38e12b4666babf62823}
+
+\item 
+\hypertarget{classFace_a0e8c46dcca387d9dcdc0c4067cbea982}{int $\ast$ {\bfseries get\-Triangle\-Index} ()}\label{classFace_a0e8c46dcca387d9dcdc0c4067cbea982}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classFace_a1486f1762166b2cc77b1806dfcc4a12a}{\index{Face@{Face}!compute\-Center@{compute\-Center}}
+\index{compute\-Center@{compute\-Center}!Face@{Face}}
+\subsubsection[{compute\-Center}]{\setlength{\rightskip}{0pt plus 5cm}void Face\-::compute\-Center (
+\begin{DoxyParamCaption}
+\item[{const vector$<$ {\bf Vertex} $>$ \&}]{vertices}
+\end{DoxyParamCaption}
+)}}\label{classFace_a1486f1762166b2cc77b1806dfcc4a12a}
+Compute the center of the face to draw normal lines on 
+\begin{DoxyParams}{Parameters}
+{\em vertices} & -\/ the three vertices which make up the face \\
+\hline
+\end{DoxyParams}
+\hypertarget{classFace_af200efb8cdd7ee66139bdf8be198c53e}{\index{Face@{Face}!set\-Normal@{set\-Normal}}
+\index{set\-Normal@{set\-Normal}!Face@{Face}}
+\subsubsection[{set\-Normal}]{\setlength{\rightskip}{0pt plus 5cm}void Face\-::set\-Normal (
+\begin{DoxyParamCaption}
+\item[{const G\-Lfloat $\ast$}]{n}
+\end{DoxyParamCaption}
+)}}\label{classFace_af200efb8cdd7ee66139bdf8be198c53e}
+Compute the normal of the face 
+\begin{DoxyParams}{Parameters}
+{\em normal} & -\/ array of xyz\mbox{[}3\mbox{]} for the direction of the normal \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Face.\-h\item 
+Face.\-c++\end{DoxyCompactItemize}

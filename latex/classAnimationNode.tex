@@ -1,0 +1,51 @@
+\hypertarget{classAnimationNode}{\section{Animation\-Node Class Reference}
+\label{classAnimationNode}\index{Animation\-Node@{Animation\-Node}}
+}
+
+
+{\ttfamily \#include $<$Animation\-Node.\-h$>$}
+
+Inheritance diagram for Animation\-Node\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classAnimationNode}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classAnimationNode_aba1bf01dcd4f64e57ed5de4d95098269}{{\bfseries Animation\-Node} (const \hyperlink{classTransform}{Transform} \&t, const float c\-T)}\label{classAnimationNode_aba1bf01dcd4f64e57ed5de4d95098269}
+
+\item 
+void \hyperlink{classAnimationNode_a0b0bb275a3f89f45aedd35f41f459f9f}{execute} ()
+\item 
+\hypertarget{classAnimationNode_af03e7eef1324f9eedbfa0fc4c225f5de}{void {\bfseries set\-Parameters} (const Transform\-Type, const G\-Lfloat $\ast$a, const float c\-T)}\label{classAnimationNode_af03e7eef1324f9eedbfa0fc4c225f5de}
+
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Purpose\-: Class which handles the animation within the Scene Graph \begin{DoxyAuthor}{Author}
+Andrew Dang-\/\-Tran This node animates all it's children with a linearly interpolated transform over time. 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classAnimationNode_a0b0bb275a3f89f45aedd35f41f459f9f}{\index{Animation\-Node@{Animation\-Node}!execute@{execute}}
+\index{execute@{execute}!AnimationNode@{Animation\-Node}}
+\subsubsection[{execute}]{\setlength{\rightskip}{0pt plus 5cm}void Animation\-Node\-::execute (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classAnimationNode_a0b0bb275a3f89f45aedd35f41f459f9f}
+Interpolates the transform according to the current clock time. Then multiplies the transform to the current matrix. 
+
+Reimplemented from \hyperlink{classNode_a6890991303fcc6c9b2b3dec678c8b5db}{Node}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Animation\-Node.\-h\item 
+Animation\-Node.\-c++\end{DoxyCompactItemize}

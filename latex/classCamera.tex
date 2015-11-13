@@ -1,0 +1,85 @@
+\hypertarget{classCamera}{\section{Camera Class Reference}
+\label{classCamera}\index{Camera@{Camera}}
+}
+
+
+{\ttfamily \#include $<$Camera.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classCamera_a61d3ad16da64ac0f6d465c216269e105}{{\bfseries Camera} (const G\-Lfloat $\ast$pos, const G\-Lfloat $\ast$subject\-Pos, const G\-Lfloat n, const G\-Lfloat f, const G\-Lfloat t, const G\-Lfloat p, const G\-Lfloat r)}\label{classCamera_a61d3ad16da64ac0f6d465c216269e105}
+
+\item 
+\hypertarget{classCamera_a778673e0a23face89f7bcc091d6cde90}{void {\bfseries set\-Camera} ()}\label{classCamera_a778673e0a23face89f7bcc091d6cde90}
+
+\item 
+\hypertarget{classCamera_af3391cddaba1bfee38f20e725284118a}{void {\bfseries set\-Radius} (const G\-Lfloat r)}\label{classCamera_af3391cddaba1bfee38f20e725284118a}
+
+\item 
+\hypertarget{classCamera_a589baa6aa32a8a1ee9a975c1ec1fd135}{void {\bfseries set\-Near} (const G\-Lfloat n)}\label{classCamera_a589baa6aa32a8a1ee9a975c1ec1fd135}
+
+\item 
+\hypertarget{classCamera_abe2a4e82153d1a552274ea479bbb998e}{void {\bfseries set\-Far} (const G\-Lfloat f)}\label{classCamera_abe2a4e82153d1a552274ea479bbb998e}
+
+\item 
+void \hyperlink{classCamera_a9d382e5961f3068fa7652215fe4d63c1}{rotate} (const G\-Lfloat t, const G\-Lfloat p)
+\item 
+void \hyperlink{classCamera_a4142153e130d5e2b54dbb5be5ba5e015}{zoom} (const G\-Lfloat zoom)
+\item 
+void \hyperlink{classCamera_a745b2d29dec7b633f91c6015c7e33a14}{pan} (const G\-Lfloat pan\-X, const G\-Lfloat pan\-Y)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Encapsulates all of the variables of a typical Open\-G\-L camera 
+
+\subsection{Member Function Documentation}
+\hypertarget{classCamera_a745b2d29dec7b633f91c6015c7e33a14}{\index{Camera@{Camera}!pan@{pan}}
+\index{pan@{pan}!Camera@{Camera}}
+\subsubsection[{pan}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-::pan (
+\begin{DoxyParamCaption}
+\item[{const G\-Lfloat}]{pan\-X, }
+\item[{const G\-Lfloat}]{pan\-Y}
+\end{DoxyParamCaption}
+)}}\label{classCamera_a745b2d29dec7b633f91c6015c7e33a14}
+Pans in the camera's local x,y coordinate system 
+\begin{DoxyParams}{Parameters}
+{\em pan\-X} & -\/ amount of pan in x plane \\
+\hline
+{\em pan\-Y} & -\/ amount of pan in y plane \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCamera_a9d382e5961f3068fa7652215fe4d63c1}{\index{Camera@{Camera}!rotate@{rotate}}
+\index{rotate@{rotate}!Camera@{Camera}}
+\subsubsection[{rotate}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-::rotate (
+\begin{DoxyParamCaption}
+\item[{const G\-Lfloat}]{t, }
+\item[{const G\-Lfloat}]{p}
+\end{DoxyParamCaption}
+)}}\label{classCamera_a9d382e5961f3068fa7652215fe4d63c1}
+Orbits the camera around the subject position with the current radius phi and theta. 
+\begin{DoxyParams}{Parameters}
+{\em theta} & \\
+\hline
+{\em phi} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCamera_a4142153e130d5e2b54dbb5be5ba5e015}{\index{Camera@{Camera}!zoom@{zoom}}
+\index{zoom@{zoom}!Camera@{Camera}}
+\subsubsection[{zoom}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-::zoom (
+\begin{DoxyParamCaption}
+\item[{const G\-Lfloat}]{zoom}
+\end{DoxyParamCaption}
+)}}\label{classCamera_a4142153e130d5e2b54dbb5be5ba5e015}
+Moves the camera closer or farther away from the subject position 
+\begin{DoxyParams}{Parameters}
+{\em zoom} & amount \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Camera.\-h\item 
+Camera.\-c++\end{DoxyCompactItemize}

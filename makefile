@@ -21,3 +21,9 @@ example: $(FILES)
 
 clean:
 	rm scene test.txt
+
+html: $(FILES)
+	doxygen Doxyfile
+
+Doxyfile:
+	doxygen -g

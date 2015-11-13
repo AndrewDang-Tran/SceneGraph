@@ -1,0 +1,80 @@
+\hypertarget{classNode}{\section{Node Class Reference}
+\label{classNode}\index{Node@{Node}}
+}
+
+
+{\ttfamily \#include $<$Node.\-h$>$}
+
+Inheritance diagram for Node\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.495327cm]{classNode}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classNode_a6890991303fcc6c9b2b3dec678c8b5db}{execute} ()
+\item 
+\hypertarget{classNode_ae17dff73e3a5026946eaf24920454e9d}{const int {\bfseries get\-I\-D} () const }\label{classNode_ae17dff73e3a5026946eaf24920454e9d}
+
+\item 
+\hypertarget{classNode_a599186538d9354a563ea7175ed85ca4b}{const vector$<$ \hyperlink{classNode}{Node} $\ast$ $>$ \& {\bfseries get\-Children} () const }\label{classNode_a599186538d9354a563ea7175ed85ca4b}
+
+\item 
+\hypertarget{classNode_a132699398b350e83b548a5645e69beb0}{void {\bfseries add\-Child} (\hyperlink{classNode}{Node} $\ast$child)}\label{classNode_a132699398b350e83b548a5645e69beb0}
+
+\item 
+void \hyperlink{classNode_ad0665d6541266c8bdbdc3169674cb6ae}{traverse\-Children} ()
+\item 
+\hypertarget{classNode_a1f2cee9006b507c74d4c0efc2a0f0b19}{const \hyperlink{classNode}{Node} $\ast$ {\bfseries get\-Parent} () const }\label{classNode_a1f2cee9006b507c74d4c0efc2a0f0b19}
+
+\item 
+\hypertarget{classNode_a220a8d64cb0df1cce083ed38c1260615}{\hyperlink{classNode}{Node} $\ast$ {\bfseries get\-Parent} ()}\label{classNode_a220a8d64cb0df1cce083ed38c1260615}
+
+\item 
+\hypertarget{classNode_a06dbfc5f19f4e527619e2bd99881bd91}{const Node\-Type {\bfseries get\-Type} () const }\label{classNode_a06dbfc5f19f4e527619e2bd99881bd91}
+
+\item 
+\hypertarget{classNode_a3a2abb80f0a1b618161615353e889d3e}{void {\bfseries remove\-Child} (\hyperlink{classNode}{Node} $\ast$target\-Child)}\label{classNode_a3a2abb80f0a1b618161615353e889d3e}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classNode_ad8184598cdea70e4bbdfd76f2b0f9e85}{\hyperlink{classNode}{Node} $\ast$ {\bfseries parent}}\label{classNode_ad8184598cdea70e4bbdfd76f2b0f9e85}
+
+\item 
+\hypertarget{classNode_a24d3a13419098b7ce6f1a760286f66e3}{Node\-Type {\bfseries type}}\label{classNode_a24d3a13419098b7ce6f1a760286f66e3}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Base node class with typical n-\/tree parent child relations. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classNode_a6890991303fcc6c9b2b3dec678c8b5db}{\index{Node@{Node}!execute@{execute}}
+\index{execute@{execute}!Node@{Node}}
+\subsubsection[{execute}]{\setlength{\rightskip}{0pt plus 5cm}void Node\-::execute (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classNode_a6890991303fcc6c9b2b3dec678c8b5db}
+Do the determined action for each node. 
+
+Reimplemented in \hyperlink{classAttributeNode_ad6fb6f07dc9728e066c769c35c321f25}{Attribute\-Node}, \hyperlink{classAnimationNode_a0b0bb275a3f89f45aedd35f41f459f9f}{Animation\-Node}, \hyperlink{classGeomNode_a9755aa5e3bbe2b746244405244064681}{Geom\-Node}, \hyperlink{classObjectNode_ab354580ede8a53ea2986b9a5251849fa}{Object\-Node}, \hyperlink{classCameraNode_afc9b202cd080ee7e3a62e4e5676ab8a6}{Camera\-Node}, \hyperlink{classLightNode_ab75ed073b22f779c445a46741b40f3c7}{Light\-Node}, and \hyperlink{classTransformNode_a746be4bb9fd24686ff2a6ad49c08c986}{Transform\-Node}.
+
+\hypertarget{classNode_ad0665d6541266c8bdbdc3169674cb6ae}{\index{Node@{Node}!traverse\-Children@{traverse\-Children}}
+\index{traverse\-Children@{traverse\-Children}!Node@{Node}}
+\subsubsection[{traverse\-Children}]{\setlength{\rightskip}{0pt plus 5cm}void Node\-::traverse\-Children (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classNode_ad0665d6541266c8bdbdc3169674cb6ae}
+Traverses through the scene graph starting from the calling node. Calls execute on each node it passes. Makes sure to push and pop the correct matrixes so not everything is effected by every transform. 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Node.\-h\item 
+Node.\-c++\end{DoxyCompactItemize}

@@ -1,0 +1,63 @@
+\hypertarget{classLightNode}{\section{Light\-Node Class Reference}
+\label{classLightNode}\index{Light\-Node@{Light\-Node}}
+}
+
+
+{\ttfamily \#include $<$Light\-Node.\-h$>$}
+
+Inheritance diagram for Light\-Node\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classLightNode}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classLightNode_af1c8654971c8c565770cbda60d0eb69c}{{\bfseries Light\-Node} (const \hyperlink{classLight}{Light} \&l)}\label{classLightNode_af1c8654971c8c565770cbda60d0eb69c}
+
+\item 
+void \hyperlink{classLightNode_ab75ed073b22f779c445a46741b40f3c7}{execute} ()
+\item 
+void \hyperlink{classLightNode_ad8e6562c22da8186eba945c775b80d67}{add\-Child} (const \hyperlink{classNode}{Node} $\ast$child)
+\item 
+\hypertarget{classLightNode_a9266a158c46c1ccb9ace10211cc9303d}{void {\bfseries set\-Parameters} (const Light\-Type t, const G\-Lfloat $\ast$pos, const G\-Lfloat $\ast$sp\-D, const G\-Lfloat $\ast$a, const G\-Lfloat $\ast$d, const G\-Lfloat $\ast$s)}\label{classLightNode_a9266a158c46c1ccb9ace10211cc9303d}
+
+\item 
+\hypertarget{classLightNode_a57ad0c3f24fdaa0543541055c9c753f4}{void {\bfseries disable\-Light} () const }\label{classLightNode_a57ad0c3f24fdaa0543541055c9c753f4}
+
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Purpose\-: wraps the light class in a node which can be entered in the scene. \begin{DoxyAuthor}{Author}
+Andrew Dang-\/\-Tran 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classLightNode_ad8e6562c22da8186eba945c775b80d67}{\index{Light\-Node@{Light\-Node}!add\-Child@{add\-Child}}
+\index{add\-Child@{add\-Child}!LightNode@{Light\-Node}}
+\subsubsection[{add\-Child}]{\setlength{\rightskip}{0pt plus 5cm}void Light\-Node\-::add\-Child (
+\begin{DoxyParamCaption}
+\item[{const {\bf Node} $\ast$}]{child}
+\end{DoxyParamCaption}
+)}}\label{classLightNode_ad8e6562c22da8186eba945c775b80d67}
+\hyperlink{classLight}{Light} Nodes cannot have children, and this will throw an error A simple string with an error message is thrown. \hypertarget{classLightNode_ab75ed073b22f779c445a46741b40f3c7}{\index{Light\-Node@{Light\-Node}!execute@{execute}}
+\index{execute@{execute}!LightNode@{Light\-Node}}
+\subsubsection[{execute}]{\setlength{\rightskip}{0pt plus 5cm}void Light\-Node\-::execute (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classLightNode_ab75ed073b22f779c445a46741b40f3c7}
+Sets the light in right position with parameters given. 
+
+Reimplemented from \hyperlink{classNode_a6890991303fcc6c9b2b3dec678c8b5db}{Node}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Light\-Node.\-h\item 
+Light\-Node.\-c++\end{DoxyCompactItemize}
