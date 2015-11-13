@@ -22,6 +22,7 @@ void Trimesh::calculateNormals()
 	//calculate face normals
 	while(b != e)
 	{
+		(*b).computeCenter(vertices);
 
 		const GLfloat* trianglePoints[3];
 		Vertex triangleVertices[3];

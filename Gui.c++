@@ -3,6 +3,8 @@
 #include "./glui-2.36/src/include/GL/glui.h"
 #include "SceneGraph.h"
 
+#define ROOT_ID 0
+
 #define ADD_OBJECT 100
 #define ADD_GEOMETRY 101
 #define ADD_TRANSFORM 102
@@ -36,6 +38,8 @@ static void createCameraPanel();
 static void createEditingPanel();
 static void createDeletePanel();
 
+static void example();
+
 int windowWidth = 1024;
 int windowHeight = 768;
 
@@ -44,7 +48,7 @@ bool drawVertexNormal = false;
 bool useFaceNormal = false;
 
 GLfloat tempNear = 1;
-GLfloat tempFar = 100;
+GLfloat tempFar = 200;
 
 SceneGraph sceneGraph;
 
@@ -80,7 +84,7 @@ TransformType currentAnimationTransformType = ROTATE;
 GLUI_Spinner* animationSpinXYZT[4];
 GLfloat animationXYZTheta[4];
 GLUI_Spinner* spinCycleTime;
-int cycleTime = 5;
+GLfloat cycleTime = 5.0;
 
 //Attribute rollout variables
 GLUI_RadioGroup* attributeRadio;
@@ -328,8 +332,11 @@ void control_cb(int control)
 			break;
 		case GET_NODE:
 			currentEditNodeType = sceneGraph.getNodeType(findID);
-			currentEditNodeID = findID;
-			changeEditInfo();
+			if(currentEditNodeType != FAIL)
+			{
+				currentEditNodeID = findID;
+				changeEditInfo();
+			}
 			break;
 		case EDIT_NODE:
 			editNode();
@@ -469,6 +476,12 @@ void reshape(GLint width, GLint height)
  */
 int main(int argc, char **argv) 
 {
+	if(argc > 1)
+	{
+		if(!strcmp(argv[1], "example"))
+			example();
+	}
+
 	/*
 	 * Usual glut initialization and display
 	 */
@@ -505,6 +518,99 @@ int main(int argc, char **argv)
 
 	glDepthFunc(GL_LESS);
 	glutMainLoop();
+}
+
+static void example()
+{
+	string objectNames[10] = {"Plane", "Bunny", "sphere1", "sphere2", "sphere3", "sphere4", "cactus", "felineWire", "felinePoint", "felineSolid"};
+	string geometryFiles[5] = {"cessna", "bu_head", "sphere", "cactus", "feline4k"};
+
+	//barrel rolling plane
+	sceneGraph.addObjectNode(ROOT_ID, objectNames[0]);
+	const GLfloat barrelRollXYZT[4] = {1.0, 0, 0, 360}; 
+	sceneGraph.addAnimationNode(3, ROTATE, barrelRollXYZT, 5);
+	const GLfloat barrelRollTranslateXYZT[4] = {0.0, -10.0, 0.0, 0.0};
+	sceneGraph.addTransformNode(4, TRANSLATE, barrelRollTranslateXYZT);
+	sceneGraph.addGeomNode(5, geometryFiles[0], true, true, false);
+
+	//centered bunny head
+	sceneGraph.addObjectNode(ROOT_ID, objectNames[1]);
+	const GLfloat translateBunnyXYZT[4] = {2.0, -15.0, -3.0};
+	sceneGraph.addTransformNode(7, TRANSLATE, translateBunnyXYZT);
+	const GLfloat scaleBunnyXYZT[4] = {100.0, 100.0, 100.0, 0.0};
+	sceneGraph.addTransformNode(8, SCALE, scaleBunnyXYZT);
+	sceneGraph.addGeomNode(9, geometryFiles[1], false, false, false);
+
+	//flying spheres of doooooooooom
+	sceneGraph.addObjectNode(ROOT_ID, objectNames[2]);
+	const GLfloat positionSphere1XYZT[4] = {-50.0, 5.0, 5.0, 0.0};
+	sceneGraph.addTransformNode(11, TRANSLATE, positionSphere1XYZT);
+	const GLfloat animateSphere1XYZT[4] = {100.0, 0.0, 0.0, 0.0};
+	sceneGraph.addAnimationNode(12, TRANSLATE, animateSphere1XYZT, 1.1);
+	sceneGraph.addGeomNode(13, geometryFiles[2], false, false, false);
+
+	sceneGraph.addObjectNode(ROOT_ID, objectNames[3]);
+	const GLfloat stretchSphere2XYZT[4] = {2.0, 1.0, 1.0, 1.0};
+	sceneGraph.addTransformNode(15, SCALE, stretchSphere2XYZT);
+	const GLfloat positionSphere2XYZT[4] = {-52.0, -5.0, -7.5, 0.0};
+	sceneGraph.addTransformNode(16, TRANSLATE, positionSphere2XYZT);
+	const GLfloat animateSphere2XYZT[4] = {110.0, 0.0, 0.0, 0.0};
+	sceneGraph.addAnimationNode(17, TRANSLATE, animateSphere2XYZT, .95);
+	sceneGraph.addGeomNode(18, geometryFiles[2], false, false, false);
+
+	sceneGraph.addObjectNode(ROOT_ID, objectNames[4]);
+	const GLfloat positionSphere3XYZT[4] = {-53.0, 5.0, 11.0, 0.0};
+	sceneGraph.addTransformNode(20, TRANSLATE, positionSphere3XYZT);
+	const GLfloat animateSphere3XYZT[4] = {150.0, 0.0, 0.0, 0.0};
+	sceneGraph.addAnimationNode(21, TRANSLATE, animateSphere3XYZT, 1.8);
+	sceneGraph.addGeomNode(22, geometryFiles[2], false, false, false);
+
+	sceneGraph.addObjectNode(ROOT_ID, objectNames[5]);
+	const GLfloat stretchSphere4XYZT[4] = {3.0, 3.0, 1.0, 1.0};
+	sceneGraph.addTransformNode(24, SCALE, stretchSphere4XYZT);
+	const GLfloat positionSphere4XYZT[4] = {-40.0, -5.0, 17.0, 0.0};
+	sceneGraph.addTransformNode(25, TRANSLATE, positionSphere4XYZT);
+	const GLfloat animateSphere4XYZT[4] = {100.0, 0.0, 0.0, 0.0};
+	sceneGraph.addAnimationNode(26, TRANSLATE, animateSphere4XYZT, 2.3);
+	sceneGraph.addGeomNode(27, geometryFiles[2], false, false, false);
+
+	sceneGraph.addObjectNode(ROOT_ID, objectNames[6]);
+	const GLfloat positionCactusXYZT[4] = {-53.0, 10, -8.0, 0.0};
+	sceneGraph.addTransformNode(29, TRANSLATE, positionCactusXYZT);
+	const GLfloat animateCactusXYZT[4] = {120.0, 0.0, 0.0, 0.0};
+	sceneGraph.addAnimationNode(30, TRANSLATE, animateCactusXYZT, 3.4);
+	sceneGraph.addGeomNode(31, geometryFiles[3], false, false, false);
+
+	//wireframe feline
+	sceneGraph.addObjectNode(ROOT_ID, objectNames[7]);
+	sceneGraph.addAttributeNode(33, WIREFRAME_MODE);
+	const GLfloat positionFelineWireXYZT[4] = {10.0, 0.0, 0.0, 0.0};
+	sceneGraph.addTransformNode(34, TRANSLATE, positionFelineWireXYZT);
+	sceneGraph.addGeomNode(35, geometryFiles[4], false, false, false);
+
+	//point feline
+	sceneGraph.addObjectNode(ROOT_ID, objectNames[8]);
+	sceneGraph.addAttributeNode(37, POINT_MODE);
+	const GLfloat positionFelinePointXYZT[4] = {5.0, 0.0, 0.0, 0.0};
+	sceneGraph.addTransformNode(38, TRANSLATE, positionFelinePointXYZT);
+	sceneGraph.addGeomNode(39, geometryFiles[4], false, false, false);
+
+	//solid feline
+	sceneGraph.addObjectNode(ROOT_ID, objectNames[9]);
+	sceneGraph.addAttributeNode(41, SOLID_MODE);
+	const GLfloat positionFelineSolidXYZT[4] = {15.0, 0.0, 0.0, 0.0};
+	sceneGraph.addTransformNode(42, TRANSLATE, positionFelineSolidXYZT);
+	sceneGraph.addGeomNode(43, geometryFiles[4], false, false, false);
+
+	const GLfloat lightPosition[3] = {-1.0, -1.0, -1.0};
+	const GLfloat target[3] = {0.0, 0.0, 0.0};
+	const GLfloat amb[4] = {0.0, 0.0, 0.0, 1.0};
+	const GLfloat dif[4] = {1.0, 1.0, 1.0, 1.0};
+	const GLfloat spec[4] = {1.0, 1.0, 1.0, 1.0};
+	sceneGraph.addLightNode(ROOT_ID, DIRECTIONAL_LIGHT, lightPosition, target, amb, dif, spec);
+
+
+
 }
 
 static void createObjectPanel()
@@ -560,7 +666,7 @@ static void createAnimationPanel()
 		animationSpinXYZT[i]->set_float_limits(-TRANSLATE_LIMIT, TRANSLATE_LIMIT);
 		animationSpinXYZT[i]->set_alignment(GLUI_ALIGN_RIGHT);
 	}
-	spinCycleTime = new GLUI_Spinner(animationRoll, "Cycle Time: ", &cycleTime);
+	spinCycleTime = new GLUI_Spinner(animationRoll, "Cycle Time (s): ", &cycleTime);
 	spinCycleTime->set_alignment(GLUI_ALIGN_RIGHT);
 	new GLUI_Button(animationRoll, "Add Animation Node", ADD_ANIMATION, control_cb);
 }

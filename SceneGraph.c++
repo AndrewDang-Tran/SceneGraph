@@ -1,8 +1,9 @@
 #include "SceneGraph.h"
 #define SCALE_TIME 850000
 
+#ifdef DEBUG
 int SceneGraph::debugNodeCounter = 0;
-
+#endif
 
 SceneGraph::SceneGraph()
 {
@@ -62,8 +63,8 @@ bool SceneGraph::addObjectNode(const int parentID, string n)
 	}
 	parentNode->addChild(newObjectNode);
 	nodeMap.emplace(newObjectNode->getID(), newObjectNode);
+	cout << "New ObjectNode ID: " << newObjectNode->getID() << endl  << "Parent ID: " << parentID << endl << "" << endl <<  "Name: \"" << n << "\"" << endl;
 	#ifdef DEBUG
-	cout << "New ObjectNode ID: " << newObjectNode->getID() << endl <<  "Name: \"" << n << "\"" << endl;
 	cout << "Address of new Node: " << newObjectNode << endl;
 	#endif
 	return true;
@@ -104,8 +105,8 @@ bool SceneGraph::addGeomNode(const int parentID, string& fileName, const bool dr
 	Node* newGeomNode = new GeomNode(loader, fileName, drawFN, drawVN, useFN);
 	parentNode->addChild(newGeomNode);
 	nodeMap.emplace(newGeomNode->getID(), newGeomNode);
+	cout << "New GeomNode with ID: " << newGeomNode->getID() << endl << "Parent ID: " << parentID << endl << "" << endl;
 	#ifdef DEBUG
-	cout << "New GeomNode with ID: " << newGeomNode->getID() << endl;
 	cout << "Address of new Node: " <<  newGeomNode << endl;
 	#endif
 	return true;
@@ -145,8 +146,8 @@ bool SceneGraph::addTransformNode(const int parentID, const TransformType type, 
 	Node* newTransformNode = new TransformNode(newTransform);
 	parentNode->addChild(newTransformNode);
 	nodeMap.emplace(newTransformNode->getID(), newTransformNode);
+	cout << "New TransformNode with ID: " << newTransformNode->getID() << endl << "Parent ID: " << parentID << endl << "" << endl;
 	#ifdef DEBUG
-	cout << "New TransformNode with ID: " << newTransformNode->getID() << endl;
 	cout << "Address of new Node: " << newTransformNode << endl;
 	#endif
 	return true;
@@ -169,7 +170,7 @@ void SceneGraph::editTransformNode(const int nodeID, const TransformType t, cons
 	transformNodeP->setParameters(t, newArgs);
 }
 
-bool SceneGraph::addAnimationNode(const int parentID, const TransformType type, const GLfloat* args, int cycleTime)
+bool SceneGraph::addAnimationNode(const int parentID, const TransformType type, const GLfloat* args, float cycleTime)
 {
 	Node* parentNode;
 	try
@@ -185,14 +186,14 @@ bool SceneGraph::addAnimationNode(const int parentID, const TransformType type, 
 	Node* newAnimationNode = new AnimationNode(newTransform, cycleTime);
 	parentNode->addChild(newAnimationNode);
 	nodeMap.emplace(newAnimationNode->getID(), newAnimationNode);
+	cout << "New AnimationNode with ID: " << newAnimationNode->getID() << endl << "Parent ID: " << parentID << endl << "" << endl;
 	#ifdef DEBUG
-	cout << "New AnimationNode with ID: " << newAnimationNode->getID() << endl;
 	cout << "Address of new Node: " << newAnimationNode << endl;
 	#endif
 	return true;
 }
 
-void SceneGraph::editAnimationNode(const int nodeID, const TransformType t, const GLfloat* newArgs, int newCycleTime)
+void SceneGraph::editAnimationNode(const int nodeID, const TransformType t, const GLfloat* newArgs, float newCycleTime)
 {
 	Node* nodeP;
 	try
@@ -224,8 +225,8 @@ bool SceneGraph::addAttributeNode(const int parentID, const Mode mode)
 	AttributeNode* newAttributeNode = new AttributeNode(mode);
 	parentNode->addChild(newAttributeNode);
 	nodeMap.emplace(newAttributeNode->getID(), newAttributeNode);
+	cout << "New AttributeNode with ID: " << newAttributeNode->getID() << endl << "Parent ID: " << parentID << endl << "" << endl;
 	#ifdef DEBUG
-	cout << "New AttributeNode with ID: " << newAttributeNode->getID() << endl;
 	cout << "Address of new Node: " << newAttributeNode << endl;
 	#endif
 	return true;
@@ -265,8 +266,8 @@ bool SceneGraph::addLightNode(const int parentID, LightType type, const GLfloat*
 	LightNode* newLightNode = new LightNode(newLight);
 	parentNode->addChild(newLightNode);
 	nodeMap.emplace(newLightNode->getID(), newLightNode);
+	cout << "New LightNode with ID: " << newLightNode->getID() << endl << "Parent ID: " << parentID << endl << "" << endl;
 	#ifdef DEBUG
-	cout << "New LightNode with ID: " << newLightNode->getID() << endl;
 	cout << "Address of new Node: " << newLightNode << endl;
 	#endif
 	++lightCount;
@@ -305,7 +306,7 @@ CameraNode* SceneGraph::addCameraNode(const int parentID, const GLfloat* positio
 	parentNode->addChild(newCameraNode);
 	nodeMap.emplace(newCameraNode->getID(), newCameraNode);
 	#ifdef DEBUG
-	cout << "New CameraNode with ID: " << newCameraNode->getID() << endl;
+	cout << "New CameraNode with ID: " << newCameraNode->getID() << endl << "Parent ID: " << parentID << endl << "" << endl;
 	cout << "Address of new Node: " << newCameraNode << endl;
 	#endif
 	return newCameraNode;
@@ -329,6 +330,7 @@ bool SceneGraph::deleteNode(const int id)
 	Node* parentNode = nodeToDelete->getParent();
 	parentNode->removeChild(nodeToDelete);
 
+	cout << "Deleted Node " << id << endl;
 	#ifdef DEBUG
 	cout << "Delete Node Address: " << nodeToDelete << endl;
 	#endif
@@ -401,6 +403,15 @@ void SceneGraph::cameraPan(const GLfloat panX, const GLfloat panY)
 
 NodeType SceneGraph::getNodeType(const int id)
 {
-	Node* targetNode = nodeMap.at(id);
+
+	Node* targetNode;
+	try
+	{
+		targetNode = nodeMap.at(id);
+	}
+	catch(const out_of_range& oor)
+	{
+		return FAIL;
+	}
 	return targetNode->getType();
 }

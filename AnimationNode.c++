@@ -2,7 +2,7 @@
 #include "AnimationNode.h"
 #include <iostream>
 
-AnimationNode::AnimationNode(const Transform& t, int cT) : transform(t), cycleTime(cT) 
+AnimationNode::AnimationNode(const Transform& t, const float cT) : transform(t), cycleTime(cT) 
 { 
 	type = ANIMATION;
 }
@@ -15,7 +15,7 @@ void AnimationNode::execute()
 	transform.apply(true);
 }
 
-void AnimationNode::setParameters(const TransformType t, const GLfloat* a, const int cT) 
+void AnimationNode::setParameters(const TransformType t, const GLfloat* a, const float cT) 
 {
 	transform.changeArguments(t, a);
 	cycleTime = cT;

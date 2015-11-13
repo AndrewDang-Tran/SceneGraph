@@ -1,3 +1,8 @@
+/**
+ * Purpose: Class stores vertex information for meshes
+ * @author Andrew Dang-Tran
+ */
+
 #ifndef VERTEX_H
 #define VERTEX_H
 

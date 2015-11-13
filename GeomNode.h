@@ -1,3 +1,8 @@
+/**
+ * Purpose: Wraps the trimesh class in a node so it can be inserted in the scene.
+ * @author Andrew Dang-Tran
+ */
+
 #ifndef GEOMNODE_H
 #define GEOMNODE_H
 

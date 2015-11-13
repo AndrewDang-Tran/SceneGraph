@@ -1,3 +1,8 @@
+/**
+ * Purpose: Class stores face/vertex information
+ * @author Andrew Dang-Tran
+ */
+
 #ifndef OBJECTNODE_H
 #define OBJECTNODE_H
 

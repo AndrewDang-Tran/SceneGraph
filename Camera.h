@@ -1,7 +1,12 @@
+/**
+ * Purpose: Class handles all of the camera parameters for the scene
+ * @author Andrew Dang-Tran
+ */
+
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#define DEBUG
+//#define DEBUG
 
 #include <GL/glut.h> //GLfloat
 #include <cmath> //sin(), cos()

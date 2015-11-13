@@ -1,3 +1,8 @@
+/**
+ * Purpose: Class stores face information for meshes
+ * @author Andrew Dang-Tran
+ */
+
 #ifndef FACE_H
 #define FACE_H
 

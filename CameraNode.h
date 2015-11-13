@@ -1,3 +1,8 @@
+/**
+ * Purpose: CameraNode wraps the camera class in a node object to add to the scene.
+ * @author Andrew Dang-Tran
+ */
+
 #ifndef CAMERANODE_H
 #define CAMERANODE_H
 

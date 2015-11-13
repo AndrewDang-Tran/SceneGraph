@@ -1,3 +1,8 @@
+/**
+ * Purpose: Stores information about a particular Transform
+ * @author Andrew Dang-Tran
+ */
+
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 

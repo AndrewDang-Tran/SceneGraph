@@ -1,3 +1,8 @@
+/**
+ * Purpose: Class handles some of the OpenGL rendering options for the scene
+ * @author Andrew Dang-Tran
+ */
+
 #ifndef ATTRIBUTENODE_H
 #define ATTRIBUTENODE_H
 

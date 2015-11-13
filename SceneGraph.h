@@ -1,3 +1,8 @@
+/**
+ * Purpose: Class which brings all the nodes together, and creates the scene.
+ * @author Andrew Dang-Tran
+ */
+
 #ifndef SCENEGRAPH_H
 #define SCENEGRAPH_H
 
@@ -114,7 +119,7 @@ class SceneGraph
 		 * @param Arguments - x y z Theta array
 		 * @param cycleTime - Estimate of Seconds
 		 */
-		bool addAnimationNode(const int parentID, const TransformType type, const GLfloat* args, int cycleTime);
+		bool addAnimationNode(const int parentID, const TransformType type, const GLfloat* args, float cycleTime);
 		/**
 		 * Edit an AnimationNode within the Scene Graph
 		 * @param nodeID
@@ -122,7 +127,7 @@ class SceneGraph
 		 * @param newArguments - x y z Theta array
 		 * @param newcycleTime - Estimate of Seconds for the animation complete and restart.
 		 */
-		void editAnimationNode(const int nodeID, const TransformType t, const GLfloat* newArgs, int newCycleTime);
+		void editAnimationNode(const int nodeID, const TransformType t, const GLfloat* newArgs, float newCycleTime);
 
 		/**
 		 * Add an AnimationNode to the Scene Graph

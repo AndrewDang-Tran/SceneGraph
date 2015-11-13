@@ -1,9 +1,14 @@
+/**
+ * Purpose: handles the parameters of a light.
+ * @author Andrew Dang-Tran
+ */
+
 #ifndef LIGHT_H
 #define LIGHT_H
 
 #include <GL/glut.h>
 
-#define DEBUG
+//#define DEBUG
 
 #ifdef DEBUG
 #include <iostream>

@@ -20,4 +20,4 @@ example: $(FILES)
 	./scene example
 
 clean:
-	rm test test.txt
+	rm scene test.txt

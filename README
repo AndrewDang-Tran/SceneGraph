@@ -9,9 +9,13 @@ Render a Scene Graph using a graphical user interface to add, remove, and edit
 nodes. The Scene Graph will use a depth first traversal to traverse the graph
 and render the scene.
 
+EXTRA CREDIT
+-Animation
+
 Dependencies
 -GLUT
--GLUI (The library is within my files, and the computer doesn't require the lib)
+-GLUI (The library is within my files, and the computer doesn't require 
+		the lib)
 
 *****************
 * MAKE COMMANDS *
@@ -145,7 +149,7 @@ Editing a Node
 	and click get ID.
 2) The information of which ID / Type of the node will be showcased.
 	The correct rollout will also be opened.
-3) In the rollout for that node type adjust the key parameters
+3) In the rollout for that node type the adjust key parameters
 4) Click edit node, and the node will be changed with the new values.
 
 Deleting a Node
@@ -159,3 +163,9 @@ Deleting a Node
 
 - There will be some useful information in the console. Namely node IDs and 
 	information on whether some actions succeeded.
+
+- The buttons for the GUI can be a little finicky at times. If you click and
+	it highlights the button but doesn't do anything. Then clicking again 
+	messed things up? Try clicking the button to highlight it then clicking
+	somewhere on the right panel, but not the button. That usually fixes it 
+	for me.

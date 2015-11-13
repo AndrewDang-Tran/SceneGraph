@@ -1,7 +1,12 @@
+/**
+ * Purpose: Abstract Node class which all nodes inherit from.
+ * @author Andrew Dang-Tran
+ */
+
 #ifndef NODE_H
 #define NODE_H
 
-#define DEBUG
+//#define DEBUG
 
 #include <cstddef> // NULL
 #include <vector> //children
@@ -17,6 +22,7 @@ enum NodeType
 	ATTRIBUTE,
 	LIGHT,
 	CAMERA,
+	FAIL
 };
 
 /**

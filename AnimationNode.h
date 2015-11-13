@@ -1,3 +1,8 @@
+/**
+ * Purpose: Class which handles the animation within the Scene Graph
+ * @author Andrew Dang-Tran
+ */
+
 #ifndef ANIMATIONNODE_H
 #define ANIMATIONNODE_H
 
@@ -13,15 +18,15 @@ class AnimationNode : public Node
 	private:
 		Transform transform;
 		clock_t currentTime;
-		int cycleTime;
+		float cycleTime;
 	public:
-		AnimationNode(const Transform& t, int cT);
+		AnimationNode(const Transform& t, const float cT);
 		/**
 		 * Interpolates the transform according to the current clock time.
 		 * Then multiplies the transform to the current matrix.
 		 */
 		void execute();
-		void setParameters(const TransformType, const GLfloat* a, const int cT);
+		void setParameters(const TransformType, const GLfloat* a, const float cT);
 };
 
 #endif

@@ -1,3 +1,10 @@
+/**
+ * Purpose: parses an .obj file and stores the info in a trimesh.
+ * Note: This code was given me for an earlier assignment where I just loaded the .obj file and rendered it.
+ * @author Don Fussell
+ * @author Andrew Dang-Tran - Cleaned up the class and made small changes to integrate my code with the parser. 
+ */
+
 #ifndef __LOADER_H__
 #define __LOADER_H__
 #include <iostream>

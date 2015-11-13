@@ -1,3 +1,8 @@
+/**
+ * Purpose: file just has simple vector math functions.
+ * @author Andrew Dang-Tran
+ */
+
 #ifndef VECTORMATH_H
 #define VECTORMATH_H
 

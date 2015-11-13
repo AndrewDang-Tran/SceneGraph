@@ -1,3 +1,8 @@
+/**
+ * Purpose: wraps the light class in a node which can be entered in the scene.
+ * @author Andrew Dang-Tran
+ */
+
 #ifndef LIGHTNODE_H
 #define LIGHTNODE_H
 
