@@ -584,24 +584,23 @@ static void example()
 	//wireframe feline
 	sceneGraph.addObjectNode(ROOT_ID, objectNames[7]);
 	sceneGraph.addAttributeNode(33, WIREFRAME_MODE);
-	const GLfloat positionFelineWireXYZT[4] = {10.0, 0.0, 0.0, 0.0};
-	sceneGraph.addTransformNode(34, TRANSLATE, positionFelineWireXYZT);
+	const GLfloat positionFelineXYZT[4] = {5.0, 0.0, 0.0, 0.0};
+	sceneGraph.addTransformNode(34, TRANSLATE, positionFelineXYZT);
 	sceneGraph.addGeomNode(35, geometryFiles[4], false, false, false);
 
 	//point feline
-	sceneGraph.addObjectNode(ROOT_ID, objectNames[8]);
+	sceneGraph.addObjectNode(36, objectNames[8]);
 	sceneGraph.addAttributeNode(37, POINT_MODE);
-	const GLfloat positionFelinePointXYZT[4] = {5.0, 0.0, 0.0, 0.0};
-	sceneGraph.addTransformNode(38, TRANSLATE, positionFelinePointXYZT);
+	sceneGraph.addTransformNode(38, TRANSLATE, positionFelineXYZT);
 	sceneGraph.addGeomNode(39, geometryFiles[4], false, false, false);
 
 	//solid feline
-	sceneGraph.addObjectNode(ROOT_ID, objectNames[9]);
+	sceneGraph.addObjectNode(40, objectNames[9]);
 	sceneGraph.addAttributeNode(41, SOLID_MODE);
-	const GLfloat positionFelineSolidXYZT[4] = {15.0, 0.0, 0.0, 0.0};
-	sceneGraph.addTransformNode(42, TRANSLATE, positionFelineSolidXYZT);
+	sceneGraph.addTransformNode(42, TRANSLATE, positionFelineXYZT);
 	sceneGraph.addGeomNode(43, geometryFiles[4], false, false, false);
 
+	//add another light for fun
 	const GLfloat lightPosition[3] = {-1.0, -1.0, -1.0};
 	const GLfloat target[3] = {0.0, 0.0, 0.0};
 	const GLfloat amb[4] = {0.0, 0.0, 0.0, 1.0};

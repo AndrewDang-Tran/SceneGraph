@@ -9,9 +9,6 @@ Render a Scene Graph using a graphical user interface to add, remove, and edit
 nodes. The Scene Graph will use a depth first traversal to traverse the graph
 and render the scene.
 
-EXTRA CREDIT
--Animation
-
 Dependencies
 -GLUT
 -GLUI (The library is within my files, and the computer doesn't require 
@@ -26,6 +23,7 @@ make nothing
 
 make example
 -Creates a scene graph populated with nodes which show most of the features
+-Zoom out with the middle mouse + drag to see the whole scene
 
 ******************
 * TYPES OF NODES *
@@ -169,3 +167,7 @@ Deleting a Node
 	messed things up? Try clicking the button to highlight it then clicking
 	somewhere on the right panel, but not the button. That usually fixes it 
 	for me.
+
+- The current makefile is made specifically for my computer which had some
+	problems with strings and a particular nvidia driver. It caused the
+	program to crash everytime a c++ string was used.
