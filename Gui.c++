@@ -607,9 +607,6 @@ static void example()
 	const GLfloat dif[4] = {1.0, 1.0, 1.0, 1.0};
 	const GLfloat spec[4] = {1.0, 1.0, 1.0, 1.0};
 	sceneGraph.addLightNode(ROOT_ID, DIRECTIONAL_LIGHT, lightPosition, target, amb, dif, spec);
-
-
-
 }
 
 static void createObjectPanel()
